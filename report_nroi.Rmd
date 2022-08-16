@@ -1,0 +1,251 @@
+---
+title: "<b>CoMarker</b> - Colocalisation Analysis Report"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: rmdformats::downcute
+---
+
+```{r setup, results='hide', include=FALSE}
+library(plyr)
+library(knitr)
+library(data.table)
+library(ggplot2)
+library(ggsignif)
+library(plotly)
+library(clinUtils)
+library(flexdashboard)
+library(rlist)
+
+
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, cache.lazy = FALSE)
+knitr::knit_hooks$set(wrap = function(before, options, envir){
+  if (before){
+    paste0('<', options$wrap, ' align="center">')
+  } else {
+    paste0('</', options$wrap, '>')
+  }
+})
+
+
+plot_list=readRDS('/Users/samboulger/Desktop/GLUT1 HistoCAT/results/plot_list.rds')
+metadata=readRDS('/Users/samboulger/Desktop/GLUT1 HistoCAT/results/metadata.rds')
+list_param=readRDS('/Users/samboulger/Desktop/GLUT1 HistoCAT/results/list_param.rds')
+
+##Parameters
+image_directory=list_param$image_directory
+results_directory=list_param$results_directory
+reference_marker=list_param$reference_marker
+number_marker=list_param$number_marker
+marker1=list_param$marker1
+marker2=list_param$marker2
+marker3=list_param$marker3
+marker4=list_param$marker4
+marker5=list_param$marker5
+outcome=list_param$outcome
+
+plot_data = list()
+for (name in names(plot_list)){
+plot_data[[name]] = ggplot_build(plot_list[[name]])}
+
+
+list_sig=list()
+list_sig=lapply(names(plot_list), function(x){ b=formals(environment(plot_list[[paste(x)]][["layers"]][[3]][["computed_stat_params"]][["test"]])[["power.t.test"]])[["sig.level"]]; return(b) })
+
+signif=list()
+for(name in names(plot_list)){
+  signif[[paste(name)]]=plot_data[[name]][["data"]][[3]][["annotation"]]
+}
+
+sig_count = sum(unlist(lapply(signif,function(x){x!=c('ns')})))/3
+
+```
+# Summary
+
+From the data provided, `r (number_marker*3)+1` plots have been produced, with `r sig_count` significant comparison(s) between `r outcome` groups.  
+  
+Each data point represents the average of all images from each case ID. From the raw images, data is only extracted from clusters of conjoining pixels exceeding the inputted minimum area, therefore regions of marker-positive pixels smaller than the minimum area are not analysed.  
+  
+The cell counts included in this report describe the number of nuclei that contain the respective marker within the inputted proximity.  
+  
+# Statistical Significance
+
+The statistical significance of each plot is annotated such that:  
+  * = p<0.05  
+  ** = p<0.01  
+  *** = p<0.001  
+  ns = non-significant  
+  
+In this section are the plots which meet our criteria for statistical significance. If there are no plots in this section there are no significant results in the data.  
+  
+
+```{r eval=(signif[[name]] != "'ns' 'ns' 'ns'"), echo=FALSE}
+    print(plot_list[[name]])
+```
+
+# `r reference_marker` Plots  
+
+`r reference_marker` was selected as the reference marker in this study and plots for the count of `r reference_marker`-positive cells have been produced below, comparing `r outcome` groups. Plots for the colocalisation of the reference marker with the other analysed marker(s) can be found in the section of the respective marker.
+
+## `r reference_marker` Cell Counts
+
+```{r echo=FALSE,}
+plot_list[[1]]
+```
+
+# `r marker1` Plots  
+
+`r marker1` was selected as a colocalisation marker in this study and plots for the count of `r marker1`-positive cells have been produced below, comparing `r outcome` groups.  
+  
+## `r marker1` Cell Counts
+
+```{r echo=FALSE,}
+plot_list[[2]]
+```
+
+## `r marker1` `r reference_marker` Colocalised Cell Counts  
+
+The following plots compare the number of cells positive for both `r marker1` and `r reference_marker`.  
+
+```{r echo=FALSE}
+plot_list[[3]]
+```
+
+```{r echo=FALSE,}
+plot_list[[4]]
+```
+
+```{r, eval=(number_marker >= 2), echo=FALSE}
+knitr::asis_output(paste("# ", marker2," Plots"  ))
+```
+  
+```{r, eval=(number_marker >= 2), echo=FALSE}
+knitr::asis_output(paste(marker2," was selected as a colocalisation marker in this study and plots for the count of ",marker2,"-positive cells have been produced below, comparing ",outcome," groups."))
+```
+
+```{r, eval=(number_marker >= 2), echo=FALSE}
+knitr::asis_output(paste("##",marker2," Cell Counts"))
+```
+
+```{r, eval=(number_marker >= 2), echo=FALSE}
+plot_list[[5]]
+```
+
+```{r, eval=(number_marker >= 2), echo=FALSE}
+knitr::asis_output(paste("##",marker2," ",reference_marker," Colocalised Cell Counts"))
+```
+
+```{r, eval=(number_marker >= 2), echo=FALSE}
+knitr::asis_output(paste("The following plots compare the number of cells positive for both ",marker2," and ",reference_marker, ".  "))
+```
+
+```{r, eval=(number_marker >= 2), echo=FALSE}
+plot_list[[6]]
+```
+
+```{r, eval=(number_marker >= 2), echo=FALSE}
+plot_list[[7]]
+```
+
+```{r, eval=(number_marker >= 3), echo=FALSE}
+
+### Marker3 ###
+
+knitr::asis_output(paste("# ", marker3," Plots"))
+```
+  
+```{r, eval=(number_marker >= 3), echo=FALSE}
+knitr::asis_output(paste(marker3," was selected as a colocalisation marker in this study and plots for the count of ",marker3,"-positive cells have been produced below, comparing ",outcome," groups."  ))
+```
+
+```{r, eval=(number_marker >= 3), echo=FALSE}
+knitr::asis_output(paste("##",marker3," Cell Counts"))
+```
+
+```{r, eval=(number_marker >= 3), echo=FALSE}
+plot_list[[8]]
+```
+
+```{r, eval=(number_marker >= 3), echo=FALSE}
+knitr::asis_output(paste("##",marker3," ",reference_marker," Colocalised Cell Counts"))
+```
+
+```{r, eval=(number_marker >= 3), echo=FALSE}
+knitr::asis_output(paste("The following plots compare the number of cells positive for both ",marker3," and ",reference_marker, ".  "))
+```
+
+```{r, eval=(number_marker >= 3), echo=FALSE}
+plot_list[[9]]
+```
+
+```{r, eval=(number_marker >= 3), echo=FALSE}
+plot_list[[10]]
+```
+
+```{r, eval=(number_marker >= 4), echo=FALSE}
+
+### Marker4 ###
+
+knitr::asis_output(paste("# ", marker4," Plots"))
+```
+  
+```{r, eval=(number_marker >= 4), echo=FALSE}
+knitr::asis_output(paste(marker4," was selected as a colocalisation marker in this study and plots for the count of ",marker4,"-positive cells have been produced below, comparing ",outcome," groups."  ))
+```
+
+```{r, eval=(number_marker >= 4), echo=FALSE}
+knitr::asis_output(paste("##",marker4," Cell Counts"))
+```
+
+```{r, eval=(number_marker >= 4), echo=FALSE}
+plot_list[[11]]
+```
+
+```{r, eval=(number_marker >= 4), echo=FALSE}
+knitr::asis_output(paste("##",marker4," ",reference_marker," Colocalised Cell Counts"))
+```
+
+```{r, eval=(number_marker >= 4), echo=FALSE}
+knitr::asis_output(paste("The following plots compare the number of cells positive for both ",marker4," and ",reference_marker, ".  "))
+```
+
+```{r, eval=(number_marker >= 4), echo=FALSE}
+plot_list[[12]]
+```
+
+```{r, eval=(number_marker >= 4), echo=FALSE}
+plot_list[[13]]
+```
+
+```{r, eval=(number_marker >= 5), echo=FALSE}
+
+### Marker5 ###
+
+knitr::asis_output(paste("# ", marker5," Plots"))
+```
+  
+```{r, eval=(number_marker >= 5), echo=FALSE}
+knitr::asis_output(paste(marker5," was selected as a colocalisation marker in this study and plots for the count of ",marker5,"-positive cells have been produced below, comparing ",outcome," groups."  ))
+```
+
+```{r, eval=(number_marker >= 5), echo=FALSE}
+knitr::asis_output(paste("##",marker5," Cell Counts"))
+```
+
+```{r, eval=(number_marker >= 5), echo=FALSE}
+plot_list[[14]]
+```
+
+```{r, eval=(number_marker >= 5), echo=FALSE}
+knitr::asis_output(paste("##",marker5," ",reference_marker," Colocalised Cell Counts"))
+```
+
+```{r, eval=(number_marker >= 5), echo=FALSE}
+knitr::asis_output(paste("The following plots compare the number of cells positive for both ",marker5," and ",reference_marker, ".  "))
+```
+
+```{r, eval=(number_marker >= 5), echo=FALSE}
+plot_list[[15]]
+```
+
+```{r, eval=(number_marker >= 5), echo=FALSE}
+plot_list[[16]]
+```

@@ -1,0 +1,547 @@
+library(tidyverse)
+library(plyr)
+library(readr)
+library(stringr)
+library(dplyr)
+library(rqdatatable)
+library(rlist)
+library(ggplot2)
+library(gridExtra)
+library(ggsignif)
+library(ggpubr)
+library(paletteer)
+
+
+
+palette_choice <- paletteer::paletteer_d("ggsci::nrc_npg")
+
+metadata=read_csv('metadata.csv')
+metadata$trem2_all=ifelse(metadata$TREM2Variant=='none','CV','TREM2')
+
+metadata$CaseID=str_replace(metadata$CaseID, pattern='/', replacement='.')
+metadata$CaseID=str_replace(metadata$CaseID, pattern='-', replacement='.')
+metadata$CaseID=str_replace(metadata$CaseID, pattern=fixed('*'), replacement= '')
+metadata=metadata[c("CaseID","AD/CTRL","TREM2Variant",'APOE','PostMortemDelayHours')]
+metadata=metadata[!duplicated(metadata$CaseID),]
+metadata$PostMortemDelayHours=as.numeric(metadata$PostMortemDelayHours)
+metadata$pmi_median=ifelse(metadata$PostMortemDelayHours>median(metadata$PostMortemDelayHours, na.rm = TRUE),'High_pmi','Low_pmi')
+metadata$pmi_median=as.factor(metadata$pmi_median)
+
+colocalisation_analysis_nd(image_directory="/Users/samboulger/Desktop/GLUT1 HistoCAT",
+                        results_directory="/Users/samboulger/Desktop/GLUT1 HistoCAT",
+                        metadata,
+                        number_marker=2,
+                        reference_marker="Fibrinogen",
+                        marker1="Ab",
+                        marker2='CD163',
+                        marker3='',
+                        marker4='',
+                        marker5='',
+                        region_of_interest='GLUT1',
+                        outcome='AD/CTRL')
+
+colocalisation_analysis_nd<-function(image_directory="/Users/samboulger/Desktop/GLUT1 HistoCAT",
+                                  results_directory="/Users/samboulger/Desktop/GLUT1 HistoCAT",
+                                  metadata,
+                                  number_marker=2,
+                                  reference_marker="Fibrinogen",
+                                  marker1="Ab",
+                                  marker2='CD163',
+                                  marker3='',
+                                  marker4='',
+                                  marker5='',
+                                  region_of_interest='GLUT1',
+                                  outcome='AD/CTRL') {
+  
+  
+  #####
+  
+  sigFunc = function(x){
+    if(x < 0.001){"***"} 
+    else if(x < 0.01){"**"}
+    else if(x < 0.05){"*"}
+    else{NA}}
+  
+  
+  ###
+  
+  setwd(image_directory)
+  
+  if(number_marker==1){
+    files=list.files(pattern = "onemarker.csv$", recursive = TRUE)
+  }
+  
+  if(number_marker==2){
+    files=list.files(pattern = "twomarkers.csv$", recursive = TRUE)
+  }
+  if(number_marker==3){
+    files=list.files(pattern = "threemarkers.csv$", recursive = TRUE)
+  }
+  if(number_marker==4){
+    files=list.files(pattern = "fourmarkers.csv$", recursive = TRUE)
+  }
+  if(number_marker==5){
+    files=list.files(pattern = "fivemarkers.csv$", recursive = TRUE)
+  }
+  
+  
+  my.data <- list()
+  for (i in 1:length(files)){
+    my.data[[i]] <- read.csv(files[[i]])
+  }
+  
+  
+  names(my.data)=substr(files,1,12)
+  df <- do.call("rbind", my.data)
+  
+  ## reorganise colnames
+  df$CaseID=rownames(df)
+  df$CaseID=sub("\\i.*", "", df$CaseID)
+  df$CaseID=gsub(" ","",df$CaseID)
+  df$replicate=sub("\\/.*", "", rownames(df))
+  df$replicate=sub("\\..*", "", df$replicate)
+  
+  
+  ### get average of replicates
+  results=df %>%
+    group_by(CaseID,Slice)%>%
+    dplyr::summarize(Mean_count = mean(Count), Mean_area=mean(Total.Area), Mean_size=mean(Average.Size)) %>% 
+    as.data.frame()
+  
+  
+  ## merge metadata
+  metadata=metadata[which(metadata$CaseID %in% results$CaseID),]
+  merge=merge(results,metadata,all=TRUE, by='CaseID')
+  
+  #denominator
+  
+  if(number_marker==1){
+    ## summarise
+    summary=merge %>%
+      group_by(CaseID) %>%
+      summarise(ROIcount = Mean_count[Slice==paste0(region_of_interest)],
+                ROIarea = Mean_area[Slice==paste0(region_of_interest)],
+                refarea = Mean_area[Slice==paste0(reference_marker)],
+                refareaROI = Mean_area[Slice==paste0(reference_marker,' ROI')],
+                refareanoROI = (Mean_area[Slice==paste0(reference_marker)])-(Mean_area[Slice==paste0(reference_marker,' ROI')]),
+                refROI = 100*(Mean_area[Slice==paste0(reference_marker,' ROI')] / Mean_area[Slice==paste0(reference_marker)]),
+                marker1area = Mean_area[Slice==paste0(marker1)],
+                marker1areaROI = Mean_area[Slice==paste0(marker1,' ROI')],
+                marker1areanoROI = (Mean_area[Slice==paste0(marker1)])-(Mean_area[Slice==paste0(marker1,' ROI')]),
+                marker1ROI = 100*(Mean_area[Slice==paste0(marker1,' ROI')] / Mean_area[Slice==paste0(marker1)]),
+                marker1refarea = Mean_area[Slice==paste0(marker1,reference_marker)],
+                marker1refareaROI = Mean_area[Slice==paste0(marker1,reference_marker, ' ROI')],
+                marker1refareanoROI = (Mean_area[Slice==paste0(marker1,reference_marker)])-(Mean_area[Slice==paste0(marker1,reference_marker, ' ROI')]),
+                marker1ref = 100*(Mean_area[Slice==paste0(marker1,reference_marker)] / Mean_area[Slice==paste0(reference_marker)]),
+                marker1refROI = 100*(Mean_area[Slice==paste0(marker1,reference_marker, ' ROI')] / Mean_area[Slice==paste0(marker1,reference_marker)]))
+    
+    colnames(summary)=c(paste0(region_of_interest,' Count'),paste0(region_of_interest,' Area (Sq Micrometers)'),paste0(reference_marker,' Area (Sq Micrometers)'),
+                        paste0(reference_marker,' Area ROI (Sq Micrometers)'),paste0(reference_marker,' Area Outside of ROI (Sq Micrometers)'),
+                        paste0(reference_marker,' ROI (% of Total ',reference_marker,' Area)'),paste0(marker1,' Area (Sq Micrometers)'),
+                        paste0(marker1,' Area ROI (Sq Micrometers)'),paste0(marker1,' Area Outside of ROI (Sq Micrometers)'),paste0(marker1,' ROI (% of Total ',marker1,' Area)'),
+                        paste0(marker1,' ',reference_marker, ' Colocalised Area (Sq Micrometers)'),paste0(marker1,' ',reference_marker, ' Colocalised Area ROI (Sq Micrometers)'),
+                        paste0(marker1,' ',reference_marker, ' Colocalised Area Outside of ROI (Sq Micrometers)'),
+                        paste0(marker1,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Area)'),
+                        paste0(marker1,' ',reference_marker,' Colocalisation ROI (% of Total ',marker1,' ',reference_marker,' Colocalised Area)')) 
+    
+    summary2=cbind(summary,metadata)
+    summary2[[outcome]]=as.factor(summary2[[outcome]])
+    
+    plot_list=list()
+    for(marker in colnames(summary2)[1:((number_marker*9)+6)]){
+      
+      
+      plot_list[[marker]]<-ggboxplot(summary2, x=paste(outcome), y=paste0(marker),fill=paste(outcome),
+                                     add = "jitter", size=1)+
+        geom_signif(comparisons = split(t(combn(levels(summary2[[outcome]]), 2)), seq(nrow(t(combn(levels(summary2[[outcome]]), 2))))), 
+                    map_signif_level=c("***"=0.001,"**"=0.01, "*"=0.05, "ns"=2), tip_length = .05)+
+        ylab(paste(marker))+ggsci::scale_fill_npg(name='Groups')+theme(axis.text=element_text(size=16),
+                                                                                                        axis.title=element_text(size=12,face="plain")) +   xlab(" ")+ggtitle(paste0(marker))
+      
+      
+    }
+    
+    
+    pdf(file=paste0(results_directory,"/colocalisation.pdf"))
+    print(plot_list)
+    dev.off()
+    
+  }
+  
+  ### TWO MARKERS
+  if(number_marker==2){
+    
+    ## summarise
+    summary=merge %>%
+      group_by(CaseID) %>%
+      summarise(ROIcount = Mean_count[Slice==paste0(region_of_interest)],
+                ROIarea = Mean_area[Slice==paste0(region_of_interest)],
+                refarea = Mean_area[Slice==paste0(reference_marker)],
+                refareaROI = Mean_area[Slice==paste0(reference_marker,' ROI')],
+                refareanoROI = (Mean_area[Slice==paste0(reference_marker)])-(Mean_area[Slice==paste0(reference_marker,' ROI')]),
+                refROI = 100*(Mean_area[Slice==paste0(reference_marker,' ROI')] / Mean_area[Slice==paste0(reference_marker)]),
+                marker1area = Mean_area[Slice==paste0(marker1)],
+                marker1areaROI = Mean_area[Slice==paste0(marker1,' ROI')],
+                marker1areanoROI = (Mean_area[Slice==paste0(marker1)])-(Mean_area[Slice==paste0(marker1,' ROI')]),
+                marker1ROI = 100*(Mean_area[Slice==paste0(marker1,' ROI')] / Mean_area[Slice==paste0(marker1)]),
+                marker1refarea = Mean_area[Slice==paste0(marker1,reference_marker)],
+                marker1refareaROI = Mean_area[Slice==paste0(marker1,reference_marker, ' ROI')],
+                marker1refareanoROI = (Mean_area[Slice==paste0(marker1,reference_marker)])-(Mean_area[Slice==paste0(marker1,reference_marker, ' ROI')]),
+                marker1ref = 100*(Mean_area[Slice==paste0(marker1,reference_marker)] / Mean_area[Slice==paste0(reference_marker)]),
+                marker1refROI = 100*(Mean_area[Slice==paste0(marker1,reference_marker, ' ROI')] / Mean_area[Slice==paste0(marker1,reference_marker)]),
+                marker2area = Mean_area[Slice==paste0(marker2)],
+                marker2areaROI = Mean_area[Slice==paste0(marker2,' ROI')],
+                marker2areanoROI = (Mean_area[Slice==paste0(marker2)])-(Mean_area[Slice==paste0(marker2,' ROI')]),
+                marker2ROI = 100*(Mean_area[Slice==paste0(marker2,' ROI')] / Mean_area[Slice==paste0(marker2)]),
+                marker2refarea = Mean_area[Slice==paste0(marker2,reference_marker)],
+                marker2refareaROI = Mean_area[Slice==paste0(marker2,reference_marker, ' ROI')],
+                marker2refareanoROI = (Mean_area[Slice==paste0(marker2,reference_marker)])-(Mean_area[Slice==paste0(marker2,reference_marker, ' ROI')]),
+                marker2ref= 100*(Mean_area[Slice==paste0(marker2,reference_marker)] / Mean_area[Slice==paste0(reference_marker)]),
+                marker2refROI = 100*(Mean_area[Slice==paste0(marker2,reference_marker, ' ROI')] / Mean_area[Slice==paste0(marker2,reference_marker)]))
+    
+    
+    colnames(summary)=c(paste0(region_of_interest,' Count'),paste0(region_of_interest,' Area (Sq Micrometers)'),paste0(reference_marker,' Area (Sq Micrometers)'),
+                        paste0(reference_marker,' Area ROI (Sq Micrometers)'),paste0(reference_marker,' Area Outside of ROI (Sq Micrometers)'),
+                        paste0(reference_marker,' ROI (% of Total ',reference_marker,' Area)'),paste0(marker1,' Area (Sq Micrometers)'),
+                        paste0(marker1,' Area ROI (Sq Micrometers)'),paste0(marker1,' Area Outside of ROI (Sq Micrometers)'),paste0(marker1,' ROI (% of Total ',marker1,' Area)'),
+                        paste0(marker1,' ',reference_marker, ' Colocalised Area (Sq Micrometers)'),paste0(marker1,' ',reference_marker, ' Colocalised Area ROI (Sq Micrometers)'),
+                        paste0(marker1,' ',reference_marker, ' Colocalised Area Outside of ROI (Sq Micrometers)'),
+                        paste0(marker1,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Area)'),
+                        paste0(marker1,' ',reference_marker,' Colocalisation ROI (% of Total ',marker1,' ',reference_marker,' Colocalised Area)'),
+                        paste0(marker2,' Area (Sq Micrometers)'),paste0(marker2,' Area ROI (Sq Micrometers)'),paste0(marker2,' Area Outside of ROI (Sq Micrometers)'),
+                        paste0(marker2,' ROI (% of Total ',marker2,' Area)'),paste0(marker2,' ',reference_marker, ' Colocalised Area (Sq Micrometers)'),
+                        paste0(marker2,' ',reference_marker, ' Colocalised Area ROI (Sq Micrometers)'),paste0(marker2,' ',reference_marker, ' Colocalised Area Outside of ROI (Sq Micrometers)'),
+                        paste0(marker2,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Area)'),
+                        paste0(marker2,' ',reference_marker,' Colocalisation ROI (% of Total ',marker2,' ',reference_marker,' Colocalised Area)'))
+    
+    summary2=cbind(summary,metadata)
+    summary2[[outcome]]=as.factor(summary2[[outcome]])
+    
+
+    plot_list=list()
+    for(marker in colnames(summary2)[1:((number_marker*9)+6)]){
+      
+            plot_list[[marker]]<-ggboxplot(summary2, x=paste(outcome), y=paste0(marker),fill=paste(outcome),
+                                     add = "jitter", size=1)+
+        geom_signif(comparisons = split(t(combn(levels(summary2[[outcome]]), 2)), seq(nrow(t(combn(levels(summary2[[outcome]]), 2))))), 
+                    map_signif_level=c("***"=0.001,"**"=0.01, "*"=0.05, "ns"=2), tip_length = .05)+
+        ylab(paste(marker))+ggsci::scale_fill_npg(name='Groups')+theme(axis.text=element_text(size=16),
+                                                                                                        axis.title=element_text(size=12,face="plain")) +   xlab(" ")+ggtitle(paste0(marker))
+      
+      
+    }
+    
+    plot_list
+    
+    
+    pdf(file=paste0(results_directory,"/colocalisation.pdf"))
+    print(plot_list)
+    dev.off()
+    
+  }
+  
+  
+  if(number_marker==3){
+    ## summarise
+    summary=merge %>%
+      group_by(CaseID) %>%
+      summarise(ROIcount = Mean_count[Slice==paste0(region_of_interest)],
+                ROIarea = Mean_area[Slice==paste0(region_of_interest)],
+                refarea = Mean_area[Slice==paste0(reference_marker)],
+                refareaROI = Mean_area[Slice==paste0(reference_marker,' ROI')],
+                refareanoROI = (Mean_area[Slice==paste0(reference_marker)])-(Mean_area[Slice==paste0(reference_marker,' ROI')]),
+                refROI = 100*(Mean_area[Slice==paste0(reference_marker,' ROI')] / Mean_area[Slice==paste0(reference_marker)]),
+                marker1area = Mean_area[Slice==paste0(marker1)],
+                marker1areaROI = Mean_area[Slice==paste0(marker1,' ROI')],
+                marker1areanoROI = (Mean_area[Slice==paste0(marker1)])-(Mean_area[Slice==paste0(marker1,' ROI')]),
+                marker1ROI = 100*(Mean_area[Slice==paste0(marker1,' ROI')] / Mean_area[Slice==paste0(marker1)]),
+                marker1refarea = Mean_area[Slice==paste0(marker1,reference_marker)],
+                marker1refareaROI = Mean_area[Slice==paste0(marker1,reference_marker, ' ROI')],
+                marker1refareanoROI = (Mean_area[Slice==paste0(marker1,reference_marker)])-(Mean_area[Slice==paste0(marker1,reference_marker, ' ROI')]),
+                marker1ref = 100*(Mean_area[Slice==paste0(marker1,reference_marker)] / Mean_area[Slice==paste0(reference_marker)]),
+                marker1refROI = 100*(Mean_area[Slice==paste0(marker1,reference_marker, ' ROI')] / Mean_area[Slice==paste0(marker1,reference_marker)]),
+                marker2area = Mean_area[Slice==paste0(marker2)],
+                marker2areaROI = Mean_area[Slice==paste0(marker2,' ROI')],
+                marker2areanoROI = (Mean_area[Slice==paste0(marker2)])-(Mean_area[Slice==paste0(marker2,' ROI')]),
+                marker2ROI = 100*(Mean_area[Slice==paste0(marker2,' ROI')] / Mean_area[Slice==paste0(marker2)]),
+                marker2refarea = Mean_area[Slice==paste0(marker2,reference_marker)],
+                marker2refareaROI = Mean_area[Slice==paste0(marker2,reference_marker, ' ROI')],
+                marker2refareanoROI = (Mean_area[Slice==paste0(marker2,reference_marker)])-(Mean_area[Slice==paste0(marker2,reference_marker, ' ROI')]),
+                marker2ref= 100*(Mean_area[Slice==paste0(marker2,reference_marker)] / Mean_area[Slice==paste0(reference_marker)]),
+                marker2refROI = 100*(Mean_area[Slice==paste0(marker2,reference_marker, ' ROI')] / Mean_area[Slice==paste0(marker2,reference_marker)]),
+                marker3area = Mean_area[Slice==paste0(marker3)],
+                marker3areaROI = Mean_area[Slice==paste0(marker3,' ROI')],
+                marker3areanoROI = (Mean_area[Slice==paste0(marker3)])-(Mean_area[Slice==paste0(marker3,' ROI')]),
+                marker3ROI = 100*(Mean_area[Slice==paste0(marker3,' ROI')] / Mean_area[Slice==paste0(marker3)]),
+                marker3refarea = Mean_area[Slice==paste0(marker3,reference_marker)],
+                marker3refareaROI = Mean_area[Slice==paste0(marker3,reference_marker, ' ROI')],
+                marker3refareanoROI = (Mean_area[Slice==paste0(marker3,reference_marker)])-(Mean_area[Slice==paste0(marker3,reference_marker, ' ROI')]),
+                marker3ref= 100*(Mean_area[Slice==paste0(marker3,reference_marker)] / Mean_area[Slice==paste0(reference_marker)]),
+                marker3refROI = 100*(Mean_area[Slice==paste0(marker3,reference_marker, ' ROI')] / Mean_area[Slice==paste0(marker3,reference_marker)]))
+    
+                
+    colnames(summary)=c(paste0(region_of_interest,' Count'),paste0(region_of_interest,' Area (Sq Micrometers)'),paste0(reference_marker,' Area (Sq Micrometers)'),
+                        paste0(reference_marker,' Area ROI (Sq Micrometers)'),paste0(reference_marker,' Area Outside of ROI (Sq Micrometers)'),
+                        paste0(reference_marker,' ROI (% of Total ',reference_marker,' Area)'),paste0(marker1,' Area (Sq Micrometers)'),
+                        paste0(marker1,' Area ROI (Sq Micrometers)'),paste0(marker1,' Area Outside of ROI (Sq Micrometers)'),paste0(marker1,' ROI (% of Total ',marker1,' Area)'),
+                        paste0(marker1,' ',reference_marker, ' Colocalised Area (Sq Micrometers)'),paste0(marker1,' ',reference_marker, ' Colocalised Area ROI (Sq Micrometers)'),
+                        paste0(marker1,' ',reference_marker, ' Colocalised Area Outside of ROI (Sq Micrometers)'),
+                        paste0(marker1,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Area)'),
+                        paste0(marker1,' ',reference_marker,' Colocalisation ROI (% of Total ',marker1,' ',reference_marker,' Colocalised Area)'),
+                        paste0(marker2,' Area (Sq Micrometers)'),paste0(marker2,' Area ROI (Sq Micrometers)'),paste0(marker2,' Area Outside of ROI (Sq Micrometers)'),
+                        paste0(marker2,' ROI (% of Total ',marker2,' Area)'),paste0(marker2,' ',reference_marker, ' Colocalised Area (Sq Micrometers)'),
+                        paste0(marker2,' ',reference_marker, ' Colocalised Area ROI (Sq Micrometers)'),paste0(marker2,' ',reference_marker, ' Colocalised Area Outside of ROI (Sq Micrometers)'),
+                        paste0(marker2,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Area)'),
+                        paste0(marker2,' ',reference_marker,' Colocalisation ROI (% of Total ',marker2,' ',reference_marker,' Colocalised Area)'),
+                        paste0(marker3,' Area (Sq Micrometers)'),paste0(marker3,' Area ROI (Sq Micrometers)'),paste0(marker3,' Area Outside of ROI (Sq Micrometers)'),
+                        paste0(marker3,' ROI (% of Total ',marker3,' Area)'),paste0(marker3,' ',reference_marker, ' Colocalised Area (Sq Micrometers)'),
+                        paste0(marker3,' ',reference_marker, ' Colocalised Area ROI (Sq Micrometers)'),paste0(marker3,' ',reference_marker, ' Colocalised Area Outside of ROI (Sq Micrometers)'),
+                        paste0(marker3,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Area)'),
+                        paste0(marker3,' ',reference_marker,' Colocalisation ROI (% of Total ',marker3,' ',reference_marker,' Colocalised Area)'))
+    
+    summary2=cbind(summary,metadata)
+    summary2[[outcome]]=as.factor(summary2[[outcome]])
+    
+    plot_list=list()
+    for(marker in colnames(summary2)[1:((number_marker*9)+6)]){
+      
+      plot_list[[marker]]<-ggboxplot(summary2, x=paste(outcome), y=paste0(marker),fill=paste(outcome),
+                                     add = "jitter", size=1)+
+        geom_signif(comparisons = split(t(combn(levels(summary2[[outcome]]), 2)), seq(nrow(t(combn(levels(summary2[[outcome]]), 2))))), 
+                    map_signif_level=c("***"=0.001,"**"=0.01, "*"=0.05, "ns"=2), tip_length = .05)+
+        ylab(paste(marker))+ggsci::scale_fill_npg(name='Groups')+theme(axis.text=element_text(size=16),
+                                                                                                        axis.title=element_text(size=12,face="plain")) +   xlab(" ")+ggtitle(paste0(marker))
+      
+      
+    }
+    
+    pdf(file=paste0(results_directory,"/colocalisation.pdf"))
+    print(plot_list)
+    dev.off()
+    
+  }
+  
+  
+  
+  if(number_marker==4){
+    ## summarise
+    summary=merge %>%
+      group_by(CaseID) %>%
+      summarise(ROIcount = Mean_count[Slice==paste0(region_of_interest)],
+                ROIarea = Mean_area[Slice==paste0(region_of_interest)],
+                refarea = Mean_area[Slice==paste0(reference_marker)],
+                refareaROI = Mean_area[Slice==paste0(reference_marker,' ROI')],
+                refareanoROI = (Mean_area[Slice==paste0(reference_marker)])-(Mean_area[Slice==paste0(reference_marker,' ROI')]),
+                refROI = 100*(Mean_area[Slice==paste0(reference_marker,' ROI')] / Mean_area[Slice==paste0(reference_marker)]),
+                marker1area = Mean_area[Slice==paste0(marker1)],
+                marker1areaROI = Mean_area[Slice==paste0(marker1,' ROI')],
+                marker1areanoROI = (Mean_area[Slice==paste0(marker1)])-(Mean_area[Slice==paste0(marker1,' ROI')]),
+                marker1ROI = 100*(Mean_area[Slice==paste0(marker1,' ROI')] / Mean_area[Slice==paste0(marker1)]),
+                marker1refarea = Mean_area[Slice==paste0(marker1,reference_marker)],
+                marker1refareaROI = Mean_area[Slice==paste0(marker1,reference_marker, ' ROI')],
+                marker1refareanoROI = (Mean_area[Slice==paste0(marker1,reference_marker)])-(Mean_area[Slice==paste0(marker1,reference_marker, ' ROI')]),
+                marker1ref = 100*(Mean_area[Slice==paste0(marker1,reference_marker)] / Mean_area[Slice==paste0(reference_marker)]),
+                marker1refROI = 100*(Mean_area[Slice==paste0(marker1,reference_marker, ' ROI')] / Mean_area[Slice==paste0(marker1,reference_marker)]),
+                marker2area = Mean_area[Slice==paste0(marker2)],
+                marker2areaROI = Mean_area[Slice==paste0(marker2,' ROI')],
+                marker2areanoROI = (Mean_area[Slice==paste0(marker2)])-(Mean_area[Slice==paste0(marker2,' ROI')]),
+                marker2ROI = 100*(Mean_area[Slice==paste0(marker2,' ROI')] / Mean_area[Slice==paste0(marker2)]),
+                marker2refarea = Mean_area[Slice==paste0(marker2,reference_marker)],
+                marker2refareaROI = Mean_area[Slice==paste0(marker2,reference_marker, ' ROI')],
+                marker2refareanoROI = (Mean_area[Slice==paste0(marker2,reference_marker)])-(Mean_area[Slice==paste0(marker2,reference_marker, ' ROI')]),
+                marker2ref= 100*(Mean_area[Slice==paste0(marker2,reference_marker)] / Mean_area[Slice==paste0(reference_marker)]),
+                marker2refROI = 100*(Mean_area[Slice==paste0(marker2,reference_marker, ' ROI')] / Mean_area[Slice==paste0(marker2,reference_marker)]),
+                marker3area = Mean_area[Slice==paste0(marker3)],
+                marker3areaROI = Mean_area[Slice==paste0(marker3,' ROI')],
+                marker3areanoROI = (Mean_area[Slice==paste0(marker3)])-(Mean_area[Slice==paste0(marker3,' ROI')]),
+                marker3ROI = 100*(Mean_area[Slice==paste0(marker3,' ROI')] / Mean_area[Slice==paste0(marker3)]),
+                marker3refarea = Mean_area[Slice==paste0(marker3,reference_marker)],
+                marker3refareaROI = Mean_area[Slice==paste0(marker3,reference_marker, ' ROI')],
+                marker3refareanoROI = (Mean_area[Slice==paste0(marker3,reference_marker)])-(Mean_area[Slice==paste0(marker3,reference_marker, ' ROI')]),
+                marker3ref= 100*(Mean_area[Slice==paste0(marker3,reference_marker)] / Mean_area[Slice==paste0(reference_marker)]),
+                marker3refROI = 100*(Mean_area[Slice==paste0(marker3,reference_marker, ' ROI')] / Mean_area[Slice==paste0(marker3,reference_marker)]),
+                marker4area = Mean_area[Slice==paste0(marker4)],
+                marker4areaROI = Mean_area[Slice==paste0(marker4,' ROI')],
+                marker4areanoROI = (Mean_area[Slice==paste0(marker4)])-(Mean_area[Slice==paste0(marker4,' ROI')]),
+                marker4ROI = 100*(Mean_area[Slice==paste0(marker4,' ROI')] / Mean_area[Slice==paste0(marker4)]),
+                marker4refarea = Mean_area[Slice==paste0(marker4,reference_marker)],
+                marker4refareaROI = Mean_area[Slice==paste0(marker4,reference_marker, ' ROI')],
+                marker4refareanoROI = (Mean_area[Slice==paste0(marker4,reference_marker)])-(Mean_area[Slice==paste0(marker4,reference_marker, ' ROI')]),
+                marker4ref= 100*(Mean_area[Slice==paste0(marker4,reference_marker)] / Mean_area[Slice==paste0(reference_marker)]),
+                marker4refROI = 100*(Mean_area[Slice==paste0(marker4,reference_marker, ' ROI')] / Mean_area[Slice==paste0(marker4,reference_marker)]))
+    
+    colnames(summary)=c(paste0(region_of_interest,' Count'),paste0(region_of_interest,' Area (Sq Micrometers)'),paste0(reference_marker,' Area (Sq Micrometers)'),
+                        paste0(reference_marker,' Area ROI (Sq Micrometers)'),paste0(reference_marker,' Area Outside of ROI (Sq Micrometers)'),
+                        paste0(reference_marker,' ROI (% of Total ',reference_marker,' Area)'),paste0(marker1,' Area (Sq Micrometers)'),
+                        paste0(marker1,' Area ROI (Sq Micrometers)'),paste0(marker1,' Area Outside of ROI (Sq Micrometers)'),paste0(marker1,' ROI (% of Total ',marker1,' Area)'),
+                        paste0(marker1,' ',reference_marker, ' Colocalised Area (Sq Micrometers)'),paste0(marker1,' ',reference_marker, ' Colocalised Area ROI (Sq Micrometers)'),
+                        paste0(marker1,' ',reference_marker, ' Colocalised Area Outside of ROI (Sq Micrometers)'),
+                        paste0(marker1,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Area)'),
+                        paste0(marker1,' ',reference_marker,' Colocalisation ROI (% of Total ',marker1,' ',reference_marker,' Colocalised Area)'),
+                        paste0(marker2,' Area (Sq Micrometers)'),paste0(marker2,' Area ROI (Sq Micrometers)'),paste0(marker2,' Area Outside of ROI (Sq Micrometers)'),
+                        paste0(marker2,' ROI (% of Total ',marker2,' Area)'),paste0(marker2,' ',reference_marker, ' Colocalised Area (Sq Micrometers)'),
+                        paste0(marker2,' ',reference_marker, ' Colocalised Area ROI (Sq Micrometers)'),paste0(marker2,' ',reference_marker, ' Colocalised Area Outside of ROI (Sq Micrometers)'),
+                        paste0(marker2,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Area)'),
+                        paste0(marker2,' ',reference_marker,' Colocalisation ROI (% of Total ',marker2,' ',reference_marker,' Colocalised Area)'),
+                        paste0(marker3,' Area (Sq Micrometers)'),paste0(marker3,' Area ROI (Sq Micrometers)'),paste0(marker3,' Area Outside of ROI (Sq Micrometers)'),
+                        paste0(marker3,' ROI (% of Total ',marker3,' Area)'),paste0(marker3,' ',reference_marker, ' Colocalised Area (Sq Micrometers)'),
+                        paste0(marker3,' ',reference_marker, ' Colocalised Area ROI (Sq Micrometers)'),paste0(marker3,' ',reference_marker, ' Colocalised Area Outside of ROI (Sq Micrometers)'),
+                        paste0(marker3,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Area)'),
+                        paste0(marker3,' ',reference_marker,' Colocalisation ROI (% of Total ',marker3,' ',reference_marker,' Colocalised Area)'),
+                        paste0(marker4,' Area (Sq Micrometers)'),paste0(marker4,' Area ROI (Sq Micrometers)'),paste0(marker4,' Area Outside of ROI (Sq Micrometers)'),
+                        paste0(marker4,' ROI (% of Total ',marker4,' Area)'),paste0(marker4,' ',reference_marker, ' Colocalised Area (Sq Micrometers)'),
+                        paste0(marker4,' ',reference_marker, ' Colocalised Area ROI (Sq Micrometers)'),paste0(marker4,' ',reference_marker, ' Colocalised Area Outside of ROI (Sq Micrometers)'),
+                        paste0(marker4,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Area)'),
+                        paste0(marker4,' ',reference_marker,' Colocalisation ROI (% of Total ',marker4,' ',reference_marker,' Colocalised Area)'))
+    
+    summary2=cbind(summary,metadata)
+    summary2[[outcome]]=as.factor(summary2[[outcome]])
+    
+    
+    plot_list=list()
+    for(marker in colnames(summary2)[1:((number_marker*9)+6)]){
+      
+      plot_list[[marker]]<-ggboxplot(summary2, x=paste(outcome), y=paste0(marker),fill=paste(outcome),
+                                     add = "jitter", size=1)+
+        geom_signif(comparisons = split(t(combn(levels(summary2[[outcome]]), 2)), seq(nrow(t(combn(levels(summary2[[outcome]]), 2))))), 
+                    map_signif_level=c("***"=0.001,"**"=0.01, "*"=0.05, "ns"=2), tip_length = .05)+
+        ylab(paste(marker))+ggsci::scale_fill_npg(name='Groups')+theme(axis.text=element_text(size=16),
+                                                                                                        axis.title=element_text(size=12,face="plain")) +   xlab(" ")+ggtitle(paste0(marker))
+      
+      
+    }
+    
+    pdf(file=paste0(results_directory,"/colocalisation.pdf"))
+    print(plot_list)
+    dev.off()
+    
+    
+  }
+  if(number_marker==5){
+    ## summarise
+    summary=merge %>%
+      group_by(CaseID) %>%
+      summarise(ROIcount = Mean_count[Slice==paste0(region_of_interest)],
+                ROIarea = Mean_area[Slice==paste0(region_of_interest)],
+                refarea = Mean_area[Slice==paste0(reference_marker)],
+                refareaROI = Mean_area[Slice==paste0(reference_marker,' ROI')],
+                refareanoROI = (Mean_area[Slice==paste0(reference_marker)])-(Mean_area[Slice==paste0(reference_marker,' ROI')]),
+                refROI = 100*(Mean_area[Slice==paste0(reference_marker,' ROI')] / Mean_area[Slice==paste0(reference_marker)]),
+                marker1area = Mean_area[Slice==paste0(marker1)],
+                marker1areaROI = Mean_area[Slice==paste0(marker1,' ROI')],
+                marker1areanoROI = (Mean_area[Slice==paste0(marker1)])-(Mean_area[Slice==paste0(marker1,' ROI')]),
+                marker1ROI = 100*(Mean_area[Slice==paste0(marker1,' ROI')] / Mean_area[Slice==paste0(marker1)]),
+                marker1refarea = Mean_area[Slice==paste0(marker1,reference_marker)],
+                marker1refareaROI = Mean_area[Slice==paste0(marker1,reference_marker, ' ROI')],
+                marker1refareanoROI = (Mean_area[Slice==paste0(marker1,reference_marker)])-(Mean_area[Slice==paste0(marker1,reference_marker, ' ROI')]),
+                marker1ref = 100*(Mean_area[Slice==paste0(marker1,reference_marker)] / Mean_area[Slice==paste0(reference_marker)]),
+                marker1refROI = 100*(Mean_area[Slice==paste0(marker1,reference_marker, ' ROI')] / Mean_area[Slice==paste0(marker1,reference_marker)]),
+                marker2area = Mean_area[Slice==paste0(marker2)],
+                marker2areaROI = Mean_area[Slice==paste0(marker2,' ROI')],
+                marker2areanoROI = (Mean_area[Slice==paste0(marker2)])-(Mean_area[Slice==paste0(marker2,' ROI')]),
+                marker2ROI = 100*(Mean_area[Slice==paste0(marker2,' ROI')] / Mean_area[Slice==paste0(marker2)]),
+                marker2refarea = Mean_area[Slice==paste0(marker2,reference_marker)],
+                marker2refareaROI = Mean_area[Slice==paste0(marker2,reference_marker, ' ROI')],
+                marker2refareanoROI = (Mean_area[Slice==paste0(marker2,reference_marker)])-(Mean_area[Slice==paste0(marker2,reference_marker, ' ROI')]),
+                marker2ref= 100*(Mean_area[Slice==paste0(marker2,reference_marker)] / Mean_area[Slice==paste0(reference_marker)]),
+                marker2refROI = 100*(Mean_area[Slice==paste0(marker2,reference_marker, ' ROI')] / Mean_area[Slice==paste0(marker2,reference_marker)]),
+                marker3area = Mean_area[Slice==paste0(marker3)],
+                marker3areaROI = Mean_area[Slice==paste0(marker3,' ROI')],
+                marker3areanoROI = (Mean_area[Slice==paste0(marker3)])-(Mean_area[Slice==paste0(marker3,' ROI')]),
+                marker3ROI = 100*(Mean_area[Slice==paste0(marker3,' ROI')] / Mean_area[Slice==paste0(marker3)]),
+                marker3refarea = Mean_area[Slice==paste0(marker3,reference_marker)],
+                marker3refareaROI = Mean_area[Slice==paste0(marker3,reference_marker, ' ROI')],
+                marker3refareanoROI = (Mean_area[Slice==paste0(marker3,reference_marker)])-(Mean_area[Slice==paste0(marker3,reference_marker, ' ROI')]),
+                marker3ref= 100*(Mean_area[Slice==paste0(marker3,reference_marker)] / Mean_area[Slice==paste0(reference_marker)]),
+                marker3refROI = 100*(Mean_area[Slice==paste0(marker3,reference_marker, ' ROI')] / Mean_area[Slice==paste0(marker3,reference_marker)]),
+                marker4area = Mean_area[Slice==paste0(marker4)],
+                marker4areaROI = Mean_area[Slice==paste0(marker4,' ROI')],
+                marker4areanoROI = (Mean_area[Slice==paste0(marker4)])-(Mean_area[Slice==paste0(marker4,' ROI')]),
+                marker4ROI = 100*(Mean_area[Slice==paste0(marker4,' ROI')] / Mean_area[Slice==paste0(marker4)]),
+                marker4refarea = Mean_area[Slice==paste0(marker4,reference_marker)],
+                marker4refareaROI = Mean_area[Slice==paste0(marker4,reference_marker, ' ROI')],
+                marker4refareanoROI = (Mean_area[Slice==paste0(marker4,reference_marker)])-(Mean_area[Slice==paste0(marker4,reference_marker, ' ROI')]),
+                marker4ref= 100*(Mean_area[Slice==paste0(marker4,reference_marker)] / Mean_area[Slice==paste0(reference_marker)]),
+                marker4refROI = 100*(Mean_area[Slice==paste0(marker4,reference_marker, ' ROI')] / Mean_area[Slice==paste0(marker4,reference_marker)]),
+                marker5area = Mean_area[Slice==paste0(marker5)],
+                marker5areaROI = Mean_area[Slice==paste0(marker5,' ROI')],
+                marker5areanoROI = (Mean_area[Slice==paste0(marker5)])-(Mean_area[Slice==paste0(marker5,' ROI')]),
+                marker5ROI = 100*(Mean_area[Slice==paste0(marker5,' ROI')] / Mean_area[Slice==paste0(marker5)]),
+                marker5refarea = Mean_area[Slice==paste0(marker5,reference_marker)],
+                marker5refareaROI = Mean_area[Slice==paste0(marker5,reference_marker, ' ROI')],
+                marker5refareanoROI = (Mean_area[Slice==paste0(marker5,reference_marker)])-(Mean_area[Slice==paste0(marker5,reference_marker, ' ROI')]),
+                marker5ref= 100*(Mean_area[Slice==paste0(marker5,reference_marker)] / Mean_area[Slice==paste0(reference_marker)]),
+                marker5refROI = 100*(Mean_area[Slice==paste0(marker5,reference_marker, ' ROI')] / Mean_area[Slice==paste0(marker5,reference_marker)]))
+    
+    colnames(summary)=c(paste0(region_of_interest,' Count'),paste0(region_of_interest,' Area (Sq Micrometers)'),paste0(reference_marker,' Area (Sq Micrometers)'),
+                        paste0(reference_marker,' Area ROI (Sq Micrometers)'),paste0(reference_marker,' Area Outside of ROI (Sq Micrometers)'),
+                        paste0(reference_marker,' ROI (% of Total ',reference_marker,' Area)'),paste0(marker1,' Area (Sq Micrometers)'),
+                        paste0(marker1,' Area ROI (Sq Micrometers)'),paste0(marker1,' Area Outside of ROI (Sq Micrometers)'),paste0(marker1,' ROI (% of Total ',marker1,' Area)'),
+                        paste0(marker1,' ',reference_marker, ' Colocalised Area (Sq Micrometers)'),paste0(marker1,' ',reference_marker, ' Colocalised Area ROI (Sq Micrometers)'),
+                        paste0(marker1,' ',reference_marker, ' Colocalised Area Outside of ROI (Sq Micrometers)'),
+                        paste0(marker1,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Area)'),
+                        paste0(marker1,' ',reference_marker,' Colocalisation ROI (% of Total ',marker1,' ',reference_marker,' Colocalised Area)'),
+                        paste0(marker2,' Area (Sq Micrometers)'),paste0(marker2,' Area ROI (Sq Micrometers)'),paste0(marker2,' Area Outside of ROI (Sq Micrometers)'),
+                        paste0(marker2,' ROI (% of Total ',marker2,' Area)'),paste0(marker2,' ',reference_marker, ' Colocalised Area (Sq Micrometers)'),
+                        paste0(marker2,' ',reference_marker, ' Colocalised Area ROI (Sq Micrometers)'),paste0(marker2,' ',reference_marker, ' Colocalised Area Outside of ROI (Sq Micrometers)'),
+                        paste0(marker2,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Area)'),
+                        paste0(marker2,' ',reference_marker,' Colocalisation ROI (% of Total ',marker2,' ',reference_marker,' Colocalised Area)'),
+                        paste0(marker3,' Area (Sq Micrometers)'),paste0(marker3,' Area ROI (Sq Micrometers)'),paste0(marker3,' Area Outside of ROI (Sq Micrometers)'),
+                        paste0(marker3,' ROI (% of Total ',marker3,' Area)'),paste0(marker3,' ',reference_marker, ' Colocalised Area (Sq Micrometers)'),
+                        paste0(marker3,' ',reference_marker, ' Colocalised Area ROI (Sq Micrometers)'),paste0(marker3,' ',reference_marker, ' Colocalised Area Outside of ROI (Sq Micrometers)'),
+                        paste0(marker3,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Area)'),
+                        paste0(marker3,' ',reference_marker,' Colocalisation ROI (% of Total ',marker3,' ',reference_marker,' Colocalised Area)'),
+                        paste0(marker4,' Area (Sq Micrometers)'),paste0(marker4,' Area ROI (Sq Micrometers)'),paste0(marker4,' Area Outside of ROI (Sq Micrometers)'),
+                        paste0(marker4,' ROI (% of Total ',marker4,' Area)'),paste0(marker4,' ',reference_marker, ' Colocalised Area (Sq Micrometers)'),
+                        paste0(marker4,' ',reference_marker, ' Colocalised Area ROI (Sq Micrometers)'),paste0(marker4,' ',reference_marker, ' Colocalised Area Outside of ROI (Sq Micrometers)'),
+                        paste0(marker4,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Area)'),
+                        paste0(marker4,' ',reference_marker,' Colocalisation ROI (% of Total ',marker4,' ',reference_marker,' Colocalised Area)'),
+                        paste0(marker5,' Area (Sq Micrometers)'),paste0(marker5,' Area ROI (Sq Micrometers)'),paste0(marker5,' Area Outside of ROI (Sq Micrometers)'),
+                        paste0(marker5,' ROI (% of Total ',marker5,' Area)'),paste0(marker5,' ',reference_marker, ' Colocalised Area (Sq Micrometers)'),
+                        paste0(marker5,' ',reference_marker, ' Colocalised Area ROI (Sq Micrometers)'),paste0(marker5,' ',reference_marker, ' Colocalised Area Outside of ROI (Sq Micrometers)'),
+                        paste0(marker5,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Area)'),
+                        paste0(marker5,' ',reference_marker,' Colocalisation ROI (% of Total ',marker5,' ',reference_marker,' Colocalised Area)'))
+                        
+                        
+    summary2=cbind(summary,metadata)
+    summary2[[outcome]]=as.factor(summary2[[outcome]])
+    
+    plot_list=list()
+    for(marker in colnames(summary2)[1:((number_marker*9)+6)]){
+      
+      plot_list[[marker]]<-ggboxplot(summary2, x=paste(outcome), y=paste0(marker),fill=paste(outcome),
+                                     add = "jitter", size=1)+
+        geom_signif(comparisons = split(t(combn(levels(summary2[[outcome]]), 2)), seq(nrow(t(combn(levels(summary2[[outcome]]), 2))))), 
+                    map_signif_level=c("***"=0.001,"**"=0.01, "*"=0.05, "ns"=2), tip_length = .05)+
+        ylab(paste(marker))+ggsci::scale_fill_npg(name='Groups')+theme(axis.text=element_text(size=16),
+                                                                                                        axis.title=element_text(size=12,face="plain")) +   xlab(" ")+ggtitle(paste0(marker))
+      
+      
+    }
+    
+    pdf(file=paste0(results_directory,"/colocalisation.pdf"))
+    print(plot_list)
+    dev.off()
+    
+  }
+  dir=getwd()
+  dir.create('results')
+  list_param=list(image_directory=image_directory,
+                  results_directory=results_directory,
+                  metadata,
+                  number_marker=number_marker,
+                  reference_marker=reference_marker,
+                  marker1=marker1,
+                  marker2=marker2,
+                  marker3=marker3,
+                  marker4=marker4,
+                  marker5=marker5,
+                  region_of_interest=region_of_interest,
+                  outcome=outcome)
+  saveRDS(list_param,paste0(dir,'/results/list_param.rds'))
+  saveRDS(metadata,paste0(dir,'/results/metadata.rds'))
+  saveRDS(plot_list,paste0(dir,'/results/plot_list.rds'))
+  
+  return(plot_list)
+}
+
