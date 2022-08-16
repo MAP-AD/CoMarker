@@ -1,0 +1,15 @@
+coloc_wrapper(image_directory="/Users/samboulger/Desktop/Manual Counts",
+              results_directory="/Users/samboulger/Desktop/Manual Counts",
+              CoMarker_directory='/Users/samboulger/OneDrive - Nexus365/Imperial/CoMarker Script',
+              DNA=TRUE,
+              ROI=TRUE,
+              number_marker=2,
+              reference_marker="Iba1",
+              marker1="CD68",
+              marker2='HLA-DR',
+              marker3='',
+              marker4='',
+              marker5='',
+              region_of_interest='Ab',
+              outcome='trem2_all')
+
