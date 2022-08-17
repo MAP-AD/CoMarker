@@ -18,7 +18,7 @@ The example images that we use in this website were produced by imaging mass cyt
 
 ### Acknowledgements
 
-CoMarker was developed by Samuel Boulger, Eleonore Schneegans, and Vicky Chau at UK Dementia Research Institute, Imperial College London.
+CoMarker was developed by Samuel Boulger, Eléonore Schneegans, and Vicky Chau at UK Dementia Research Institute, Imperial College London.
 
 
 ## Brief Instructions
