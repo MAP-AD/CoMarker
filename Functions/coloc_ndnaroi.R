@@ -2,7 +2,7 @@
 
 coloc_ndnaroi<-function(image_directory,
                                      results_directory,
-                                    CoMarker_directory,
+                                     CoMarker_directory,
                                      number_marker,
                                      reference_marker,
                                      marker1,
