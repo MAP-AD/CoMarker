@@ -75,6 +75,7 @@ coloc_nroi<-function(image_directory,
   metadata=metadata[which(metadata$CaseID %in% results$CaseID),]
   merge=merge(results,metadata,all=TRUE, by='CaseID')
   
+    
   #denominator
   
   if(number_marker==1){
