@@ -131,11 +131,12 @@ plot_list[[13]]
 plot_list[[14]]
 ```
 
-```{r, eval=(number_marker >= 2), echo=FALSE}
+```{r echo=FALSE}
 plot_list[[15]]
 ```
 
 ```{r, eval=(number_marker >= 2), echo=FALSE}
+
 knitr::asis_output(paste("# ", marker2," Plots"  ))
 ```
   
