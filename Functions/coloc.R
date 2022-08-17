@@ -457,9 +457,9 @@ coloc<-function(image_directory,
       
     }
     
-    #pdf(file=paste0(results_directory,"/colocalisation.pdf"))
-    #print(plot_list)
-    #dev.off()
+    pdf(file=paste0(results_directory,"/colocalisation.pdf"))
+    print(plot_list)
+    dev.off()
     
   }
   
