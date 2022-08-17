@@ -193,8 +193,6 @@ coloc_ndna<-function(image_directory,
       
     }
     
-    plot_list
-    
     
     pdf(file=paste0(results_directory,"/colocalisation.pdf"))
     print(plot_list)
