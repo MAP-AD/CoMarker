@@ -1,0 +1,25 @@
+# Image/File Formatting
+
+## Image Formatting
+
+Images must be saved as the name of the marker followed by '.tif' - e.g., 'Iba1.tif', 'DNA.tif'.
+
+## File Formatting
+
+The source files should be organised as such:
+
+Image Directory -\> Patient/image/case ID -\> Marker.tif
+
+In the analysis, files sharing the same case ID will be identified and within subject data will be averaged.
+
+## Metadata Formatting
+
+The metadata must be stored in the image directory as 'metadata.csv' and should be organised such that, as a bare minimum, it has columns for case IDs and the respective outcome variable (i.e. disease vs control).
+
+The supplementary script named 'processing_metadata.R' can reduce the size of large metadata files by extracting specified outcomes. The desired outcomes should be inputted into the following line:
+
+    metadata=metadata[c("CaseID","AD/CTRL","TREM2Variant",'APOE','PostMortemDelayHours','trem2_all')]
+
+## Example Directory Format
+
+![](images/directory_example.png){width="600"}

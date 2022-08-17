@@ -1,0 +1,44 @@
+# R Script Walkthrough
+
+This section of the manual will provide an overview of the steps taken in the R script, starting with the inputs required for the script to function.
+
+## Input Parameters
+
+Input the relevant parameters into the coloc_wrapper function of the R code. There is an example input file in the Github repository.
+
+``` R
+coloc_wrapper(image_directory="/Users/samboulger/Desktop/Manual Counts",
+              results_directory="/Users/samboulger/Desktop/Manual Counts",
+              CoMarker_directory='/Users/samboulger/OneDrive - Nexus365/Imperial/CoMarker Script',
+              DNA=TRUE,
+              ROI=TRUE,
+              number_marker=2,
+              reference_marker="Iba1",
+              marker1="CD68",
+              marker2='HLA-DR',
+              marker3='',
+              marker4='',
+              marker5='',
+              region_of_interest='Ab',
+              outcome='trem2_all')
+```
+
+Specify the image directory, results directory,the directory in which the CoMarker folder is stored, as well as whether there are DNA and ROI markers (TRUE or FALSE), the number of markers, the reference markers, colocalisation markers, region of interest, and the outcome (from the metadata). Leave blank any sections that are not required, such as any additional markers or region_of_interest if you selected to not have one.
+
+It is important to ensure that 'CoMarker_directory' is set to the directory of the main folder on your device. The main folder must include the 'Functions' and 'HTML Reports' folders. This naming is crucial for the R script to run.
+
+## HTML Output
+
+Once the R script has finished running, a report named 'CoMarker_Analysis_Report' will be created in a report folder within the results directory. Open this report in the web browser and you will be able to easily visualise the analysis.
+
+The report is separated into sections for each marker, as well as a section highlighting any significant results. By using the table of contents, the user can quickly skip to a desired section.
+
+Box plots are created for pretty much every useful ROI-reference marker-colocalisation marker combination. On each box plot, statistical significance is annotated, such that:
+
+ns = non-significant
+
+\* = p\<0.05
+
+\*\* = p\<0.01
+
+\*\*\* = p\<0.001

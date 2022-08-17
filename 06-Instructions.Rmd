@@ -1,0 +1,22 @@
+# Instructions - From Start to Finish
+
+This section describes how to use the script from start to finish, without too much extra detail.
+
+## Download the Script
+
+1.  Download the github repo and save the folder on your device.
+2.  The main folder must include the 'Functions' and 'HTML Reports' folders. This naming is crucial for the R script to run.
+
+## Run ImageJ
+
+3.  Download Fiji ImageJ [here](https://imagej.net/software/fiji/downloads) if it is not already installed on your device.
+4.  Open the script named 'CoMarker_Macro.ijm' on ImageJ, and click run.
+5.  Input your parameters in the dialog box, referring to the ImageJ Walkthrough section of this site for additional details.
+6.  Once all three parameter boxes have been completed, the script will run automatically. The time taken to run the script will depend on the number of images used. It typically takes 1 to 8 seconds to analyse all of the images for each case.
+7.  Once the script has finished running, ImageJ may be closed.
+
+## Run R Studio
+
+8.  Open the R script and input the parameters, as explained in the R Walkthrough section of this site.
+9.  Ensure that 'CoMarker_directory' is set to the directory of the main folder on your device.
+10. Run the script. A HTML document will be produced in the results directory, summarising your results.

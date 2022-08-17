@@ -1,0 +1,41 @@
+# Functions and Capabilities
+
+The idea behind CoMarker is to allow for a cell-based approach to marker colocalisation analysis, therefore for the purpose of this manual we will discuss the capabilities of the script for when a nuclei marker is used. If you plan to use the script without a nuclei marker, similar procedures apply, however instead of counts the output will be the total area containing each marker for each image.
+
+## What does CoMarker do?
+
+-   Counts the number of regions of interest.
+
+-   Finds the total area of the regions of interest.
+
+-   Counts the number of cells (based on a 1:1 ratio with the number of nuclei).
+
+-   Counts the number of cells which contain a reference marker signal.
+
+-   Counts the number of cells within and outside of a region of interest which contain a reference marker.
+
+-   Counts the number of cells which contain each marker signal.
+
+-   Counts the number of cells within and outside of a region of interest which contain each marker.
+
+-   Counts the number of cells positive for both the reference marker and each other marker (colocalised).
+
+-   Counts the number of cells within and outside of a region of interest positive for both the reference marker and each other marker (colocalised).
+
+-   Presents the proportion of marker-positive cells within the region of interest.
+
+-   Presents the proportion of reference marker-positive cells which are colocalised with each other marker, both respective and irrespective of the region of interest.
+
+-   Produces a range box plots annotated with the statistical significance.
+
+## Capabilities
+
+-   1 region of interest marker
+
+-   1 reference marker
+
+-   1 nuclei marker
+
+-   Up to 5 general markers
+
+If more than one region of interest, reference, or nuclei marker are required, extra preprocessing steps will need to be taken to merge the those markers into one image for each of those marker types.
