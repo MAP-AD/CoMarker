@@ -1,6 +1,6 @@
 # CoMarker - Marker Colocalisation Analysis
 
-This document contains a brief overview of CoMarker and a set of confined instructions. Please see our website for more information.
+This document contains a brief overview of CoMarker and a set of confined instructions. Please see our website for more information: https://eleonore-schneeg.github.io/CoMarker/
 
 ## Preface
 
