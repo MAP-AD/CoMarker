@@ -5,7 +5,7 @@ This section describes how to use the script from start to finish, without too m
 ## Download the Script
 
 1.  Download the github repo and save the folder on your device.
-2.  The main folder must include the 'Functions' and 'HTML Reports' folders. This naming is crucial for the R script to run.
+2.  The main folder must include the 'Functions' and 'HTML Reports' folders. This naming is crucial for the R script to run. [Find the CoMarker Github page here.](https://github.com/eleonore-schneeg/CoMarker)
 
 ## Run ImageJ
 
