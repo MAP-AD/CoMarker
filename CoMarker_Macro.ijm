@@ -1,5 +1,9 @@
 yesno=newArray("Yes","No");
 thresholds=newArray("Default","Huang","Intermodes","IsoData","Li","MaxEntropy","Mean","MinError","Minimum","Moments","Otsu","Percentile","RenyiEntropy","Shanbhag","Triangle","Yen");
+roi_gaus="Yes"
+roi_area=1;
+roi_thresh="Otsu";
+radius=0;
 
 // specify user parameters
 Dialog.create("Colocalisation analysis options (1/3)");
