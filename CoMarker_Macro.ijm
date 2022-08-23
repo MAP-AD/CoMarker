@@ -4,17 +4,16 @@ roi_gaus="Yes"
 roi_area=1;
 roi_thresh="Otsu";
 radius=0;
-
 // specify user parameters
 Dialog.create("Colocalisation analysis options (1/3)");
 	Dialog.addMessage("Enter your settings here:");
-	Dialog.addString("Reference marker", "Fibrinogen");
+	Dialog.addString("Reference marker", "Iba1");
 	Dialog.addString("Reference marker minimum area (pixels)", 6);
 	Dialog.addChoice("Reference marker autothresholding method",thresholds,"Otsu");
 	Dialog.addChoice("Has DNA marker",yesno,"Yes");
 	Dialog.addChoice("Has region of interest",yesno,"Yes");
 	Dialog.addNumber("Number of markers to colocalise",2);
-	Dialog.addString("Specify image directory", "/Users/samboulger/Desktop/GLUT1 HistoCAT");
+	Dialog.addString("Specify image directory", "/Users/samboulger/Desktop/Sen_Exp");
 	Dialog.show();
 	
 reference_marker=Dialog.getString();
@@ -32,11 +31,11 @@ if (has_DNA=="Yes"){
 	}
 	Dialog.addNumber("Marker colocalisation radius (pixels)", 2);
 	if(has_roi=="Yes"){
-	Dialog.addString("Region of interest", "GLUT1");
+	Dialog.addString("Region of interest", "Ab");
 	Dialog.addChoice("Use Gaussian and Watershed on ROI",yesno,"Yes");
-	Dialog.addString("Region of interest minimum area (pixels)", 15);
+	Dialog.addString("Region of interest minimum area (pixels)", 1100);
 	Dialog.addChoice("ROI Marker autothresholding method",thresholds,"Otsu");
-	Dialog.addNumber("Radius around region of interest (pixels)", 0);
+	Dialog.addNumber("Radius around region of interest (pixels)", 10);
 	}
 	Dialog.show();
 if (has_DNA=="Yes"){	
@@ -61,11 +60,11 @@ marker1=Dialog.getString();
 m1_area=Dialog.getString();
 m1_thresh=Dialog.getChoice();
 }else if (number_markers==2){
-	Dialog.addString("Name of 1st marker", "Ab");
-	Dialog.addString("1st marker minimum area (pixels)", 8);
+	Dialog.addString("Name of 1st marker", "p16");
+	Dialog.addString("1st marker minimum area (pixels)", 4);
 	Dialog.addChoice("Marker 1 autothresholding method",thresholds,"Otsu");
-	Dialog.addString("Name of 2nd marker", "CD163");
-	Dialog.addString("2nd marker minimum area (pixels)", 2);
+	Dialog.addString("Name of 2nd marker", "GLB1");
+	Dialog.addString("2nd marker minimum area (pixels)", 4);
 	Dialog.addChoice("Marker 2 autothresholding method",thresholds,"Otsu");
 	Dialog.show();
 marker1=Dialog.getString();
@@ -313,6 +312,8 @@ run("Analyze Particles...", "size=DNA_area-Infinity pixel show=Masks summarize")
 	
 selectWindow("Mask of DNA.tif");
 run("Create Selection");
+//if there are DNA
+if (selectionType() != -1){
 run("ROI Manager...");
 roiManager("Add");
 roiManager("Select", 2);
@@ -326,8 +327,6 @@ roiManager("Rename", "DNA_enlarged");
 
 roiManager("Select", newArray(1,2)); //finding nucleus within given radius of ROI 
 roiManager("AND");
-//if there are cells around ROI
-if ( selectionType() != -1) {
 roiManager("Add");
 count = roiManager("count");
 roiManager("Select", count-1);
@@ -607,7 +606,7 @@ else {
 	Table.set("Slice", n+6, marker1+" colocalised "+reference_marker);
 	Table.set("Slice", n+7, marker1+" colocalised "+reference_marker+ " ROI");
 	}
-}//no DNA in the region of interest 
+}//no DNA
 else {
 	selectWindow("Summary");
 	n = Table.size;
@@ -634,6 +633,9 @@ else {
 	Table.set("Slice", 7, marker1+" Cell ROI");
 	Table.set("Slice", 8, marker1+" colocalised "+reference_marker);
 	Table.set("Slice", 9, marker1+" colocalised "+reference_marker+ " ROI");
+	for (i=1; i<10; i++){
+			Table.set("Count", i, "NA");
+		}
 	}
 
 
@@ -672,7 +674,7 @@ open(subdir+"DNA.tif");
 if (has_roi=="Yes"){
 // Region of interest
 open(subdir+region_of_interest+".tif");
-}else if (has_roi=="No"){
+}else {
 	newImage("No_ROI.tif", "8-bit white", 500, 500, 1);
 	region_of_interest="No_ROI";
 }
@@ -737,6 +739,8 @@ run("Analyze Particles...", "size=DNA_area-Infinity pixel show=Masks summarize")
 	
 selectWindow("Mask of DNA.tif");
 run("Create Selection");
+//if there are cells
+if ( selectionType() != -1) {
 run("ROI Manager...");
 roiManager("Add");
 roiManager("Select", 2);
@@ -750,8 +754,7 @@ roiManager("Rename", "DNA_enlarged");
 
 roiManager("Select", newArray(1,2)); //finding nucleus within given radius of ROI 
 roiManager("AND");
-//if there are cells around ROI
-if ( selectionType() != -1) {
+
 roiManager("Add");
 count = roiManager("count");
 roiManager("Select", count-1);
@@ -1243,6 +1246,10 @@ else {
 	Table.set("Slice", 12, marker2+" Cell ROI");
 	Table.set("Slice", 13, marker2+" colocalised "+reference_marker);
 	Table.set("Slice", 14, marker2+" colocalised "+reference_marker+ " ROI");
+		for (i=1; i<15; i++){
+			Table.set("Count", i, "NA");
+		}
+
 	}
 
 
@@ -1345,6 +1352,8 @@ run("Analyze Particles...", "size=DNA_area-Infinity pixel show=Masks summarize")
 	
 selectWindow("Mask of DNA.tif");
 run("Create Selection");
+//if there are cells
+if ( selectionType() != -1) {
 run("ROI Manager...");
 roiManager("Add");
 roiManager("Select", 2);
@@ -1358,8 +1367,7 @@ roiManager("Rename", "DNA_enlarged");
 
 roiManager("Select", newArray(1,2)); //finding nucleus within given radius of ROI 
 roiManager("AND");
-//if there are cells around ROI
-if ( selectionType() != -1) {
+
 roiManager("Add");
 count = roiManager("count");
 roiManager("Select", count-1);
@@ -2017,6 +2025,9 @@ else {
 	Table.set("Slice", 17, marker3+" Cell ROI");
 	Table.set("Slice", 18, marker3+" colocalised "+reference_marker);
 	Table.set("Slice", 19, marker3+" colocalised "+reference_marker+ " ROI");
+	for (i=1; i<20; i++){
+			Table.set("Count", i, "NA");
+		}
 	}
 
 
@@ -2120,6 +2131,8 @@ run("Analyze Particles...", "size=DNA_area-Infinity pixel show=Masks summarize")
 	
 selectWindow("Mask of DNA.tif");
 run("Create Selection");
+//if there are cells
+if ( selectionType() != -1) {
 run("ROI Manager...");
 roiManager("Add");
 roiManager("Select", 2);
@@ -2133,8 +2146,7 @@ roiManager("Rename", "DNA_enlarged");
 
 roiManager("Select", newArray(1,2)); //finding nucleus within given radius of ROI 
 roiManager("AND");
-//if there are cells around ROI
-if ( selectionType() != -1) {
+
 roiManager("Add");
 count = roiManager("count");
 roiManager("Select", count-1);
@@ -2966,6 +2978,9 @@ else {
 	Table.set("Slice", 21, marker4+" Cell ROI");
 	Table.set("Slice", 22, marker4+" colocalised "+reference_marker);
 	Table.set("Slice", 23, marker4+" colocalised "+reference_marker+ " ROI");
+	for (i=1; i<24; i++){
+			Table.set("Count", i, "NA");
+		}
 	}
 
 
@@ -3070,6 +3085,8 @@ run("Analyze Particles...", "size=DNA_area-Infinity pixel show=Masks summarize")
 	
 selectWindow("Mask of DNA.tif");
 run("Create Selection");
+//if there are cells
+if ( selectionType() != -1) {
 run("ROI Manager...");
 roiManager("Add");
 roiManager("Select", 2);
@@ -3083,8 +3100,6 @@ roiManager("Rename", "DNA_enlarged");
 
 roiManager("Select", newArray(1,2)); //finding nucleus within given radius of ROI 
 roiManager("AND");
-//if there are cells around ROI
-if ( selectionType() != -1) {
 roiManager("Add");
 count = roiManager("count");
 roiManager("Select", count-1);
@@ -4090,6 +4105,9 @@ else {
 	Table.set("Slice", 25, marker5+" Cell ROI");
 	Table.set("Slice", 26, marker5+" colocalised "+reference_marker);
 	Table.set("Slice", 27, marker5+" colocalised "+reference_marker+ " ROI");
+	for (i=1; i<28; i++){
+			Table.set("Count", i, "NA");
+		}
 	}
 
 
