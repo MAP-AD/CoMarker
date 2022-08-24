@@ -2,7 +2,7 @@
 
 coloc_ndnaroi<-function(image_directory,
                                      results_directory,
-                                     CoMarker_directory,
+                                    CoMarker_directory,
                                      number_marker,
                                      reference_marker,
                                      marker1,
@@ -10,6 +10,7 @@ coloc_ndnaroi<-function(image_directory,
                                      marker3,
                                      marker4,
                                      marker5,
+                                    region_of_interest,
                                      outcome) {
   
   
@@ -62,6 +63,9 @@ coloc_ndnaroi<-function(image_directory,
   df$replicate=sub("\\/.*", "", rownames(df))
   df$replicate=sub("\\..*", "", df$replicate)
   
+  if (sum(unique(metadata$CaseID) %in% unique(df$CaseID))!=length(unique(df$CaseID))){
+    stop('The case IDs in the image directory must match the case IDs in the metadata.')
+  }
   
   ### get average of replicates
   results=df %>%
@@ -89,6 +93,7 @@ coloc_ndnaroi<-function(image_directory,
     colnames(summary)=c(paste0(reference_marker,' Area (Sq Micrometers)'),paste0(marker1,' Area (Sq Micrometers)'),
                         paste0(marker1,' ',reference_marker, ' Colocalised Area (Sq Micrometers)'),
                         paste0(marker1,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Area)')) 
+    
     
     summary2=cbind(summary,metadata)
     summary2[[outcome]]=as.factor(summary2[[outcome]])
@@ -134,7 +139,8 @@ coloc_ndnaroi<-function(image_directory,
                         paste0(marker1,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Area)'),
                         paste0(marker2,' Area (Sq Micrometers)'),paste0(marker2,' ',reference_marker, ' Colocalised Area (Sq Micrometers)'),
                         paste0(marker2,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Area)'))
-                        
+
+    
     summary2=cbind(summary,metadata)
     summary2[[outcome]]=as.factor(summary2[[outcome]])
     
@@ -186,6 +192,7 @@ coloc_ndnaroi<-function(image_directory,
                         paste0(marker2,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Area)'),
                         paste0(marker3,' Area (Sq Micrometers)'),paste0(marker3,' ',reference_marker, ' Colocalised Area (Sq Micrometers)'),
                         paste0(marker3,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Area)'))
+
     
     summary2=cbind(summary,metadata)
     summary2[[outcome]]=as.factor(summary2[[outcome]])
@@ -240,6 +247,7 @@ coloc_ndnaroi<-function(image_directory,
                         paste0(marker3,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Area)'),
                         paste0(marker4,' Area (Sq Micrometers)'),paste0(marker4,' ',reference_marker, ' Colocalised Area (Sq Micrometers)'),
                         paste0(marker4,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Area)'))
+
     
     summary2=cbind(summary,metadata)
     summary2[[outcome]]=as.factor(summary2[[outcome]])
@@ -298,7 +306,7 @@ coloc_ndnaroi<-function(image_directory,
                         paste0(marker4,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Area)'),
                         paste0(marker5,' Area (Sq Micrometers)'),paste0(marker5,' ',reference_marker, ' Colocalised Area (Sq Micrometers)'),
                         paste0(marker5,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Area)'))
-    
+
     
     summary2=cbind(summary,metadata)
     summary2[[outcome]]=as.factor(summary2[[outcome]])
@@ -350,6 +358,8 @@ coloc_ndnaroi<-function(image_directory,
   }
   
   sig_count = sum(unlist(lapply(signif,function(x){x!=c('ns')})))/3
+  nCases = nrow(metadata)
+  nSamples = length(my.data)
   
   rmarkdown::render(paste0(CoMarker_directory,"/HTML Reports/report_ndnaroi.Rmd"),
                     output_dir =paste0(results_directory,'/results'),
