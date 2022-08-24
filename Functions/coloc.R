@@ -63,6 +63,9 @@ coloc<-function(image_directory,
   df$replicate=sub("\\/.*", "", rownames(df))
   df$replicate=sub("\\..*", "", df$replicate)
   
+  if (sum(unique(metadata$CaseID) %in% unique(df$CaseID))!=length(unique(df$CaseID))){
+    stop('The case IDs in the image directory must match the case IDs in the metadata.')
+  }
   
   ### get average of replicates
   results=df %>%
@@ -103,7 +106,7 @@ coloc<-function(image_directory,
                         paste0(marker1,' ',reference_marker,' Colocalised Cell Count'),paste0(marker1,' ',reference_marker,' Colocalised Cell Count ROI'),
                         paste0(marker1,' ',reference_marker,' Colocalised Cell Count Outside of ROI'),paste0(marker1,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Cell Count)'),
                         paste0(marker1,' ',reference_marker,' Colocalisation ROI (% of Total ',marker1,' ',reference_marker,' Colocalised Cell Count)')) 
-    
+
     summary2=cbind(summary,metadata)
     summary2[[outcome]]=as.factor(summary2[[outcome]])
     
@@ -172,6 +175,7 @@ coloc<-function(image_directory,
                         paste0(marker2,' ',reference_marker,' Colocalised Cell Count Outside of ROI'),paste0(marker2,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Cell Count)'),
                         paste0(marker2,' ',reference_marker,' Colocalisation ROI (% of Total ',marker2,' ',reference_marker,' Colocalised Cell Count)'))
     
+
     summary2=cbind(summary,metadata)
     summary2[[outcome]]=as.factor(summary2[[outcome]])
     
@@ -249,6 +253,7 @@ coloc<-function(image_directory,
                         paste0(marker3,' ',reference_marker,' Colocalised Cell Count Outside of ROI'),paste0(marker3,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Cell Count)'),
                         paste0(marker3,' ',reference_marker,' Colocalisation ROI (% of Total ',marker3,' ',reference_marker,' Colocalised Cell Count)'))
     
+
     summary2=cbind(summary,metadata)
     summary2[[outcome]]=as.factor(summary2[[outcome]])
     
@@ -338,7 +343,8 @@ coloc<-function(image_directory,
                         paste0(marker4,' ',reference_marker,' Colocalised Cell Count'),paste0(marker4,' ',reference_marker,' Colocalised Cell Count ROI'),
                         paste0(marker4,' ',reference_marker,' Colocalised Cell Count Outside of ROI'),paste0(marker4,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Cell Count)'),
                         paste0(marker4,' ',reference_marker,' Colocalisation ROI (% of Total ',marker4,' ',reference_marker,' Colocalised Cell Count)'))
-    
+   
+
     summary2=cbind(summary,metadata)
     summary2[[outcome]]=as.factor(summary2[[outcome]])
     
@@ -440,6 +446,7 @@ coloc<-function(image_directory,
                         paste0(marker5,' ',reference_marker,' Colocalised Cell Count'),paste0(marker5,' ',reference_marker,' Colocalised Cell Count ROI'),
                         paste0(marker5,' ',reference_marker,' Colocalised Cell Count Outside of ROI'),paste0(marker5,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Cell Count)'),
                         paste0(marker5,' ',reference_marker,' Colocalisation ROI (% of Total ',marker5,' ',reference_marker,' Colocalised Cell Count)'))
+
     
     summary2=cbind(summary,metadata)
     summary2[[outcome]]=as.factor(summary2[[outcome]])
@@ -457,9 +464,9 @@ coloc<-function(image_directory,
       
     }
     
-    pdf(file=paste0(results_directory,"/colocalisation.pdf"))
-    print(plot_list)
-    dev.off()
+    #pdf(file=paste0(results_directory,"/colocalisation.pdf"))
+    #print(plot_list)
+    #dev.off()
     
   }
   
@@ -494,6 +501,8 @@ for(name in names(plot_list)){
 }
 
 sig_count = sum(unlist(lapply(signif,function(x){x!=c('ns')})))/3
+nCases = nrow(metadata)
+nSamples = length(my.data)
 
 rmarkdown::render(paste0(CoMarker_directory,"/HTML Reports/report.Rmd"),
                   output_dir =paste0(results_directory,'/results'),
