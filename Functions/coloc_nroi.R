@@ -9,6 +9,7 @@ coloc_nroi<-function(image_directory,
                                   marker3,
                                   marker4,
                                   marker5,
+                                  region_of_interest,
                                   outcome) {
   
   
@@ -63,6 +64,9 @@ coloc_nroi<-function(image_directory,
   df$replicate=sub("\\/.*", "", rownames(df))
   df$replicate=sub("\\..*", "", df$replicate)
   
+  if (sum(unique(metadata$CaseID) %in% unique(df$CaseID))!=length(unique(df$CaseID))){
+    stop('The case IDs in the image directory must match the case IDs in the metadata.')
+  }
   
   ### get average of replicates
   results=df %>%
@@ -75,7 +79,6 @@ coloc_nroi<-function(image_directory,
   metadata=metadata[which(metadata$CaseID %in% results$CaseID),]
   merge=merge(results,metadata,all=TRUE, by='CaseID')
   
-    
   #denominator
   
   if(number_marker==1){
@@ -91,6 +94,7 @@ coloc_nroi<-function(image_directory,
     colnames(summary)=c(paste0(reference_marker,' Cell Count'),paste0(marker1,' Cell Count'),
                         paste0(marker1,' ',reference_marker,' Colocalised Cell Count'),
                         paste0(marker1,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Cell Count)')) 
+    
     
     summary2=cbind(summary,metadata)
     summary2[[outcome]]=as.factor(summary2[[outcome]])
@@ -295,7 +299,7 @@ coloc_nroi<-function(image_directory,
                                     paste0(marker4,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Cell Count)'),
                                     paste0(marker5,' Cell Count'),paste0(marker5,' ',reference_marker,' Colocalised Cell Count'),
                                     paste0(marker5,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Cell Count)'))
-    
+                
     summary2=cbind(summary,metadata)
     summary2[[outcome]]=as.factor(summary2[[outcome]])
     
@@ -347,6 +351,9 @@ coloc_nroi<-function(image_directory,
   }
   
   sig_count = sum(unlist(lapply(signif,function(x){x!=c('ns')})))/3
+  nCases = nrow(metadata)
+  nSamples = length(my.data)
+  
   
   rmarkdown::render(paste0(CoMarker_directory,"/HTML Reports/report_nroi.Rmd"),
                     output_dir =paste0(results_directory,'/results'),
