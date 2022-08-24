@@ -30,7 +30,9 @@ knitr::knit_hooks$set(wrap = function(before, options, envir){
 
 From the data provided, `r (number_marker*3)+1` plots have been produced, with `r sig_count` significant comparison(s) between `r outcome` groups.  
   
-Each data point represents total marker-containing area (number of pixels), averaged across all images from each case ID. From the raw images, data is only extracted from clusters of conjoining pixels exceeding the inputted minimum area, therefore regions of marker-positive pixels smaller than the minimum area are not analysed.  
+Each data point represents the average of all images from each case ID, with a total of `r nCases` cases analysed from a set of `r nSamples` samples, averaging `r round((nSamples/nCases),digits=2)` technical replicates per individual. Please note that this average may not always be an integer due to the removal of flagged samples.  
+
+From the raw images, data is only extracted from clusters of conjoining pixels exceeding the inputted minimum area, therefore regions of marker-positive pixels smaller than the minimum area are not analysed.  
 
   
 # Statistical Significance
