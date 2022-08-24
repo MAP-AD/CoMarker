@@ -63,6 +63,9 @@ coloc_ndna<-function(image_directory,
   df$replicate=sub("\\/.*", "", rownames(df))
   df$replicate=sub("\\..*", "", df$replicate)
   
+  if (sum(unique(metadata$CaseID) %in% unique(df$CaseID))!=length(unique(df$CaseID))){
+    stop('The case IDs in the image directory must match the case IDs in the metadata.')
+  }
   
   ### get average of replicates
   results=df %>%
@@ -105,6 +108,7 @@ coloc_ndna<-function(image_directory,
                         paste0(marker1,' ',reference_marker, ' Colocalised Area Outside of ROI (Sq Micrometers)'),
                         paste0(marker1,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Area)'),
                         paste0(marker1,' ',reference_marker,' Colocalisation ROI (% of Total ',marker1,' ',reference_marker,' Colocalised Area)')) 
+    
     
     summary2=cbind(summary,metadata)
     summary2[[outcome]]=as.factor(summary2[[outcome]])
@@ -175,6 +179,7 @@ coloc_ndna<-function(image_directory,
                         paste0(marker2,' ',reference_marker, ' Colocalised Area ROI (Sq Micrometers)'),paste0(marker2,' ',reference_marker, ' Colocalised Area Outside of ROI (Sq Micrometers)'),
                         paste0(marker2,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Area)'),
                         paste0(marker2,' ',reference_marker,' Colocalisation ROI (% of Total ',marker2,' ',reference_marker,' Colocalised Area)'))
+
     
     summary2=cbind(summary,metadata)
     summary2[[outcome]]=as.factor(summary2[[outcome]])
@@ -192,6 +197,8 @@ coloc_ndna<-function(image_directory,
       
       
     }
+    
+    plot_list
     
     
     pdf(file=paste0(results_directory,"/colocalisation.pdf"))
@@ -259,6 +266,7 @@ coloc_ndna<-function(image_directory,
                         paste0(marker3,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Area)'),
                         paste0(marker3,' ',reference_marker,' Colocalisation ROI (% of Total ',marker3,' ',reference_marker,' Colocalised Area)'))
     
+
     summary2=cbind(summary,metadata)
     summary2[[outcome]]=as.factor(summary2[[outcome]])
     
@@ -353,6 +361,7 @@ coloc_ndna<-function(image_directory,
                         paste0(marker4,' ',reference_marker, ' Colocalised Area ROI (Sq Micrometers)'),paste0(marker4,' ',reference_marker, ' Colocalised Area Outside of ROI (Sq Micrometers)'),
                         paste0(marker4,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Area)'),
                         paste0(marker4,' ',reference_marker,' Colocalisation ROI (% of Total ',marker4,' ',reference_marker,' Colocalised Area)'))
+
     
     summary2=cbind(summary,metadata)
     summary2[[outcome]]=as.factor(summary2[[outcome]])
@@ -461,8 +470,8 @@ coloc_ndna<-function(image_directory,
                         paste0(marker5,' ',reference_marker, ' Colocalised Area ROI (Sq Micrometers)'),paste0(marker5,' ',reference_marker, ' Colocalised Area Outside of ROI (Sq Micrometers)'),
                         paste0(marker5,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Area)'),
                         paste0(marker5,' ',reference_marker,' Colocalisation ROI (% of Total ',marker5,' ',reference_marker,' Colocalised Area)'))
-                        
-                        
+
+    
     summary2=cbind(summary,metadata)
     summary2[[outcome]]=as.factor(summary2[[outcome]])
     
@@ -514,6 +523,8 @@ coloc_ndna<-function(image_directory,
   }
   
   sig_count = sum(unlist(lapply(signif,function(x){x!=c('ns')})))/3
+  nCases = nrow(metadata)
+  nSamples = length(my.data)
   
   rmarkdown::render(paste0(CoMarker_directory,"/HTML Reports/report_ndna.Rmd"),
                     output_dir =paste0(results_directory,'/results'),
