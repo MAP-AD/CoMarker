@@ -68,7 +68,7 @@ coloc<-function(image_directory,
   }
   
   ### get average of replicates
-  results=df %>%
+  results=na.omit(df) %>%
     group_by(CaseID,Slice)%>%
     dplyr::summarize(Mean_count = mean(Count), Mean_area=mean(Total.Area)) %>% 
     as.data.frame()
