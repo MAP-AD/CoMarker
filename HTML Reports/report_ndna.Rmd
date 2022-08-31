@@ -36,7 +36,7 @@ From the raw images, data is only extracted from clusters of conjoining pixels e
   
 The marker area included in this report describes the total marker-contaioning area of each image provided.
   
-# Statistical Significance
+## Statistical Significance
 
 The statistical significance of each plot is annotated such that:  
   * = p<0.05  
