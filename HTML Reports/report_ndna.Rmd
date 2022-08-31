@@ -44,13 +44,6 @@ The statistical significance of each plot is annotated such that:
   *** = p<0.001  
   ns = non-significant  
   
-In this section are the plots which meet our criteria for statistical significance. If there are no plots in this section there are no significant results in the data.  
-  
-
-```{r eval=(signif[[name]] != "'ns' 'ns' 'ns'" && sig_count>0), echo=FALSE}
-    print(plot_list[[name]])
-```
-
 # `r region_of_interest` Plots  
 
 `r region_of_interest` was selected as the region of interest in this study and plots for the count and area of `r region_of_interest` have been produced below, comparing `r outcome` groups.  
@@ -368,4 +361,35 @@ plot_list[[50]]
 
 ```{r, eval=(number_marker >= 5), echo=FALSE}
 plot_list[[51]]
+```
+
+# Data
+
+## Raw Data
+
+```{r, echo=FALSE}
+DT::datatable(df,
+              escape = F,
+              rownames = F, 
+              extensions = 'Buttons', 
+              options = list(dom = 'Blfrtip', 
+                             buttons = list('colvis', 
+                                            list(extend = 'copy', exportOptions = list(columns=':visible')),
+                                            list(extend = 'csv', exportOptions = list(columns=':visible')),
+                                            list(extend = 'excel', exportOptions = list(columns=':visible')))))
+```
+
+## Averaged Data
+
+```{r, echo=FALSE}
+DT::datatable(cbind(metadata$CaseID,summary2),
+              colnames = c('Case ID',colnames(summary2)),
+              escape = F,
+              rownames = F, 
+              extensions = 'Buttons', 
+              options = list(dom = 'Blfrtip', 
+                             buttons = list('colvis', 
+                                            list(extend = 'copy', exportOptions = list(columns=':visible')),
+                                            list(extend = 'csv', exportOptions = list(columns=':visible')),
+                                            list(extend = 'excel', exportOptions = list(columns=':visible')))))
 ```
