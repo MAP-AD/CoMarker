@@ -68,9 +68,9 @@ coloc_ndna<-function(image_directory,
   }
   
   ### get average of replicates
-  results=na.omit(df) %>%
+  results=df %>%
     group_by(CaseID,Slice)%>%
-    dplyr::summarize(Mean_count = mean(Count), Mean_area=mean(Total.Area), Mean_size=mean(Average.Size)) %>% 
+    dplyr::summarize(Mean_count = mean(Count, na.rm = TRUE), Mean_area=mean(Total.Area, na.rm = TRUE), Mean_size=mean(Average.Size, na.rm = TRUE)) %>% 
     as.data.frame()
   
   
