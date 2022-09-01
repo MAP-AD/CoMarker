@@ -69,9 +69,9 @@ coloc_nroi<-function(image_directory,
   }
   
   ### get average of replicates
-  results=na.omit(df) %>%
+  results=df %>%
     group_by(CaseID,Slice)%>%
-    dplyr::summarize(Mean_count = mean(Count), Mean_area=mean(Total.Area)) %>% 
+    dplyr::summarize(Mean_count = mean(Count, na.rm = TRUE), Mean_area=mean(Total.Area, na.rm = TRUE)) %>% 
     as.data.frame()
   
   
