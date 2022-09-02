@@ -34,4 +34,6 @@ coloc_wrapper(image_directory=image_directory,
                        marker4=marker4,
                        marker5=marker5,
                        region_of_interest=region_of_interest,
-                       outcome=outcome)
+                       outcome=outcome,
+                       remove_outliers=remove_outliers,
+                       outliers_threshold=outliers_threshold)
