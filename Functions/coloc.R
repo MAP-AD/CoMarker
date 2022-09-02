@@ -1,4 +1,3 @@
-
 coloc<-function(image_directory,
                 results_directory,
                 CoMarker_directory,
@@ -10,7 +9,9 @@ coloc<-function(image_directory,
                 marker4,
                 marker5,
                 region_of_interest,
-                outcome) {
+                outcome,
+                remove_outliers,
+                outliers_threshold) {
   
   
   
@@ -25,7 +26,7 @@ coloc<-function(image_directory,
   
 
   setwd(image_directory)
-  metadata=read_csv('metadata.csv')
+  metadata=read_csv(paste0(CoMarker_directory,'data/metadata.csv'))
   metadata=metadata %>% mutate_if(is.character,factor)
   
   
@@ -62,6 +63,29 @@ coloc<-function(image_directory,
   df$CaseID=gsub(" ","",df$CaseID)
   df$replicate=sub("\\/.*", "", rownames(df))
   df$replicate=sub("\\..*", "", df$replicate)
+
+  # Filter count outliers 
+  df$Slice=as.factor(df$Slice)
+  df$Count=as.numeric(df$Count)
+  quantiles=df %>% 
+  group_by(Slice)%>%
+  summarize(sdx0=-outliers_threshold*sd(Count, na.rm=TRUE)+mean(Count, na.rm=TRUE),
+            sdx1=outliers_threshold*sd(Count, na.rm=TRUE)+mean(Count, na.rm=TRUE))
+  
+  `%!in%` <- Negate(`%in%`)
+  markers=c(reference_marker,marker1,marker2,marker3,marker4,marker5, region_of_interest,"nucleus") 
+  df_filtered=df[df$Slice %in% markers,]
+  flags=df_filtered %>% left_join(quantiles, by = 'Slice') %>% 
+    filter(Count > sdx1| Count < sdx0)
+
+  
+  replicated_flags=flags$replicate
+
+
+  if(remove_outliers==TRUE){
+    df=df[which(df$replicate %!in% replicated_flags),]
+  }
+  
   
   if (sum(unique(metadata$CaseID) %in% unique(df$CaseID))!=length(unique(df$CaseID))){
     stop('The case IDs in the image directory must match the case IDs in the metadata.')
@@ -78,7 +102,8 @@ coloc<-function(image_directory,
   metadata=metadata[which(metadata$CaseID %in% results$CaseID),]
   merge=merge(results,metadata,all=TRUE, by='CaseID')
   
-  #denominator
+
+  library(plyr)
   
   if(number_marker==1){
     ## summarise
@@ -463,15 +488,15 @@ coloc<-function(image_directory,
       
       
     }
-    
-    #pdf(file=paste0(results_directory,"/colocalisation.pdf"))
-    #print(plot_list)
-    #dev.off()
+    pdf(file=paste0(results_directory,"/colocalisation.pdf"))
+    print(plot_list)
+    dev.off()
     
   }
-  
-dir=getwd()
-dir.create('results')
+
+setwd(results_directory)
+dir.create('Report')
+dir.create('Files')
 list_param=list(image_directory=image_directory,
           results_directory=results_directory,
           CoMarker_directory=CoMarker_directory,
@@ -485,9 +510,9 @@ list_param=list(image_directory=image_directory,
           marker5=marker5,
           region_of_interest=region_of_interest,
           outcome=outcome)
-saveRDS(list_param,paste0(results_directory,'/results/list_param.rds'))
-saveRDS(metadata,paste0(results_directory,'/results/metadata.rds'))
-saveRDS(plot_list,paste0(results_directory,'/results/plot_list.rds'))
+saveRDS(list_param,paste0(results_directory,'/Files/list_param.rds'))
+saveRDS(metadata,paste0(results_directory,'/Files/metadata.rds'))
+saveRDS(plot_list,paste0(results_directory,'/Files/plot_list.rds'))
 
 
 plot_data = list()
@@ -505,10 +530,9 @@ nCases = nrow(metadata)
 nSamples = length(my.data)
 
 rmarkdown::render(paste0(CoMarker_directory,"/HTML Reports/report.Rmd"),
-                  output_dir =paste0(results_directory,'/results'),
+                  output_dir =paste0(results_directory,'/Report'),
                   output_file='CoMarker_Analysis_Report',
                   quiet = T)
 
 }
-
 

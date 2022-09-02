@@ -10,7 +10,9 @@ coloc_nroi<-function(image_directory,
                                   marker4,
                                   marker5,
                                   region_of_interest,
-                                  outcome) {
+                                  outcome,
+                                  remove_outliers,
+                                  outliers_threshold) {
   
   
   
@@ -27,7 +29,7 @@ coloc_nroi<-function(image_directory,
   
   
   setwd(image_directory)
-  metadata=read_csv('metadata.csv')
+  metadata=read_csv('data/metadata.csv')
   metadata=metadata %>% mutate_if(is.character,factor)
   
   if(number_marker==1){
@@ -64,6 +66,31 @@ coloc_nroi<-function(image_directory,
   df$replicate=sub("\\/.*", "", rownames(df))
   df$replicate=sub("\\..*", "", df$replicate)
   
+  
+  # Filter count outliers 
+  df$Slice=as.factor(df$Slice)
+  df$Count=as.numeric(df$Count)
+  quantiles=df %>% 
+    group_by(Slice)%>%
+    summarize(sdx0=-outliers_threshold*sd(Count, na.rm=TRUE)+mean(Count, na.rm=TRUE),
+              sdx1=outliers_threshold*sd(Count, na.rm=TRUE)+mean(Count, na.rm=TRUE))
+  
+  `%!in%` <- Negate(`%in%`)
+  markers=c(reference_marker,marker1,marker2,marker3,marker4,marker5,"nucleus") 
+  df_filtered=df[df$Slice %in% markers,]
+  flags=df_filtered %>% left_join(quantiles, by = 'Slice') %>% 
+    filter(Count > sdx1| Count < sdx0)
+  
+  
+  replicated_flags=flags$replicate
+  
+  
+  if(remove_outliers==TRUE){
+    df=df[which(df$replicate %!in% replicated_flags),]
+  }
+  
+  
+  
   if (sum(unique(metadata$CaseID) %in% unique(df$CaseID))!=length(unique(df$CaseID))){
     stop('The case IDs in the image directory must match the case IDs in the metadata.')
   }
@@ -79,7 +106,7 @@ coloc_nroi<-function(image_directory,
   metadata=metadata[which(metadata$CaseID %in% results$CaseID),]
   merge=merge(results,metadata,all=TRUE, by='CaseID')
   
-  #denominator
+  library(plyr)
   
   if(number_marker==1){
     ## summarise

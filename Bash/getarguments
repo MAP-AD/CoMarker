@@ -1,0 +1,9 @@
+#!/bin/bash
+
+myargumentfile=$1
+#echo $myargumentfile
+while read list; do
+  pasted+=$(echo $list | cut -d "=" -f2)
+  pasted+=" "
+done <$myargumentfile
+echo $pasted

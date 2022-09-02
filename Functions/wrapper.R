@@ -10,12 +10,13 @@ coloc_wrapper=function(image_directory,
                        marker3='',
                        marker4='',
                        marker5='',
-                       region_of_interest='',
-                       outcome='trem2_all'){
+                       region_of_interest='Ab',
+                       outcome='trem2_all',
+                       remove_outliers=TRUE,
+                       outliers_threshold=4){
   
   
   library(tidyverse)
-  library(plyr)
   library(readr)
   library(stringr)
   library(dplyr)
@@ -30,10 +31,10 @@ coloc_wrapper=function(image_directory,
   palette_choice <- paletteer::paletteer_d("ggsci::nrc_npg")
 
   
-  source(paste0(CoMarker_directory,"/Functions/coloc_nroi.R"))
-  source(paste0(CoMarker_directory,"/Functions/coloc_ndnaroi.R"))
-  source(paste0(CoMarker_directory,"/Functions/coloc_ndna.R"))
-  source(paste0(CoMarker_directory,"/Functions/coloc.R"))
+  source(paste0(CoMarker_directory,"Functions/coloc_nroi.R"))
+  source(paste0(CoMarker_directory,"Functions/coloc_ndnaroi.R"))
+  source(paste0(CoMarker_directory,"Functions/coloc_ndna.R"))
+  source(paste0(CoMarker_directory,"Functions/coloc.R"))
   
   if(DNA==TRUE && ROI==FALSE){
     arg=list(image_directory=image_directory,
@@ -47,7 +48,9 @@ coloc_wrapper=function(image_directory,
              marker4=marker4,
              marker5=marker5,
              region_of_interest=region_of_interest,
-             outcome=outcome)
+             outcome=outcome,
+             remove_outliers=remove_outliers,
+             outliers_threshold=outliers_threshold)
     do.call(coloc_nroi,arg)  
   }
   
@@ -63,7 +66,9 @@ coloc_wrapper=function(image_directory,
              marker4=marker4,
              marker5=marker5,
              region_of_interest=region_of_interest,
-             outcome=outcome)
+             outcome=outcome,
+             remove_outliers=remove_outliers,
+             outliers_threshold=outliers_threshold)
     do.call(coloc_ndna,arg) 
   }
   
@@ -79,7 +84,9 @@ coloc_wrapper=function(image_directory,
              marker4=marker4,
              marker5=marker5,
              region_of_interest=region_of_interest,
-             outcome=outcome)
+             outcome=outcome,
+             remove_outliers=remove_outliers,
+             outliers_threshold=outliers_threshold)
     do.call(coloc_ndnaroi,arg) 
   }
   
@@ -95,9 +102,12 @@ coloc_wrapper=function(image_directory,
              marker4=marker4,
              marker5=marker5,
              region_of_interest=region_of_interest,
-             outcome=outcome)
+             outcome=outcome,
+             remove_outliers=remove_outliers,
+             outliers_threshold=outliers_threshold)
     do.call(coloc,arg)
     
   }
   
 }
+
