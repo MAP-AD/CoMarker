@@ -12,6 +12,7 @@ coloc_ndna<-function(image_directory,
                                   marker5,
                                   region_of_interest,
                                   outcome,
+                                  remove_outliers,
                                   outliers_threshold) {
   
   
