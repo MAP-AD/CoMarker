@@ -396,7 +396,7 @@ DT::datatable(cbind(metadata$CaseID,summary2),
 
 # Flagged Images
 
-Samples were flagged if the count was more than `r outliers_threshold` standard deviations from the mean. A total of `r nFlags` replicate(s) with images exceeding this threshold were identified.
+Samples were flagged if the total marker area was more than `r outliers_threshold` standard deviations from the mean. A total of `r nFlags` replicate(s) with images exceeding this threshold were identified.
 
 ```{r, eval=(remove_outliers == TRUE), echo=FALSE}
 knitr::asis_output(paste('Flagged images were removed and excluded from the analysis.'))
