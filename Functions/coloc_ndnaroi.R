@@ -86,7 +86,7 @@ coloc_ndnaroi<-function(image_directory,
               sdx1=outliers_threshold*sd(Total.Area, na.rm=TRUE)+mean(Total.Area, na.rm=TRUE))
   
   `%!in%` <- Negate(`%in%`)
-  markers=c(region_of_interest,'nucleus',reference_marker,marker1,marker2,marker3,marker4,marker5) 
+  markers=c(reference_marker,marker1,marker2,marker3,marker4,marker5) 
   df_filtered=df[df$Slice %in% markers,]
   flags=df_filtered %>% left_join(quantiles, by = 'Slice') %>% 
     filter(Total.Area > sdx1| Total.Area < sdx0)
