@@ -42,7 +42,6 @@ The statistical significance of each plot is annotated such that:
   ** = p<0.01  
   *** = p<0.001  
   ns = non-significant  
-  
 
 # `r reference_marker` Plots  
 
