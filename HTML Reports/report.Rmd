@@ -43,7 +43,7 @@ The statistical significance of each plot is annotated such that:\
 \*\* = p\<0.01\
 \*\*\* = p\<0.001\
 ns = non-significant  
-  
+
 # `r region_of_interest` Plots
 
 `r region_of_interest` was selected as the region of interest in this study and plots for the count and area of `r region_of_interest` have been produced below, comparing `r outcome` groups.
