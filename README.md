@@ -4,9 +4,9 @@ This document contains a brief overview of CoMarker and a set of confined instru
 
 ## Preface
 
-This manual introduces an image analysis package, CoMarker, which was built to vastly decrease the time taken to assess the colocalisation of markers, whilst eliminating subjectivity. Our script takes a cell-based approach, utilising nuclei markers to count cells which are positive for any given marker(s) and analyse the colocalisation of said markers, both respective and irrespective of a defined region of interest. We have, however, developed functions which allow users without a nuclei marker to revert to area coverage as the method of analysis.
+This manual introduces a standardised, reproducible image analysis pipeline, CoMarker, which was built to vastly decrease the time taken to assess the colocalisation of tissue markers, whilst eliminating subjectivity and human bias. Our script takes a cell-based approach, utilising nuclei markers to count cells which are positive for any given marker(s) and analyse the colocalisation of said markers, both respective and irrespective of a defined region of interest. We have, however, developed functions which allow users without a nuclei marker to revert to area coverage as the method of analysis.
 
-The package is written in ImageJ Macro language (IJM) and R, but doesn't require previous knowledge of either language. The purpose of this code is to save time, money and resources by fully automating the analysis of markers, hence the script is capable of producing a report with a range of box plots with annotated statistical significance from an input of raw images in a short period of time.
+The pipeline is written in ImageJ Macro language (IJM) and R, but doesn't require previous knowledge of either programming language, making it user friendly. The purpose of this code is to save time, money and resources by automating the analysis of markers, whilst eliminating human bias, hence the script is capable of producing a report containing a range of box plots with annotated statistical significance from an input of raw images in a short period of time. CoMarker can either be ran manually using Fiji ImageJ and R Studio, or through the command line.
 
 ### The Purpose of CoMarker
 
@@ -18,36 +18,35 @@ The example images that we use in this website were produced by imaging mass cyt
 
 ### Acknowledgements
 
-CoMarker was developed by Samuel Boulger, Eléonore Schneegans, and Vicky Chau at UK Dementia Research Institute, Imperial College London.
+CoMarker was developed by Eléonore Schneegans^1,2,3^, Samuel Boulger^1,2,3,4^ and Vicky Chau^2,3^ as part of the UK DRI [Multi-'omics Atlas Project](https://map-ad.org), directed by Johanna Jackson^2,3^.
+
+^1^ These authors contributed equally.\
+^2^ UK Dementia Research Institute, Imperial College London, London, UK.\
+^3^ Department of Brain Sciences, Imperial College London, London, UK.\
+^4^ Medical Research Council Brain Network Dynamics Unit, University of Oxford, Oxford, UK.
 
 
 ## Brief Instructions
 
 This section describes how to use the script from start to finish, without too much extra detail.
 
-### Download the Script
+### Download the Repository
 
-1. Download the github repo and save the folder on your device.
-
-2. The main folder must include the 'Functions' and 'HTML Reports' folders. This naming is crucial for the R script to run.
+1.  Download the github repo and save the folder on your device. [Find the CoMarker Github page here.](https://github.com/MAP-AD/CoMarker)
+2.  The main folder must include the 'Functions' and 'HTML Reports' folders. This naming is crucial for the R script to run.
 
 ### Run ImageJ
 
-3. Download Fiji ImageJ here if it is not already installed on your device.
-
-4. Open the script named 'CoMarker_Macro.ijm' on ImageJ, and click run.
-
-5. Input your parameters in the dialog box, referring to the ImageJ Walkthrough section of this site for additional details.
-
-6. Once all three parameter boxes have been completed, the script will run automatically. The time taken to run the script will depend on the number of images used. It typically takes 1 to 8 seconds to analyse all of the images for each case.
-
-7. Once the script has finished running, ImageJ may be closed.
+3.  Download Fiji ImageJ [here](https://imagej.net/software/fiji/downloads) if it is not already installed on your device.
+4.  Open the script named 'CoMarker_Macro.ijm' on ImageJ, and click run.
+5.  Input your parameters in the dialog box, referring to the ImageJ Walkthrough section of this site for additional details.
+6.  Once all three parameter boxes have been completed, the script will run automatically. The time taken to run the script will depend on the number of images used. It typically takes 1 to 8 seconds to analyse all of the images for each replicate.
+7.  Once the script has finished running, ImageJ may be closed.
 
 ### Run R Studio
 
-8. Open the R script and input the parameters, as explained in the R Walkthrough section of this site.
-
-9. Ensure that 'CoMarker_directory' is set to the directory of the main folder on your device, as shown by the example input parameters.
-
-10. Run the script. A HTML document will be produced in the results directory, summarising your results.
+8.  Open R and run or source the wrapper function, which is situated in the functions folder of the repository.
+9.  Input the parameters, as explained in the R Walkthrough section of this site.
+10. Ensure that 'CoMarker_directory' is set to the directory of the main folder on your device.
+11. Run the script. A HTML document will be produced in the results directory, summarising your results.
 
