@@ -11,5 +11,7 @@ coloc_wrapper(image_directory="/Users/samboulger/Desktop/Manual Counts",
               marker4='',
               marker5='',
               region_of_interest='Ab',
-              outcome='trem2_all')
+              outcome='trem2_all',
+              remove_outliers=TRUE,
+              outliers_threshold=3.5)
 
