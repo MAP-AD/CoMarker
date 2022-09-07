@@ -6,10 +6,14 @@ Here we present a comparison between the script and blind manual counts. The aim
 
 The comparisons below compare counts produced by CoMarker and manual counts for the same images. The bar charts on the left display the paired counts, while the Bland-Altman plots on the right show the difference between the count values for each image with respect to a 95% confidence interval.
 
+### CD68 - Colocalisation Marker
+
 ![Colocalisation Marker Count Validation](images/CD68_val.png)
+### GLUT1 - Region of Interest
 
 ![Region of Interest Count Validation](images/GLUT1_val.png)
+### Iba1 - Reference Marker
 
 ![Reference Marker Count Validation](images/Iba1_Val-01.png){alt="Reference Marker Count Validation"}
-
+### Amyloid-beta - Region of Interest
 ![Region of Interest Count Validation](images/Ab_val-01.png)

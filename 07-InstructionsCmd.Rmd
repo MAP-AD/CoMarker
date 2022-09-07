@@ -2,9 +2,9 @@
 
 This section describes how to use the command line to run the pipeline. This method will run the analysis from start to finsh by a single command, executed via the terminal.
 
-## Download the Script
+## Download the Repository
 
-1.  Download the github repo and save the folder on your device. [Find the CoMarker Github page here](https://github.com/MAP-AD/CoMarker). The main folder must include the 'Bash' folder.
+1.  Download the github repo and save the folder on your device. [Find the CoMarker Github page here](https://github.com/MAP-AD/CoMarker). The main folder must include the 'Bash', 'Functions' and 'HTML Reports' folders.
 
 ## Input Parameters
 

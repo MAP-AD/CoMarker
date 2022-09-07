@@ -44,10 +44,10 @@ The idea behind CoMarker is to allow for a cell-based approach to marker colocal
 
 ## Capabilities
 
--   1 region of interest marker (E.g. GLUT1 - Brain blood vessel marker)
+-   1 region of interest marker (e.g. GLUT1 - CNS blood vessel marker)
 
 -   1 reference marker (e.g. Iba1 - Microglial marker)
 
--   1 nuclei marker (e.g. DAPI)
+-   1 nuclei marker (e.g. DAPI - DNA marker)
 
 -   Up to 5 general markers (e.g. CD68 - Microglial activation marker)

@@ -2,7 +2,7 @@
 
 This section describes how to use the script from start to finish, without too much extra detail.
 
-## Download the Script
+## Download the Repository
 
 1.  Download the github repo and save the folder on your device. [Find the CoMarker Github page here.](https://github.com/MAP-AD/CoMarker)
 2.  The main folder must include the 'Functions' and 'HTML Reports' folders. This naming is crucial for the R script to run.
