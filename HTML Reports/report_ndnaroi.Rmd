@@ -42,7 +42,6 @@ The statistical significance of each plot is annotated such that:
   ** = p<0.01  
   *** = p<0.001  
   ns = non-significant  
-  
 
 # `r reference_marker` Plots  
 
@@ -234,6 +233,28 @@ DT::datatable(df,
 ```{r, echo=FALSE}
 DT::datatable(cbind(metadata$CaseID,summary2),
               colnames = c('Case ID',colnames(summary2)),
+              escape = F,
+              rownames = F, 
+              extensions = 'Buttons', 
+              options = list(dom = 'Blfrtip', 
+                             buttons = list('colvis', 
+                                            list(extend = 'copy', exportOptions = list(columns=':visible')),
+                                            list(extend = 'csv', exportOptions = list(columns=':visible')),
+                                            list(extend = 'excel', exportOptions = list(columns=':visible')))))
+```
+
+# Flagged Images
+
+Samples were flagged if the total marker area was more than `r outliers_threshold` standard deviations from the mean. A total of `r nFlags` replicate(s) with images exceeding this threshold were identified.
+
+```{r, eval=(remove_outliers == TRUE), echo=FALSE}
+knitr::asis_output(paste('Flagged images were removed and excluded from the analysis.'))
+```
+
+Below are the identifiers for the flagged images.
+
+```{r, echo=FALSE}
+DT::datatable(flags,
               escape = F,
               rownames = F, 
               extensions = 'Buttons', 

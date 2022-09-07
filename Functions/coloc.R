@@ -61,8 +61,19 @@ coloc<-function(image_directory,
   df$CaseID=rownames(df)
   df$CaseID=sub("\\i.*", "", df$CaseID)
   df$CaseID=gsub(" ","",df$CaseID)
-  df$replicate=sub("\\/.*", "", rownames(df))
-  df$replicate=sub("\\..*", "", df$replicate)
+  
+  rep=c('i','ii','iii','iv')
+  
+  replicate=sapply(rownames(df), function(x){
+    rep[str_detect(x,rep)]
+  })
+  
+  replicate_list=lapply(replicate, function(x){
+    x[[length(x)]]
+  })
+  rep_df=do.call(rbind,  replicate_list)
+  df$replicate=paste0(df$CaseID, ' ',rep_df[,1])
+
 
   # Filter count outliers 
   df$Slice=as.factor(df$Slice)
@@ -526,8 +537,16 @@ for(name in names(plot_list)){
 }
 
 sig_count = sum(unlist(lapply(signif,function(x){x!=c('ns')})))/3
-nCases = nrow(metadata)
+nCases = length(unique(results$CaseID))
+
+nFlags = length(unique(replicated_flags))
+
+if(remove_outliers==TRUE){
+  nSamples = (length(my.data)-nFlags)
+}else{
 nSamples = length(my.data)
+}
+
 
 rmarkdown::render(paste0(CoMarker_directory,"/HTML Reports/report.Rmd"),
                   output_dir =paste0(results_directory,'/Report'),
