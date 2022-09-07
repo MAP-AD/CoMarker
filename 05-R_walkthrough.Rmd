@@ -6,7 +6,7 @@ This section of the manual will provide an overview of the steps taken in the R 
 
 Input the relevant parameters into the coloc_wrapper function of the R code. There is an example input file in the Github repository.
 
-``` R
+``` r
 coloc_wrapper(image_directory="/Users/samboulger/Desktop/Manual Counts",
               results_directory="/Users/samboulger/Desktop/Manual Counts",
               CoMarker_directory='/Users/samboulger/OneDrive - Nexus365/Imperial/CoMarker Script',
@@ -20,12 +20,20 @@ coloc_wrapper(image_directory="/Users/samboulger/Desktop/Manual Counts",
               marker4='',
               marker5='',
               region_of_interest='Ab',
-              outcome='trem2_all')
+              outcome='trem2_all',
+              remove_outliers=TRUE,
+              outliers_threshold='3.5')
 ```
 
 Specify the image directory, results directory,the directory in which the CoMarker folder is stored, as well as whether there are DNA and ROI markers (TRUE or FALSE), the number of markers, the reference markers, colocalisation markers, region of interest, and the outcome (from the metadata). Leave blank any sections that are not required, such as any additional markers or region_of_interest if you selected to not have one.
 
 It is important to ensure that 'CoMarker_directory' is set to the directory of the main folder on your device. The main folder must include the 'Functions' and 'HTML Reports' folders. This naming is crucial for the R script to run.
+
+The wrapper function will either need to be sourced or ran before the function will operate.
+
+## Quality Control
+
+The script has a built-in image-flagging section which identifies images containing extreme count outliers. The threshold for detecting outliers is to be specified by the user (to be inputted as the number of standard deviations from the mean), as well as whether to remove the flagged images from the analysis. A table of the detected images is presented in the output report. More often than not, images with flagged counts are of poor quality and should not be considered in the analysis.
 
 ## HTML Output
 
@@ -42,3 +50,5 @@ ns = non-significant
 \*\* = p\<0.01
 
 \*\*\* = p\<0.001
+
+The report will be overwritten if the analysis is repeatedly performed on the same folder - renaming the report will prevent it from being deleted when a new one is produced.

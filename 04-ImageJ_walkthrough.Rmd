@@ -1,28 +1,26 @@
 # ImageJ Script Walkthrough
 
-This section of the manual will provide an overview of the steps taken in the ImageJ script,starting with the inputs required for the script to function, followed by a walkthrough of how each marker is analysed.
+This section of the manual will provide an overview of the steps taken in the ImageJ script, starting with the input parameters required for the script to function, followed by a walkthrough of how each marker is analysed.
 
 ## Specifying Parameters
 
-When the ImageJ script is ran, the following dialog boxes will appear one at a time, with the latter dialog boxes changing depending on the initial inputs. Here, we will outline each input required.
+When the ImageJ script is ran, the following dialog boxes will appear one at a time, with the latter dialog boxes changing depending on the initial inputs. It is important to find parameters that work best for each marker. A useful resource for information about markers is the [Human Protein Atlas](https://www.proteinatlas.org). Checking what markers should look like will help to guide decisions on parameters such as minimum area and thresholding method.
 
 ### Dialog Box (1/3)
 
-![Dialog Box (1/3)](images/Screenshot%202022-08-15%20at%2013.39.49.png){width="400"}
+![Dialog Box (1/3)](images/Dialog_1.png){width="400"}
 
-Reference marker: Add here the name of the reference marker to be analysed. The name should match the image file name minus the '.tif'.
+**Reference marker:** Add here the name of the reference marker to be analysed. The name should match the image file name minus the '.tif'.
 
-Minimum area: This refers to the minimum number of pixels a marker signal is required to cover in order to be analysed. It is desired to eliminate as much noise as possible while keeping all relevant signal. It would be a good idea to look at a few sample images when determining the minimum area.
+**Minimum area:** This refers to the minimum number of pixels a marker signal is required to cover in order to be analysed. It is desired to eliminate as much noise as possible while keeping all relevant signal. It would be a good idea to look at a few sample images when determining the minimum area.
 
-Autothresholding method: Select an autothresholding method from the drop-down menu. See the thresholding section of this manual for more information.
+**Autothresholding method:** Select an autothresholding method from the drop-down menu. See the thresholding section of this manual for more information.
 
-Has DNA marker: select "Yes" if a nuclei marker or present or "No" if not. The image name should always be 'DNA.tif'.
+**Has DNA marker:** select "Yes" if a nuclei marker or present or "No" if not. The image name should always be 'DNA.tif'.
 
-Has region of interest: "Yes" if the study involves a region of interest (ROI) or "No" if not.
+**Has region of interest:** "Yes" if the study involves a region of interest (ROI) or "No" if not.
 
-Number of markers to colocalise: Input here the number of markers that you wish to analyse in addition to the reference, nuclei and ROI markers.
-
-Specify image directory: Specify the image directory here.
+**Number of markers to colocalise:** Input here the number of markers that you wish to analyse in addition to the reference, nuclei and ROI markers.
 
 Click 'OK' once done.
 
@@ -30,15 +28,15 @@ Click 'OK' once done.
 
 ![Dialog Box (2/3)](images/Screenshot%202022-08-15%20at%2013.40.56.png){width="400"}
 
-Marker colocalisation radius: this refers to the maximum proximity two markers can be in order to be deemed to be colocalised. This radius applies to reference marker-marker and (reference) marker-DNA colocalisation.
+**Marker colocalisation radius:** this refers to the maximum proximity two markers can be in order to be deemed to be colocalised. This radius applies to reference marker-marker and (reference) marker-DNA colocalisation.
 
-Region of interest: Input the ROI marker here, ensuring that the name of the marker matches that in the file name.
+**Region of interest:** Input the ROI marker here, ensuring that the name of the marker matches that in the file name.
 
-Use Gaussian and Watershed on ROI: Select "Yes" or "No". If "Yes", this function blurs the ROIs before using a Watershed transform to segregate them. This is useful when the ROI signal is fragmented and is not densely populated within the region.
+**Use Gaussian and Watershed on ROI:** Select either "Yes" or "No". If "Yes", this function blurs the ROI signal, before using a Watershed transform to segregate them. This is useful when the ROI signal is fragmented and is not densely populated within the region.
 
-ROI minimum area: If the answer was "Yes" to the previous input, then the minimum area should be higher as any gaps left by sparse markers will be filled by the blur.
+**ROI minimum area:** If the answer was "Yes" to the previous input, then the minimum area should be higher as any gaps left by sparse markers will be filled by the blur.
 
-Radius around ROI: This allows for the region of interest to be expanded around the marker signal. If this is not desired set the value to 0.
+**Radius around ROI:** This allows for the region of interest to be expanded around the marker signal. If this is not desired set the value to 0.
 
 Click 'OK' once done.
 
@@ -49,6 +47,8 @@ Click 'OK' once done.
 State in this section the names of the markers to analyse, along with the minimum size and autothresholding method.
 
 Click 'OK' once done.
+
+Open the image directory in the pop-up finder.
 
 The script will now run automatically.
 
@@ -104,7 +104,7 @@ The watershed transform is used here to separate overlapping DNA signal in the 2
 
 ### Particle Analysis
 
-DNA signal is then counted and analysed. Each DNA count represents a cluster of touching pixels with an area larger than the specified minimum area. We have set the default minimum area as 4 pixels due to microglia having nuclei with a diameter as small as 2 microns, thereby covering at least 4 pixels. Most nuclei, however, are larger than this, so it may be beneficial to increase the minimum area depending on the study.
+DNA signal is then counted and analysed. Each DNA count represents a cluster of touching pixels with an area larger than the specified minimum area. We have set the default minimum area as 4 pixels due to some cells having nuclei with a diameter as small as 2 microns, thereby covering at least 4 pixels. Most nuclei, however, are larger than this, so it may be beneficial to increase the minimum area depending on the study.
 
 ## Reference Marker
 
@@ -132,12 +132,6 @@ Reference marker-positive cells are identified by overlaying enlarged reference 
 
 Reference marker cells within the ROI are simply these detected cells which are situated within the enlarged region of interest.
 
-### Manual Counts Comparison
-
-Here I present a comparison between the script and blind manual counts. The aim of the code was to imitate manual counts while speeding up the time taken to analyse collections of images. Images IDs have been removed from the plot for privacy purposes. We are happy with the results of these counts and aim to add more manual count data to the comparison in the near future.
-
-![](images/Iba1_counts.png)
-
 ## Colocalisation Markers
 
 ![](images/marker_steps.png)
@@ -146,7 +140,7 @@ This section of the code is identical for each of the colocalisation markers use
 
 ### Thresholding
 
-The default threshold is again set to 'Otsu' which we recommend due to its balance between removing noise and retaining useful signal. Find here a few example thresholding montages.
+The default threshold is again set to 'Otsu' which we recommend due to its balance between removing noise and retaining useful signal. It is important, however, that different thresholds for each marker. Thresholding montages can be produced in FIJI ImageJ through Image -\> Adjust -\> Auto Threshold -\> Try All. Find here a few example thresholding montages.
 
 ![CD68 Thresholding Montage](images/CD68_thresh.png)
 
@@ -160,4 +154,4 @@ Colocalisation marker-positive cells by the same processes as reference markers.
 
 ## Output
 
-The ImageJ script output consists of a results table for every case. These results tables will be collated and read by the R script.
+The ImageJ script output consists of a results table for every case. These results tables are collated and read by the R script.
