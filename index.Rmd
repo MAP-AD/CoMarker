@@ -1,6 +1,6 @@
 ---
 title: "CoMarker | The Manual"
-author: "Samuel Boulger^1,2,3,4^, Eléonore Schneegans^1,2,3^, Vicki Chau^2,3^, Johanna Jackson^2,3^, Paul M. Matthews^2,3^"
+author: "Samuel Boulger^1,2,3,4^, Eléonore Schneegans^1,2,3^, Vicky Chau^2,3^, Johanna Jackson^2,3^, Paul M. Matthews^2,3^"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 site: bookdown::bookdown_site
 ---
