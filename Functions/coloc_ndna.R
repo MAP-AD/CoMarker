@@ -27,7 +27,7 @@ coloc_ndna<-function(image_directory,
   
   
   
-  metadata=read_csv(paste0(metadata_directory),'metadata.csv')
+  metadata=read_csv(paste0(metadata_directory,'metadata.csv'))
   metadata=metadata %>% mutate_if(is.character,factor)
   
   if(number_marker==1){
