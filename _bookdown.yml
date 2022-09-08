@@ -1,5 +1,5 @@
 book_filename: "CoMarker_Manual"
-output_dir: '/Users/samboulger/Documents/GitHub/CoMarker'
+output_dir: '/Users/samboulger/Documents/GitHub/CoMarker/docs/'
 delete_merged_file: true
 edit: https://github.com/eleonore-schneeg/CoMarker/edit/master/%s
 view: https://github.com/eleonore-schneeg/CoMarker/blob/master/%s

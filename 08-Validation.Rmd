@@ -16,7 +16,7 @@ The comparisons below compare counts produced by CoMarker and manual counts for 
 
 ### Iba1 - Reference Marker
 
-![Reference Marker Count Validation](images/Iba1_Val-01.png){alt="Reference Marker Count Validation"}
+![Reference Marker Count Validation](images/Iba1_val.png)
 
 ### Amyloid-beta - Region of Interest
 

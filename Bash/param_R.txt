@@ -1,19 +1,19 @@
-image_directory=/Users/eleonoreschneegans/Desktop/test/
-results_directory=/Users/eleonoreschneegans/Desktop/results/
-metadata_directory=/Users/eleonoreschneegans/Desktop/metadata/
-CoMarker_directory=~/Documents/CoMarker/Bash/
+image_directory=/Users/samboulger/Desktop/CoMarker/SampleDirectory/Images/
+results_directory=/Users/samboulger/Desktop/CoMarker/
+metadata_directory=/Users/samboulger/Desktop/CoMarker/SampleDirectory/Metadata/
+CoMarker_directory=/Users/samboulger/Desktop/CoMarker/
 DNA=TRUE
 ROI=TRUE
 number_marker=2
 reference_marker=Iba1
 marker1=CD68
-marker2=HLA-DR
+marker2=''
 marker3=''
 marker4=''
 marker5=''
 region_of_interest=Ab
-outcome=trem2_all
+outcome=AD/CTRL
 remove_outliers=TRUE
-outliers_threshold=3
+outliers_threshold=3.5
 
 
