@@ -14,10 +14,10 @@ In the analysis, files sharing the same case ID will be identified and within su
 
 ## Metadata Formatting
 
-The metadata must be stored in the image directory as 'metadata.csv' and should be organised such that, as a bare minimum, it has columns for case IDs and the respective outcome variable (i.e. disease vs control). Additional columns may specify further outcomes to be investigated (i.e. genetic variants).
+The metadata must be stored as 'metadata.csv' and should be organised such that, as a bare minimum, it has columns for case IDs and the respective outcome variable (i.e. disease vs control). Additional columns may specify further outcomes to be investigated (i.e. genetic variants).
 
 The heading of the case ID column must state 'CaseID' with no space to allow for effective processing in the R script.
 
 ## Example Directory Format
 
-![](images/directory_example.png){width="600"}
+![](images/SampleDir.png)

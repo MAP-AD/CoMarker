@@ -12,12 +12,12 @@ The comparisons below compare counts produced by CoMarker and manual counts for 
 
 ### GLUT1 - Region of Interest
 
-![](images/GLUT1_val-01.png)
+![Region of Interest Count Validation](images/GLUT1_val-01.png)
 
 ### Iba1 - Reference Marker
 
 ![Reference Marker Count Validation](images/Iba1_Val-01.png){alt="Reference Marker Count Validation"}
 
-### Amyloid-beta - Region of Interest 
+### Amyloid-beta - Region of Interest
 
-![](images/Ab_val-01.png)
+![Region of Interest Count Validation](images/Ab_val-01.png)
