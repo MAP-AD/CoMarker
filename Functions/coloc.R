@@ -26,7 +26,7 @@ coloc<-function(image_directory,
   
 
   setwd(image_directory)
-  metadata=read_csv(paste0(CoMarker_directory,'metadata.csv'))
+  metadata=read_csv('metadata.csv')
   metadata=metadata %>% mutate_if(is.character,factor)
   
   
