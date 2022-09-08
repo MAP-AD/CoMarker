@@ -13,7 +13,6 @@ Dialog.create("Colocalisation analysis options (1/3)");
 	Dialog.addChoice("Has DNA marker",yesno,"Yes");
 	Dialog.addChoice("Has region of interest",yesno,"Yes");
 	Dialog.addNumber("Number of markers to colocalise",2);
-	Dialog.addString("Specify image directory", "/Users/samboulger/Desktop/Sen_Exp");
 	Dialog.show();
 	
 reference_marker=Dialog.getString();
@@ -22,7 +21,7 @@ ref_thresh=Dialog.getChoice();
 has_DNA=Dialog.getChoice();
 has_roi=Dialog.getChoice();
 number_markers=Dialog.getNumber();
-image_directory=Dialog.getString();
+
 
 Dialog.create("Colocalisation analysis options (2/3)");
 if (has_DNA=="Yes"){
@@ -155,7 +154,7 @@ m5_thresh=Dialog.getChoice();
 
 
 
-SourceDir = getDirectory(image_directory);
+SourceDir = getDirectory('~/');
 
 list = getFileList(SourceDir);
 

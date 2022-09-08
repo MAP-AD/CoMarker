@@ -1,26 +1,31 @@
 ---
 title: "CoMarker | The Manual"
-author: "Samuel Boulger"
+author: "Samuel Boulger^1,2,3,4^, Eléonore Schneegans^1,2,3^, Vicky Chau^2,3^, Johanna Jackson^2,3^, Paul M. Matthews^2,3^"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 site: bookdown::bookdown_site
 ---
 
-# Preface {-}
+# Preface {.unnumbered}
 
-This manual introduces an image analysis package, CoMarker, which was built to vastly decrease the time taken to assess the colocalisation of markers, whilst eliminating subjectivity. Our script takes a cell-based approach, utilising nuclei markers to count cells which are positive for any given marker(s) and analyse the colocalisation of said markers, both respective and irrespective of a defined region of interest. We have, however, developed functions which allow users without a nuclei marker to revert to area coverage as the method of analysis.
+This manual introduces a standardised, reproducible image analysis pipeline, CoMarker, which was built to vastly decrease the time taken to assess the colocalisation of tissue markers, whilst eliminating subjectivity and human bias. Our script takes a cell-based approach, utilising nuclei markers to count cells which are positive for any given marker(s) and analyse the colocalisation of said markers, both respective and irrespective of a defined region of interest. We have, however, developed functions which allow users without a nuclei marker to revert to area coverage as the method of analysis.
 
-The package is written in ImageJ Macro language (IJM) and R, but doesn't require previous knowledge of either language. The purpose of this code is to save time, money and resources by fully automating the analysis of markers, hence the script is capable of producing a report with a range of box plots with annotated statistical significance from an input of raw images in a short period of time.
+The pipeline is written in ImageJ Macro language (IJM) and R, but doesn't require previous knowledge of either programming language, making it user friendly. The purpose of this code is to save time, money and resources by automating the analysis of markers, whilst eliminating human bias, hence the script is capable of producing a report containing a range of box plots with annotated statistical significance from an input of raw images in a short period of time. CoMarker can either be ran manually using Fiji ImageJ and R Studio, or through the command line.
 
-## The Purpose of CoMarker {-}
+## The Purpose of CoMarker {.unnumbered}
 
-CoMarker was designed to imitate manual counts by taking a cell-based approach to marker analysis. Existing marker colocalisation analysis packages use a pixel-based approach to assess the area covered by any marker - therefore colocalisation is described as the number of pixels covered by two or more markers.
+CoMarker was designed to imitate manual counts by taking an independent cell-based approach to marker analysis. Existing standalone marker colocalisation analysis packages use a pixel-based approach to assess the area covered by any marker - therefore, in previous methods, colocalisation is described as the number of pixels covered by two or more markers.
 
-We allow the use of this pixel based-approach for users without a nuclei marker, however it is recommended that a nuclei marker is used in order to make the most out of the package. When using the cell-based approach, colocalisation is described as any cell containing both the defined reference marker and any other included marker. Consequently, the produced results are a better representation of the expression of cellular markers when the required output is the identification of cells positive for markers.
+We allow the use of this pixel based-approach for users without a nuclei marker, however it is recommended that a nuclei marker is used in order to make the most out of the pipeline. When using the cell-based approach, colocalisation is described as any cell containing both the defined reference marker and another included marker. Consequently, the produced results are a better representation of the expression of cellular markers when the required output is the identification of cells positive for markers.
 
-The example images that we use in this website were produced by imaging mass cytometry - an immunohistochemistry technology that provides an integrative spatial tissue analysis. CoMarker has the capacity to analyse images produced by any staining method as long as the images for each marker are separated and not merged.
+CoMarker was designed for the analysis of images produced by imaging mass cytometry (IMC)- an immunohistochemistry technology that provides an integrative spatial tissue analysis. Nonetheless, CoMarker has the capacity to analyse images produced by any histochemistry method as long as the images for each marker are separated and not compiled together.
 
-## Acknowledgements {-}
+## Acknowledgements {.unnumbered}
 
-CoMarker was developed by Samuel Boulger, Eléonore Schneegans, and Vicky Chau at UK Dementia Research Institute, Imperial College London.
+CoMarker was developed by Eléonore Schneegans^1,2,3^, Samuel Boulger^1,2,3,4^ and Vicky Chau^2,3^ as part of the UK DRI [Multi-'omics Atlas Project](https://map-ad.org), directed by Johanna Jackson^2,3^.
 
-[Find the CoMarker Github page here.](https://github.com/eleonore-schneeg/CoMarker)
+^1^ These authors contributed equally.\
+^2^ UK Dementia Research Institute, Imperial College London, London, UK.\
+^3^ Department of Brain Sciences, Imperial College London, London, UK.\
+^4^ Medical Research Council Brain Network Dynamics Unit, University of Oxford, Oxford, UK.
+
+[Find the CoMarker Github page here.](https://github.com/MAP-AD/CoMarker)

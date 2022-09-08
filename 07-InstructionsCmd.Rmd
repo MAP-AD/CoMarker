@@ -1,0 +1,20 @@
+# Instructions - Using the Command Line
+
+This section describes how to use the command line to run the pipeline. This method will run the analysis from start to finsh by a single command, executed via the terminal.
+
+## Download the Repository
+
+1.  Download the github repo and save the folder on your device. [Find the CoMarker Github page here](https://github.com/MAP-AD/CoMarker). The main folder must include the 'Bash', 'Functions' and 'HTML Reports' folders.
+
+## Input Parameters
+
+2.  Edit param_fiji.txt and param_R.txt with the desired parameters and save.
+
+## Open a Terminal Window
+
+3.  Open a terminal window.
+4.  Change directory (`cd`) to the 'CoMarker/Bash' directory.
+5.  Write `sh full_run.sh`.
+6.  The output files will be saved in the folders specified in the parameters.
+
+Note: The full_run.sh file works for mac OS; it can be adapted to windows by changing the path to the Fiji app.

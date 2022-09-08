@@ -22,20 +22,32 @@ The idea behind CoMarker is to allow for a cell-based approach to marker colocal
 
 -   Counts the number of cells within and outside of a region of interest positive for both the reference marker and each other marker (colocalised).
 
--   Presents the proportion of marker-positive cells within the region of interest.
+-   Identifies image outliers and potential poor quality images (based on count distribution).
+
+-   Presents the proportion of marker-positive cells throughout the image and within the region of interest.
 
 -   Presents the proportion of reference marker-positive cells which are colocalised with each other marker, both respective and irrespective of the region of interest.
 
--   Produces a range box plots annotated with the statistical significance.
+-   Performs statistical test to assess the differences between specified groups of interest (i.e disease vs control)
+
+-   Produces a report, displaying a range of analysis graphs, parameters used and image outliers.
+
+## Functionality Comparison
+
+![A table comparing CoMarker with existing image analysis software and manual counts.](images/Pipeline_comparison.png)
+
+^1^ We refer to CoMarker as an end-to-end pipeline due to its ability to perform a comprehensive analysis, from raw image to analysis report, independent of external software.
+
+^2^ CoMarker performs its cell-based analysis independent of external software and doesn't require a mask input.
+
+^3^ CoMarker produces a user-friendly, presentable, and interactive analysis report with annotated statistical significance.
 
 ## Capabilities
 
--   1 region of interest marker
+-   1 region of interest marker (e.g. GLUT1 - CNS blood vessel marker)
 
--   1 reference marker
+-   1 reference marker (e.g. Iba1 - Microglial marker)
 
--   1 nuclei marker
+-   1 nuclei marker (e.g. DAPI - DNA marker)
 
--   Up to 5 general markers
-
-If more than one region of interest, reference, or nuclei marker are required, extra preprocessing steps will need to be taken to merge the those markers into one image for each of those marker types.
+-   Up to 5 general markers (e.g. CD68 - Microglial activation marker)
