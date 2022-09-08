@@ -1,5 +1,6 @@
 image_directory=/Users/eleonoreschneegans/Desktop/test/
 results_directory=/Users/eleonoreschneegans/Desktop/results/
+metadata_directory=/Users/eleonoreschneegans/Desktop/metadata/
 CoMarker_directory=~/Documents/CoMarker/Bash/
 DNA=TRUE
 ROI=TRUE

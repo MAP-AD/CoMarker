@@ -1,4 +1,5 @@
 coloc<-function(image_directory,
+                metadata_directory,
                 results_directory,
                 CoMarker_directory,
                 number_marker,
@@ -25,8 +26,8 @@ coloc<-function(image_directory,
   
   
 
-  setwd(image_directory)
-  metadata=read_csv('metadata.csv')
+  
+  metadata=read_csv(paste0(metadata_directory),'metadata.csv')
   metadata=metadata %>% mutate_if(is.character,factor)
   
   
