@@ -31,6 +31,18 @@ marker2=arglist[18];
 m2_area=parseInt(arglist[19]);
 m2_thresh=arglist[20];
 
+marker3=arglist[21];
+m3_area=parseInt(arglist[22]);
+m3_thresh=arglist[23];
+
+marker4=arglist[24];
+m4_area=parseInt(arglist[25]);
+m4_thresh=arglist[26];
+
+marker5=arglist[27];
+m5_area=parseInt(arglist[28]);
+m5_thresh=arglist[29];
+
 
 print(reference_marker);
 print(marker1);

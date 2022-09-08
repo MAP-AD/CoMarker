@@ -18,6 +18,16 @@ m1_area=4
 m1_thresh=Otsu
 marker2=HLA-DR
 m2_area=4
-m2_thresh=Otsu
+m2_thresh=Otsu 
+marker3=NA
+m3_area=NA
+m3_thresh=NA
+marker4=NA
+m4_area=NA
+m4_thresh=NA
+marker5=NA
+m5_area=NA
+m5_thresh=NA
+
 
 
