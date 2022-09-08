@@ -1,4 +1,5 @@
 coloc_wrapper=function(image_directory,
+                       metadata_directory,
                        results_directory,
                        CoMarker_directory,
                        DNA=TRUE,

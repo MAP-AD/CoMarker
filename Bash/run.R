@@ -3,19 +3,20 @@ args <- commandArgs(trailingOnly = TRUE)
 
 image_directory=args[1]
 results_directory=args[2]
-CoMarker_directory=args[3]
-DNA=args[4]
-ROI=args[5]
-number_marker=as.numeric(args[6])
-reference_marker=args[7]
-marker1=args[8]
-marker2=args[9]
-marker3=args[10]
-marker4=args[11]
-marker5=args[12]
-region_of_interest=args[13]
-outcome=args[14]
-remove_outliers=args[15]
+metadata_directory=args[3]
+CoMarker_directory=args[4]
+DNA=args[5]
+ROI=args[6]
+number_marker=as.numeric(args[7])
+reference_marker=args[8]
+marker1=args[9]
+marker2=args[10]
+marker3=args[11]
+marker4=args[12]
+marker5=args[13]
+region_of_interest=args[14]
+outcome=args[15]
+remove_outliers=args[16]
 
 print(CoMarker_directory)
 
@@ -23,6 +24,7 @@ print(CoMarker_directory)
 source(paste0(CoMarker_directory,"Functions/wrapper.R"))
 coloc_wrapper(image_directory=image_directory,
                        results_directory=results_directory,
+                       metadata_directory=metadata_directory,
                        CoMarker_directory=CoMarker_directory,
                        DNA=DNA,
                        ROI=ROI,
