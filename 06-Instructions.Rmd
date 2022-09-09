@@ -19,5 +19,4 @@ This section describes how to use the script from start to finish, without too m
 
 8.  Open R and run or source the wrapper function, which is situated in the functions folder of the repository.
 9.  Input the parameters, as explained in the R Walkthrough section of this site.
-10. Ensure that 'CoMarker_directory' is set to the directory of the main folder on your device.
-11. Run the script. A HTML document will be produced in the results directory, summarising your results.
+10. Run the script. A HTML document will be produced in the results directory, summarising your results.
