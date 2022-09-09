@@ -1,5 +1,9 @@
 
-args <- commandArgs(trailingOnly = TRUE)
+args<- commandArgs(trailingOnly = TRUE) 
+print(args)
+#print(cli)
+#args <- strsplit(cli, " ", fixed = TRUE)
+print(args)
 
 image_directory=args[1]
 results_directory=args[2]
@@ -17,9 +21,7 @@ marker5=args[13]
 region_of_interest=args[14]
 outcome=args[15]
 remove_outliers=args[16]
-
-print(CoMarker_directory)
-
+outliers_threshold=as.numeric(args[17])
 
 source(paste0(CoMarker_directory,"Functions/wrapper.R"))
 coloc_wrapper(image_directory=image_directory,

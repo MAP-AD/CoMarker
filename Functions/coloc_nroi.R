@@ -30,7 +30,7 @@ coloc_nroi<-function(image_directory,
   
   
   metadata=read_csv(paste0(metadata_directory,'metadata.csv'))
-  metadata=metadata %>% mutate_if(is.character,factor)
+  metadata=metadata %>%  mutate(across(where(is_character),as_factor))
   
   setwd(image_directory)
   if(number_marker==1){
@@ -78,7 +78,7 @@ coloc_nroi<-function(image_directory,
   df$replicate=paste0(df$CaseID, ' ',rep_df[,1])
 
   
-  
+  if(any(grepl("package:plyr", search()))) detach("package:plyr") else message("plyr not loaded")
   # Filter count outliers 
   df$Slice=as.factor(df$Slice)
   df$Count=as.numeric(df$Count)

@@ -154,7 +154,30 @@ m5_thresh=Dialog.getChoice();
 
 
 
+
+
 SourceDir = getDirectory('~/');
+
+
+print(SourceDir);
+print(reference_marker);
+print(ref_area);
+print(ref_thresh);
+print(has_DNA);
+print(has_roi);
+print(number_markers);
+print(DNA_area);
+print(DNA_thresh);
+print(coloc_radius);
+print(region_of_interest);
+print(roi_gaus);
+print(roi_area);
+print(roi_thresh);
+print(radius);
+
+
+
+
 
 list = getFileList(SourceDir);
 
