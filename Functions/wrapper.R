@@ -12,7 +12,7 @@ coloc_wrapper=function(image_directory,
                        marker4='',
                        marker5='',
                        region_of_interest='Ab',
-                       outcome='trem2_all',
+                       outcome='AD/CTRL',
                        remove_outliers=TRUE,
                        outliers_threshold=4){
   
