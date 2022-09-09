@@ -8,16 +8,30 @@ The comparisons below compare counts produced by CoMarker and manual counts for 
 
 ### CD68 - Colocalisation Marker
 
-![Colocalisation Marker Count Validation](images/CD68_val.png)
+![Colocalisation Marker Count Validation (Pearson's r = 0.956)](images/CD68_val.png)
 
 ### GLUT1 - Region of Interest
 
-![Region of Interest Count Validation](images/GLUT1_val-01.png)
+![Region of Interest Count Validation (Pearson's r = 0.975)](images/GLUT1_val-01.png)
 
 ### Iba1 - Reference Marker
 
-![Reference Marker Count Validation](images/Iba1_val-01.png)
+![Reference Marker Count Validation (Pearson's r = 0.991)](images/Iba1_val-01.png)
 
 ### Amyloid-beta - Region of Interest
 
-![Region of Interest Count Validation](images/Ab_val-01.png)
+![Region of Interest Count Validation (Pearson's r = 0.995)](images/Ab_val-01.png)
+
+### Intraclass Correlation
+
+Intraclass correlations were calculated between counts of Ab, Iba1 and CD68 markers made by an internal human counter, an external human counter, and CoMarker.
+
+#### Single Score Intraclass Correlation
+
+Model: twoway; Type: agreement; Raters = 3; n = 35
+
+**ICC(A,1) = 0.993; p = 1.7e-67**
+
+95%-Confidence Interval for ICC Population Values: **0.987 \< ICC \< 0.996**
+
+We can conclude that there is an excellent level of within-class correlation.

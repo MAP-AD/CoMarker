@@ -47,3 +47,5 @@ cd68---colocalisation-marker
 glut1---region-of-interest
 iba1---reference-marker
 amyloid-beta---region-of-interest
+intraclass-correlation
+single-score-intraclass-correlation

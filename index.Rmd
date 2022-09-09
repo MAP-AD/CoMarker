@@ -1,6 +1,6 @@
 ---
 title: "CoMarker | The Manual"
-author: "Samuel Boulger^1,2,3,4^, Eléonore Schneegans^1,2,3^, Vicky Chau^2,3^, Johanna Jackson^2,3^, Paul M. Matthews^2,3^"
+author: "Eléonore Schneegans^1^, Samuel Boulger^1^, Vicky Chau^1^, Nurun Fancy^1^, Johanna Jackson^1^, Paul M. Matthews^1^"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 site: bookdown::bookdown_site
 ---
@@ -21,11 +21,8 @@ CoMarker was designed for the analysis of images produced by imaging mass cytome
 
 ## Acknowledgements {.unnumbered}
 
-CoMarker was developed by Eléonore Schneegans^1,2,3^, Samuel Boulger^1,2,3,4^ and Vicky Chau^2,3^ as part of the UK DRI [Multi-'omics Atlas Project](https://map-ad.org), directed by Johanna Jackson^2,3^.
+CoMarker was developed by Eléonore Schneegans^1^, Samuel Boulger^1^ and Vicky Chau^1^ as part of the UK DRI [Multi-'omics Atlas Project](https://map-ad.org), directed by Johanna Jackson^1^.
 
-^1^ These authors contributed equally.\
-^2^ UK Dementia Research Institute, Imperial College London, London, UK.\
-^3^ Department of Brain Sciences, Imperial College London, London, UK.\
-^4^ Medical Research Council Brain Network Dynamics Unit, University of Oxford, Oxford, UK.
+^1^ UK Dementia Research Institute and Deparatment of Brain Sciences, Imperial College London, London, UK.
 
 [Find the CoMarker Github page here.](https://github.com/MAP-AD/CoMarker)
