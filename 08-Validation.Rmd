@@ -34,4 +34,4 @@ Model: twoway; Type: agreement; Raters = 3; n = 35
 
 95%-Confidence Interval for ICC Population Values: **0.987 \< ICC \< 0.996**
 
-We can conclude that there is an excellent level of within-class correlation.
+We can conclude that there is an excellent level of within-class correlation, both between each human counter, and between each counter and CoMarker.
