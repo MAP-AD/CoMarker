@@ -4,7 +4,7 @@ This section of the manual will provide an overview of the steps taken in the R 
 
 ## Necessary R Packages
 
-Below are the packages required for the pipeline to run. Copy and paste the section below in order to install all necessary packages.
+Below are the packages required for the pipeline to run. Run the section below in R in order to install all necessary packages.
 
 ``` r
 install.packages('tidyverse')
