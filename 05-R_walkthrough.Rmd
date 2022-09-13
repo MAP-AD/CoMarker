@@ -2,6 +2,31 @@
 
 This section of the manual will provide an overview of the steps taken in the R script, starting with the inputs required for the script to function.
 
+## Necessary R Packages
+
+Below are the packages required for the pipeline to run. Copy and paste the section below in order to install all necessary packages.
+
+``` r
+install.packages('tidyverse')
+install.packages('readr')
+install.packages('stringr')
+install.packages('dplyr')
+install.packages('rqdatatable')
+install.packages('rlist')
+install.packages('ggplot2')
+install.packages('gridExtra')
+install.packages('ggsignif')
+install.packages('ggpubr')
+install.packages('paletteer')
+install.packages('plyr')
+install.packages('knitr')
+install.packages('data.table')
+install.packages('plotly')
+install.packages('clinUtils')
+install.packages('rlist')
+install.packages('rmdformats')
+```
+
 ## Input Parameters
 
 Input the relevant parameters into the coloc_wrapper function of the R code. There is an example input file in the Github repository.
@@ -9,7 +34,7 @@ Input the relevant parameters into the coloc_wrapper function of the R code. The
 ``` r
 coloc_wrapper(image_directory="/Users/samboulger/Desktop/Manual Counts/",
               results_directory="/Users/samboulger/Desktop/Manual Counts/",
-              metadata_directory='Users/samboulger/Desktop/Data/
+              metadata_directory='/Users/samboulger/Desktop/Data/',
               CoMarker_directory='/Users/samboulger/OneDrive - Nexus365/Imperial/CoMarker Script/',
               DNA=TRUE,
               ROI=TRUE,

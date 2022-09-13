@@ -30,6 +30,7 @@ thresholding-2
 particle-analysis-3
 output
 r-script-walkthrough
+necessary-r-packages
 input-parameters
 quality-control
 html-output

@@ -23,7 +23,7 @@
 <meta name="author" content="Eléonore Schneegans1, Samuel Boulger1, Vicky Chau1, Nurun Fancy1, Johanna Jackson1, Paul M. Matthews1" />
 
 
-<meta name="date" content="2022-09-09" />
+<meta name="date" content="2022-09-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -190,9 +190,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4" data-path="r-script-walkthrough.html"><a href="r-script-walkthrough.html"><i class="fa fa-check"></i><b>4</b> R Script Walkthrough</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="r-script-walkthrough.html"><a href="r-script-walkthrough.html#input-parameters"><i class="fa fa-check"></i><b>4.1</b> Input Parameters</a></li>
-<li class="chapter" data-level="4.2" data-path="r-script-walkthrough.html"><a href="r-script-walkthrough.html#quality-control"><i class="fa fa-check"></i><b>4.2</b> Quality Control</a></li>
-<li class="chapter" data-level="4.3" data-path="r-script-walkthrough.html"><a href="r-script-walkthrough.html#html-output"><i class="fa fa-check"></i><b>4.3</b> HTML Output</a></li>
+<li class="chapter" data-level="4.1" data-path="r-script-walkthrough.html"><a href="r-script-walkthrough.html#necessary-r-packages"><i class="fa fa-check"></i><b>4.1</b> Necessary R Packages</a></li>
+<li class="chapter" data-level="4.2" data-path="r-script-walkthrough.html"><a href="r-script-walkthrough.html#input-parameters"><i class="fa fa-check"></i><b>4.2</b> Input Parameters</a></li>
+<li class="chapter" data-level="4.3" data-path="r-script-walkthrough.html"><a href="r-script-walkthrough.html#quality-control"><i class="fa fa-check"></i><b>4.3</b> Quality Control</a></li>
+<li class="chapter" data-level="4.4" data-path="r-script-walkthrough.html"><a href="r-script-walkthrough.html#html-output"><i class="fa fa-check"></i><b>4.4</b> HTML Output</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="instructions---from-start-to-finish.html"><a href="instructions---from-start-to-finish.html"><i class="fa fa-check"></i><b>5</b> Instructions - From Start to Finish</a>
 <ul>
@@ -239,36 +240,58 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="r-script-walkthrough" class="section level1 hasAnchor" number="4">
 <h1><span class="header-section-number">Chapter 4</span> R Script Walkthrough<a href="r-script-walkthrough.html#r-script-walkthrough" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>This section of the manual will provide an overview of the steps taken in the R script, starting with the inputs required for the script to function.</p>
-<div id="input-parameters" class="section level2 hasAnchor" number="4.1">
-<h2><span class="header-section-number">4.1</span> Input Parameters<a href="r-script-walkthrough.html#input-parameters" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="necessary-r-packages" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Necessary R Packages<a href="r-script-walkthrough.html#necessary-r-packages" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Below are the packages required for the pipeline to run. Copy and paste the section below in order to install all necessary packages.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="r-script-walkthrough.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;tidyverse&#39;</span>)</span>
+<span id="cb1-2"><a href="r-script-walkthrough.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;readr&#39;</span>)</span>
+<span id="cb1-3"><a href="r-script-walkthrough.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;stringr&#39;</span>)</span>
+<span id="cb1-4"><a href="r-script-walkthrough.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;dplyr&#39;</span>)</span>
+<span id="cb1-5"><a href="r-script-walkthrough.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;rqdatatable&#39;</span>)</span>
+<span id="cb1-6"><a href="r-script-walkthrough.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;rlist&#39;</span>)</span>
+<span id="cb1-7"><a href="r-script-walkthrough.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;ggplot2&#39;</span>)</span>
+<span id="cb1-8"><a href="r-script-walkthrough.html#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;gridExtra&#39;</span>)</span>
+<span id="cb1-9"><a href="r-script-walkthrough.html#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;ggsignif&#39;</span>)</span>
+<span id="cb1-10"><a href="r-script-walkthrough.html#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;ggpubr&#39;</span>)</span>
+<span id="cb1-11"><a href="r-script-walkthrough.html#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;paletteer&#39;</span>)</span>
+<span id="cb1-12"><a href="r-script-walkthrough.html#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;plyr&#39;</span>)</span>
+<span id="cb1-13"><a href="r-script-walkthrough.html#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;knitr&#39;</span>)</span>
+<span id="cb1-14"><a href="r-script-walkthrough.html#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;data.table&#39;</span>)</span>
+<span id="cb1-15"><a href="r-script-walkthrough.html#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;plotly&#39;</span>)</span>
+<span id="cb1-16"><a href="r-script-walkthrough.html#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;clinUtils&#39;</span>)</span>
+<span id="cb1-17"><a href="r-script-walkthrough.html#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;rlist&#39;</span>)</span>
+<span id="cb1-18"><a href="r-script-walkthrough.html#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;rmdformats&#39;</span>)</span></code></pre></div>
+</div>
+<div id="input-parameters" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Input Parameters<a href="r-script-walkthrough.html#input-parameters" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Input the relevant parameters into the coloc_wrapper function of the R code. There is an example input file in the Github repository.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="r-script-walkthrough.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coloc_wrapper</span>(<span class="at">image_directory=</span><span class="st">&quot;/Users/samboulger/Desktop/Manual Counts/&quot;</span>,</span>
-<span id="cb1-2"><a href="r-script-walkthrough.html#cb1-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">results_directory=</span><span class="st">&quot;/Users/samboulger/Desktop/Manual Counts/&quot;</span>,</span>
-<span id="cb1-3"><a href="r-script-walkthrough.html#cb1-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">metadata_directory=</span><span class="st">&#39;Users/samboulger/Desktop/Data/</span></span>
-<span id="cb1-4"><a href="r-script-walkthrough.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="st">              CoMarker_directory=&#39;</span><span class="sc">/</span>Users<span class="sc">/</span>samboulger<span class="sc">/</span>OneDrive <span class="sc">-</span> Nexus365<span class="sc">/</span>Imperial<span class="sc">/</span>CoMarker Script<span class="sc">/</span><span class="st">&#39;,</span></span>
-<span id="cb1-5"><a href="r-script-walkthrough.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="st">              DNA=TRUE,</span></span>
-<span id="cb1-6"><a href="r-script-walkthrough.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="st">              ROI=TRUE,</span></span>
-<span id="cb1-7"><a href="r-script-walkthrough.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="st">              number_marker=2,</span></span>
-<span id="cb1-8"><a href="r-script-walkthrough.html#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="st">              reference_marker=&quot;Iba1&quot;,</span></span>
-<span id="cb1-9"><a href="r-script-walkthrough.html#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="st">              marker1=&quot;CD68&quot;,</span></span>
-<span id="cb1-10"><a href="r-script-walkthrough.html#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="st">              marker2=&#39;</span>HLA<span class="sc">-</span>DR<span class="st">&#39;,</span></span>
-<span id="cb1-11"><a href="r-script-walkthrough.html#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="st">              marker3=&#39;&#39;,</span></span>
-<span id="cb1-12"><a href="r-script-walkthrough.html#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="st">              marker4=&#39;&#39;,</span></span>
-<span id="cb1-13"><a href="r-script-walkthrough.html#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="st">              marker5=&#39;&#39;,</span></span>
-<span id="cb1-14"><a href="r-script-walkthrough.html#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="st">              region_of_interest=&#39;</span>Ab<span class="st">&#39;,</span></span>
-<span id="cb1-15"><a href="r-script-walkthrough.html#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="st">              outcome=&#39;</span>trem2_all<span class="st">&#39;,</span></span>
-<span id="cb1-16"><a href="r-script-walkthrough.html#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="st">              remove_outliers=TRUE,</span></span>
-<span id="cb1-17"><a href="r-script-walkthrough.html#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="st">              outliers_threshold=&#39;</span><span class="fl">3.5</span><span class="st">&#39;)</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="r-script-walkthrough.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coloc_wrapper</span>(<span class="at">image_directory=</span><span class="st">&quot;/Users/samboulger/Desktop/Manual Counts/&quot;</span>,</span>
+<span id="cb2-2"><a href="r-script-walkthrough.html#cb2-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">results_directory=</span><span class="st">&quot;/Users/samboulger/Desktop/Manual Counts/&quot;</span>,</span>
+<span id="cb2-3"><a href="r-script-walkthrough.html#cb2-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">metadata_directory=</span><span class="st">&#39;/Users/samboulger/Desktop/Data/&#39;</span>,</span>
+<span id="cb2-4"><a href="r-script-walkthrough.html#cb2-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">CoMarker_directory=</span><span class="st">&#39;/Users/samboulger/OneDrive - Nexus365/Imperial/CoMarker Script/&#39;</span>,</span>
+<span id="cb2-5"><a href="r-script-walkthrough.html#cb2-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">DNA=</span><span class="cn">TRUE</span>,</span>
+<span id="cb2-6"><a href="r-script-walkthrough.html#cb2-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">ROI=</span><span class="cn">TRUE</span>,</span>
+<span id="cb2-7"><a href="r-script-walkthrough.html#cb2-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">number_marker=</span><span class="dv">2</span>,</span>
+<span id="cb2-8"><a href="r-script-walkthrough.html#cb2-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">reference_marker=</span><span class="st">&quot;Iba1&quot;</span>,</span>
+<span id="cb2-9"><a href="r-script-walkthrough.html#cb2-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">marker1=</span><span class="st">&quot;CD68&quot;</span>,</span>
+<span id="cb2-10"><a href="r-script-walkthrough.html#cb2-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">marker2=</span><span class="st">&#39;HLA-DR&#39;</span>,</span>
+<span id="cb2-11"><a href="r-script-walkthrough.html#cb2-11" aria-hidden="true" tabindex="-1"></a>              <span class="at">marker3=</span><span class="st">&#39;&#39;</span>,</span>
+<span id="cb2-12"><a href="r-script-walkthrough.html#cb2-12" aria-hidden="true" tabindex="-1"></a>              <span class="at">marker4=</span><span class="st">&#39;&#39;</span>,</span>
+<span id="cb2-13"><a href="r-script-walkthrough.html#cb2-13" aria-hidden="true" tabindex="-1"></a>              <span class="at">marker5=</span><span class="st">&#39;&#39;</span>,</span>
+<span id="cb2-14"><a href="r-script-walkthrough.html#cb2-14" aria-hidden="true" tabindex="-1"></a>              <span class="at">region_of_interest=</span><span class="st">&#39;Ab&#39;</span>,</span>
+<span id="cb2-15"><a href="r-script-walkthrough.html#cb2-15" aria-hidden="true" tabindex="-1"></a>              <span class="at">outcome=</span><span class="st">&#39;trem2_all&#39;</span>,</span>
+<span id="cb2-16"><a href="r-script-walkthrough.html#cb2-16" aria-hidden="true" tabindex="-1"></a>              <span class="at">remove_outliers=</span><span class="cn">TRUE</span>,</span>
+<span id="cb2-17"><a href="r-script-walkthrough.html#cb2-17" aria-hidden="true" tabindex="-1"></a>              <span class="at">outliers_threshold=</span><span class="st">&#39;3.5&#39;</span>)</span></code></pre></div>
 <p>Specify the image directory, results directory, metadata directory, the directory in which the CoMarker folder is stored, as well as whether there are DNA and ROI markers (TRUE or FALSE), the number of markers, the reference markers, colocalisation markers, region of interest, and the outcome (from the metadata). Leave blank any sections that are not required, such as any additional markers or region_of_interest if you selected to not have one.</p>
 <p>It is important to ensure that ‘CoMarker_directory’ is set to the directory of the main folder on your device. The main folder must include the ‘Functions’ and ‘HTML Reports’ folders. This naming is crucial for the R script to run.</p>
 <p>The wrapper function will either need to be sourced or ran before the function will operate.</p>
 </div>
-<div id="quality-control" class="section level2 hasAnchor" number="4.2">
-<h2><span class="header-section-number">4.2</span> Quality Control<a href="r-script-walkthrough.html#quality-control" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="quality-control" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Quality Control<a href="r-script-walkthrough.html#quality-control" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The script has a built-in image-flagging section which identifies images containing extreme count outliers. The threshold for detecting outliers is to be specified by the user (to be inputted as the number of standard deviations from the mean), as well as whether to remove the flagged images from the analysis. A table of the detected images is presented in the output report. More often than not, images with flagged counts are of poor quality and should not be considered in the analysis.</p>
 </div>
-<div id="html-output" class="section level2 hasAnchor" number="4.3">
-<h2><span class="header-section-number">4.3</span> HTML Output<a href="r-script-walkthrough.html#html-output" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="html-output" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> HTML Output<a href="r-script-walkthrough.html#html-output" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Once the R script has finished running, a report named ‘CoMarker_Analysis_Report’ will be created in a report folder within the results directory. Open this report in the web browser and you will be able to easily visualise the analysis.</p>
 <p>The report is separated into sections for each marker, as well as a section highlighting any significant results. By using the table of contents, the user can quickly skip to a desired section.</p>
 <p>Box plots are created for pretty much every useful ROI-reference marker-colocalisation marker combination. On each box plot, statistical significance is annotated, such that:</p>
