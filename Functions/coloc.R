@@ -65,7 +65,7 @@ library(dplyr)
   df$CaseID=sub("\\i.*", "", df$CaseID)
   df$CaseID=gsub(" ","",df$CaseID)
   
-  rep=c('i','ii','iii','iv')
+  rep=c('i','ii','iii','iv','v','vi')
   
   replicate=sapply(rownames(df), function(x){
     rep[str_detect(x,rep)]
