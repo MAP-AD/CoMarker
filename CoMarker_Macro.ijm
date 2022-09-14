@@ -341,6 +341,7 @@ roiManager("Rename", "DNA_enlarged");
 
 roiManager("Select", newArray(1,2)); //finding nucleus within given radius of ROI 
 roiManager("AND");
+if ( selectionType() != -1) {
 roiManager("Add");
 count = roiManager("count");
 roiManager("Select", count-1);
@@ -580,11 +581,10 @@ if ( selectionType() != -1) {
 }else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, marker1);
-	Table.set("Slice", n+1, marker1+" Cell");
-	Table.set("Slice", n+2 , marker1+" Cell ROI");
-	Table.set("Slice", n+3, marker1+" colocalised "+reference_marker);
-	Table.set("Slice", n+4,  marker1+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n, marker1+" Cell");
+	Table.set("Slice", n+1 , marker1+" Cell ROI");
+	Table.set("Slice", n+2, marker1+" colocalised "+reference_marker);
+	Table.set("Slice", n+3,  marker1+" colocalised "+reference_marker+ " ROI");
 	}
 
 //no reference marker in region of interest 
@@ -618,6 +618,23 @@ else {
 		}
 	}
 }//no reference marker in the image
+
+else {
+	selectWindow("Summary");
+	n = Table.size;
+	Table.set("Slice", n, reference_marker+" Cell");
+	Table.set("Slice", n+1, reference_marker+" Cell ROI");
+	Table.set("Slice", n+2, marker1);
+	Table.set("Slice", n+3, marker1+" Cell");
+	Table.set("Slice", n+4, marker1+" Cell ROI");
+	Table.set("Slice", n+5, marker1+" colocalised "+reference_marker);
+	Table.set("Slice", n+6, marker1+" colocalised "+reference_marker+ " ROI");
+	for (i=2; i<7; i++){
+			Table.set("Count", i, "NA");
+		}
+	}
+}
+//no DNA near ROI
 else {
 	selectWindow("Summary");
 	n = Table.size;
@@ -629,7 +646,7 @@ else {
 	Table.set("Slice", n+5, marker1+" Cell ROI");
 	Table.set("Slice", n+6, marker1+" colocalised "+reference_marker);
 	Table.set("Slice", n+7, marker1+" colocalised "+reference_marker+ " ROI");
-	for (i=3; i<8; i++){
+	for (i=0; i<8; i++){
 			Table.set("Count", i, "NA");
 		}
 	}
@@ -637,16 +654,15 @@ else {
 else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, "nucleus");
-	Table.set("Slice", n+1, reference_marker);
-	Table.set("Slice", n+2, reference_marker+" Cell");
-	Table.set("Slice", n+3, reference_marker+" Cell ROI");
-	Table.set("Slice", n+4, marker1);
-	Table.set("Slice", n+5, marker1+" Cell");
-	Table.set("Slice", n+6, marker1+" Cell ROI");
-	Table.set("Slice", n+7, marker1+" colocalised "+reference_marker);
-	Table.set("Slice", n+8, marker1+" colocalised "+reference_marker+ " ROI");
-	for (i=1; i<9; i++){
+	Table.set("Slice", n, reference_marker);
+	Table.set("Slice", n+1, reference_marker+" Cell");
+	Table.set("Slice", n+2, reference_marker+" Cell ROI");
+	Table.set("Slice", n+3, marker1);
+	Table.set("Slice", n+4, marker1+" Cell");
+	Table.set("Slice", n+5, marker1+" Cell ROI");
+	Table.set("Slice", n+6, marker1+" colocalised "+reference_marker);
+	Table.set("Slice", n+7, marker1+" colocalised "+reference_marker+ " ROI");
+	for (i=0; i<8; i++){
 			Table.set("Count", i, "NA");
 		}
 	}
@@ -784,7 +800,7 @@ roiManager("Rename", "DNA_enlarged");
 
 roiManager("Select", newArray(1,2)); //finding nucleus within given radius of ROI 
 roiManager("AND");
-
+if ( selectionType() != -1) {
 roiManager("Add");
 count = roiManager("count");
 roiManager("Select", count-1);
@@ -1032,11 +1048,10 @@ if ( selectionType() != -1) {
 }else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, marker1);
-	Table.set("Slice", n+1, marker1+" Cell");
-	Table.set("Slice", n+2 , marker1+" Cell ROI");
-	Table.set("Slice", n+3,  marker1+" colocalised "+reference_marker);
-	Table.set("Slice", n+4,  marker1+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n, marker1+" Cell");
+	Table.set("Slice", n+1 , marker1+" Cell ROI");
+	Table.set("Slice", n+2,  marker1+" colocalised "+reference_marker);
+	Table.set("Slice", n+3,  marker1+" colocalised "+reference_marker+ " ROI");
 	}
 
 // MARKER 2
@@ -1184,11 +1199,10 @@ if ( selectionType() != -1) {
 }else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, marker2);
-	Table.set("Slice", n+1, marker2+" Cell");
-	Table.set("Slice", n+2, marker2+" Cell ROI");
-	Table.set("Slice", n+3, marker2+" colocalised "+reference_marker);
-	Table.set("Slice", n+4, marker2+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n, marker2+" Cell");
+	Table.set("Slice", n+1, marker2+" Cell ROI");
+	Table.set("Slice", n+2, marker2+" colocalised "+reference_marker);
+	Table.set("Slice", n+3, marker2+" colocalised "+reference_marker+ " ROI");
 	}
 
 //no reference marker in region of interest 
@@ -1235,6 +1249,27 @@ else {
 else {
 	selectWindow("Summary");
 	n = Table.size;
+	Table.set("Slice", n, reference_marker+" Cell");
+	Table.set("Slice", n+1, reference_marker+" Cell ROI");
+	Table.set("Slice", n+2, marker1);
+	Table.set("Slice", n+3, marker1+" Cell");
+	Table.set("Slice", n+4, marker1+" Cell ROI");
+	Table.set("Slice", n+5, marker1+" colocalised "+reference_marker);
+	Table.set("Slice", n+6, marker1+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n+7, marker2);
+	Table.set("Slice", n+8, marker2+" Cell");
+	Table.set("Slice", n+9, marker2+" Cell ROI");
+	Table.set("Slice", n+10, marker2+" colocalised "+reference_marker);
+	Table.set("Slice", n+11, marker2+" colocalised "+reference_marker+ " ROI");
+	for (i=2; i<12; i++){
+			Table.set("Count", i, "NA");
+		}
+	}
+}
+//no DNA near ROI
+else {
+	selectWindow("Summary");
+	n = Table.size;
 	Table.set("Slice", n, reference_marker);
 	Table.set("Slice", n+1, reference_marker+" Cell");
 	Table.set("Slice", n+2, reference_marker+" Cell ROI");
@@ -1248,7 +1283,7 @@ else {
 	Table.set("Slice", n+10, marker2+" Cell ROI");
 	Table.set("Slice", n+11, marker2+" colocalised "+reference_marker);
 	Table.set("Slice", n+12, marker2+" colocalised "+reference_marker+ " ROI");
-	for (i=3; i<13; i++){
+	for (i=0; i<13; i++){
 			Table.set("Count", i, "NA");
 		}
 	}
@@ -1256,21 +1291,20 @@ else {
 else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, "nucleus");
-	Table.set("Slice", n+1, reference_marker);
-	Table.set("Slice", n+2, reference_marker+" Cell");
-	Table.set("Slice", n+3, reference_marker+" Cell ROI");
-	Table.set("Slice", n+4, marker1);
-	Table.set("Slice", n+5, marker1+" Cell");
-	Table.set("Slice", n+6, marker1+" Cell ROI");
-	Table.set("Slice", n+7, marker1+" colocalised "+reference_marker);
-	Table.set("Slice", n+8, marker1+" colocalised "+reference_marker+ " ROI");
-	Table.set("Slice", n+9, marker2);
-	Table.set("Slice", n+10, marker2+" Cell");
-	Table.set("Slice", n+11, marker2+" Cell ROI");
-	Table.set("Slice", n+12, marker2+" colocalised "+reference_marker);
-	Table.set("Slice", n+13, marker2+" colocalised "+reference_marker+ " ROI");
-	for (i=1; i<14; i++){
+	Table.set("Slice", n, reference_marker);
+	Table.set("Slice", n+1, reference_marker+" Cell");
+	Table.set("Slice", n+2, reference_marker+" Cell ROI");
+	Table.set("Slice", n+3, marker1);
+	Table.set("Slice", n+4, marker1+" Cell");
+	Table.set("Slice", n+5, marker1+" Cell ROI");
+	Table.set("Slice", n+6, marker1+" colocalised "+reference_marker);
+	Table.set("Slice", n+7, marker1+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n+8, marker2);
+	Table.set("Slice", n+9, marker2+" Cell");
+	Table.set("Slice", n+10, marker2+" Cell ROI");
+	Table.set("Slice", n+11, marker2+" colocalised "+reference_marker);
+	Table.set("Slice", n+12, marker2+" colocalised "+reference_marker+ " ROI");
+	for (i=0; i<13; i++){
 			Table.set("Count", i, "NA");
 		}
 	}
@@ -1413,7 +1447,7 @@ roiManager("Rename", "DNA_enlarged");
 
 roiManager("Select", newArray(1,2)); //finding nucleus within given radius of ROI 
 roiManager("AND");
-
+if ( selectionType() != -1) {
 roiManager("Add");
 count = roiManager("count");
 roiManager("Select", count-1);
@@ -1653,11 +1687,10 @@ if ( selectionType() != -1) {
 }else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, marker1);
-	Table.set("Slice", n+1, marker1+" Cell");
-	Table.set("Slice", n+2, marker1+" Cell ROI");
-	Table.set("Slice", n+3, marker1+" colocalised "+reference_marker);
-	Table.set("Slice", n+4, marker1+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n, marker1+" Cell");
+	Table.set("Slice", n+1, marker1+" Cell ROI");
+	Table.set("Slice", n+2, marker1+" colocalised "+reference_marker);
+	Table.set("Slice", n+3, marker1+" colocalised "+reference_marker+ " ROI");
 	}
 
 // MARKER 2
@@ -1805,11 +1838,10 @@ if ( selectionType() != -1) {
 }else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, marker2);
-	Table.set("Slice", n+1, marker2+" Cell");
-	Table.set("Slice", n+2, marker2+" Cell ROI");
-	Table.set("Slice", n+3, marker2+" colocalised "+reference_marker);
-	Table.set("Slice", n+4, marker2+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n, marker2+" Cell");
+	Table.set("Slice", n+1, marker2+" Cell ROI");
+	Table.set("Slice", n+2, marker2+" colocalised "+reference_marker);
+	Table.set("Slice", n+3, marker2+" colocalised "+reference_marker+ " ROI");
 	}
 	
 //// MARKER 3
@@ -1957,11 +1989,10 @@ if ( selectionType() != -1) {
 }else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, marker3);
-	Table.set("Slice", n+1, marker3+" Cell");
-	Table.set("Slice", n+2, marker3+" Cell ROI");
-	Table.set("Slice", n+3, marker3+" colocalised "+reference_marker);
-	Table.set("Slice", n+4, marker3+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n, marker3+" Cell");
+	Table.set("Slice", n+1, marker3+" Cell ROI");
+	Table.set("Slice", n+2, marker3+" colocalised "+reference_marker);
+	Table.set("Slice", n+3, marker3+" colocalised "+reference_marker+ " ROI");
 	}
 ////end marker 3
 
@@ -2019,6 +2050,32 @@ else {
 else {
 	selectWindow("Summary");
 	n = Table.size;
+	Table.set("Slice", n, reference_marker+" Cell");
+	Table.set("Slice", n+1, reference_marker+" Cell ROI");
+	Table.set("Slice", n+2, marker1);
+	Table.set("Slice", n+3, marker1+" Cell");
+	Table.set("Slice", n+4, marker1+" Cell ROI");
+	Table.set("Slice", n+5, marker1+" colocalised "+reference_marker);
+	Table.set("Slice", n+6, marker1+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n+7, marker2);
+	Table.set("Slice", n+8, marker2+" Cell");
+	Table.set("Slice", n+9, marker2+" Cell ROI");
+	Table.set("Slice", n+10, marker2+" colocalised "+reference_marker);
+	Table.set("Slice", n+11, marker2+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n+12, marker3);
+	Table.set("Slice", n+13, marker3+" Cell");
+	Table.set("Slice", n+14, marker3+" Cell ROI");
+	Table.set("Slice", n+15, marker3+" colocalised "+reference_marker);
+	Table.set("Slice", n+16, marker3+" colocalised "+reference_marker+ " ROI");
+	for (i=2; i<17; i++){
+			Table.set("Count", i, "NA");
+		}
+	}
+}
+//if there are no DNA in ROI
+else {
+	selectWindow("Summary");
+	n = Table.size;
 	Table.set("Slice", n, reference_marker);
 	Table.set("Slice", n+1, reference_marker+" Cell");
 	Table.set("Slice", n+2, reference_marker+" Cell ROI");
@@ -2037,34 +2094,33 @@ else {
 	Table.set("Slice", n+15, marker3+" Cell ROI");
 	Table.set("Slice", n+16, marker3+" colocalised "+reference_marker);
 	Table.set("Slice", n+17, marker3+" colocalised "+reference_marker+ " ROI");
-	for (i=3; i<18; i++){
+	for (i=0; i<18; i++){
 			Table.set("Count", i, "NA");
 		}
 	}
-}//no DNA in the region of interest 
+}//no DNA
 else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, "nucleus");
-	Table.set("Slice", n+1, reference_marker);
-	Table.set("Slice", n+2, reference_marker+" Cell");
-	Table.set("Slice", n+3, reference_marker+" Cell ROI");
-	Table.set("Slice", n+4, marker1);
-	Table.set("Slice", n+5, marker1+" Cell");
-	Table.set("Slice", n+6, marker1+" Cell ROI");
-	Table.set("Slice", n+7, marker1+" colocalised "+reference_marker);
-	Table.set("Slice", n+8, marker1+" colocalised "+reference_marker+ " ROI");
-	Table.set("Slice", n+9, marker2);
-	Table.set("Slice", n+10, marker2+" Cell");
-	Table.set("Slice", n+11, marker2+" Cell ROI");
-	Table.set("Slice", n+12, marker2+" colocalised "+reference_marker);
-	Table.set("Slice", n+13, marker2+" colocalised "+reference_marker+ " ROI");
-	Table.set("Slice", n+14, marker3);
-	Table.set("Slice", n+15, marker3+" Cell");
-	Table.set("Slice", n+16, marker3+" Cell ROI");
-	Table.set("Slice", n+17, marker3+" colocalised "+reference_marker);
-	Table.set("Slice", n+18, marker3+" colocalised "+reference_marker+ " ROI");
-	for (i=1; i<19; i++){
+	Table.set("Slice", n, reference_marker);
+	Table.set("Slice", n+1, reference_marker+" Cell");
+	Table.set("Slice", n+2, reference_marker+" Cell ROI");
+	Table.set("Slice", n+3, marker1);
+	Table.set("Slice", n+4, marker1+" Cell");
+	Table.set("Slice", n+5, marker1+" Cell ROI");
+	Table.set("Slice", n+6, marker1+" colocalised "+reference_marker);
+	Table.set("Slice", n+7, marker1+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n+8, marker2);
+	Table.set("Slice", n+9, marker2+" Cell");
+	Table.set("Slice", n+10, marker2+" Cell ROI");
+	Table.set("Slice", n+11, marker2+" colocalised "+reference_marker);
+	Table.set("Slice", n+12, marker2+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n+13, marker3);
+	Table.set("Slice", n+14, marker3+" Cell");
+	Table.set("Slice", n+15, marker3+" Cell ROI");
+	Table.set("Slice", n+16, marker3+" colocalised "+reference_marker);
+	Table.set("Slice", n+17, marker3+" colocalised "+reference_marker+ " ROI");
+	for (i=0; i<18; i++){
 			Table.set("Count", i, "NA");
 		}
 	}
@@ -2212,7 +2268,7 @@ roiManager("Rename", "DNA_enlarged");
 
 roiManager("Select", newArray(1,2)); //finding nucleus within given radius of ROI 
 roiManager("AND");
-
+if ( selectionType() != -1) {
 roiManager("Add");
 count = roiManager("count");
 roiManager("Select", count-1);
@@ -2445,15 +2501,16 @@ if ( selectionType() != -1) {
 	n = Table.size;
 	Table.set("Slice", n, marker1+" Cell");
 	Table.set("Slice", n+1 , marker1+" Cell ROI");
-	Table.set("Slice", n+2,  marker1+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n+2,  marker1+" colocalised "+reference_marker);
+	Table.set("Slice", n+3,  marker1+" colocalised "+reference_marker+ " ROI");
 	}
 //if no marker 1 signal 
 }else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, marker1);
-	Table.set("Slice", n+1, marker1+" Cell");
-	Table.set("Slice", n+2 , marker1+" Cell ROI");
+	Table.set("Slice", n, marker1+" Cell");
+	Table.set("Slice", n+1 , marker1+" Cell ROI");
+	Table.set("Slice", n+2,  marker1+" colocalised "+reference_marker);
 	Table.set("Slice", n+3,  marker1+" colocalised "+reference_marker+ " ROI");
 	}
 
@@ -2602,11 +2659,10 @@ if ( selectionType() != -1) {
 }else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, marker2);
-	Table.set("Slice", n+1, marker2+" Cell");
-	Table.set("Slice", n+2, marker2+" Cell ROI");
-	Table.set("Slice", n+3, marker2+" colocalised "+reference_marker);
-	Table.set("Slice", n+4, marker2+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n, marker2+" Cell");
+	Table.set("Slice", n+1, marker2+" Cell ROI");
+	Table.set("Slice", n+2, marker2+" colocalised "+reference_marker);
+	Table.set("Slice", n+3, marker2+" colocalised "+reference_marker+ " ROI");
 	}
 	
 //// MARKER 3
@@ -2754,11 +2810,10 @@ if ( selectionType() != -1) {
 }else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, marker3);
-	Table.set("Slice", n+1, marker3+" Cell");
-	Table.set("Slice", n+2, marker3+" Cell ROI");
-	Table.set("Slice", n+3, marker3+" colocalised "+reference_marker);
-	Table.set("Slice", n+4, marker3+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n, marker3+" Cell");
+	Table.set("Slice", n+1, marker3+" Cell ROI");
+	Table.set("Slice", n+2, marker3+" colocalised "+reference_marker);
+	Table.set("Slice", n+3, marker3+" colocalised "+reference_marker+ " ROI");
 	}
 ////end marker 3
 
@@ -2907,11 +2962,10 @@ if ( selectionType() != -1) {
 }else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, marker4);
-	Table.set("Slice", n+1, marker4+" Cell");
-	Table.set("Slice", n+2, marker4+" Cell ROI");
-	Table.set("Slice", n+3, marker4+" colocalised "+reference_marker);
-	Table.set("Slice", n+4, marker4+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n, marker4+" Cell");
+	Table.set("Slice", n+1, marker4+" Cell ROI");
+	Table.set("Slice", n+2, marker4+" colocalised "+reference_marker);
+	Table.set("Slice", n+3, marker4+" colocalised "+reference_marker+ " ROI");
 	}
 
 ////end marker 4
@@ -2980,6 +3034,36 @@ else {
 else {
 	selectWindow("Summary");
 	n = Table.size;
+	Table.set("Slice", n, reference_marker+" Cell");
+	Table.set("Slice", n+1, reference_marker+" Cell ROI");
+	Table.set("Slice", n+2, marker1);
+	Table.set("Slice", n+3, marker1+" Cell");
+	Table.set("Slice", n+4, marker1+" Cell ROI");
+	Table.set("Slice", n+5, marker1+" colocalised "+reference_marker);
+	Table.set("Slice", n+6, marker1+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n+7, marker2);
+	Table.set("Slice", n+8, marker2+" Cell");
+	Table.set("Slice", n+9, marker2+" Cell ROI");
+	Table.set("Slice", n+10, marker2+" colocalised "+reference_marker);
+	Table.set("Slice", n+11, marker2+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n+12, marker3);
+	Table.set("Slice", n+13, marker3+" Cell");
+	Table.set("Slice", n+14, marker3+" Cell ROI");
+	Table.set("Slice", n+15, marker3+" colocalised "+reference_marker);
+	Table.set("Slice", n+16, marker3+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n+17, marker4);
+	Table.set("Slice", n+18, marker4+" Cell");
+	Table.set("Slice", n+19, marker4+" Cell ROI");
+	Table.set("Slice", n+20, marker4+" colocalised "+reference_marker);
+	Table.set("Slice", n+21, marker4+" colocalised "+reference_marker+ " ROI");
+	for (i=2; i<22; i++){
+			Table.set("Count", i, "NA");
+		}
+	}
+}//no DNA in ROI
+else {
+	selectWindow("Summary");
+	n = Table.size;
 	Table.set("Slice", n, reference_marker);
 	Table.set("Slice", n+1, reference_marker+" Cell");
 	Table.set("Slice", n+2, reference_marker+" Cell ROI");
@@ -3003,39 +3087,38 @@ else {
 	Table.set("Slice", n+20, marker4+" Cell ROI");
 	Table.set("Slice", n+21, marker4+" colocalised "+reference_marker);
 	Table.set("Slice", n+22, marker4+" colocalised "+reference_marker+ " ROI");
-	for (i=3; i<23; i++){
+	for (i=0; i<23; i++){
 			Table.set("Count", i, "NA");
 		}
 	}
-}//no DNA in the region of interest 
+}//no DNA
 else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, "nucleus");
-	Table.set("Slice", n+1, reference_marker);
-	Table.set("Slice", n+2, reference_marker+" Cell");
-	Table.set("Slice", n+3, reference_marker+" Cell ROI");
-	Table.set("Slice", n+4, marker1);
-	Table.set("Slice", n+5, marker1+" Cell");
-	Table.set("Slice", n+6, marker1+" Cell ROI");
-	Table.set("Slice", n+7, marker1+" colocalised "+reference_marker);
-	Table.set("Slice", n+8, marker1+" colocalised "+reference_marker+ " ROI");
-	Table.set("Slice", n+9, marker2);
-	Table.set("Slice", n+10, marker2+" Cell");
-	Table.set("Slice", n+11, marker2+" Cell ROI");
-	Table.set("Slice", n+12, marker2+" colocalised "+reference_marker);
-	Table.set("Slice", n+13, marker2+" colocalised "+reference_marker+ " ROI");
-	Table.set("Slice", n+14, marker3);
-	Table.set("Slice", n+15, marker3+" Cell");
-	Table.set("Slice", n+16, marker3+" Cell ROI");
-	Table.set("Slice", n+17, marker3+" colocalised "+reference_marker);
-	Table.set("Slice", n+18, marker3+" colocalised "+reference_marker+ " ROI");
-	Table.set("Slice", n+19, marker4);
-	Table.set("Slice", n+20, marker4+" Cell");
-	Table.set("Slice", n+21, marker4+" Cell ROI");
-	Table.set("Slice", n+22, marker4+" colocalised "+reference_marker);
-	Table.set("Slice", n+23, marker4+" colocalised "+reference_marker+ " ROI");
-	for (i=1; i<24; i++){
+	Table.set("Slice", n, reference_marker);
+	Table.set("Slice", n+1, reference_marker+" Cell");
+	Table.set("Slice", n+2, reference_marker+" Cell ROI");
+	Table.set("Slice", n+3, marker1);
+	Table.set("Slice", n+4, marker1+" Cell");
+	Table.set("Slice", n+5, marker1+" Cell ROI");
+	Table.set("Slice", n+6, marker1+" colocalised "+reference_marker);
+	Table.set("Slice", n+7, marker1+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n+8, marker2);
+	Table.set("Slice", n+9, marker2+" Cell");
+	Table.set("Slice", n+10, marker2+" Cell ROI");
+	Table.set("Slice", n+11, marker2+" colocalised "+reference_marker);
+	Table.set("Slice", n+12, marker2+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n+13, marker3);
+	Table.set("Slice", n+14, marker3+" Cell");
+	Table.set("Slice", n+15, marker3+" Cell ROI");
+	Table.set("Slice", n+16, marker3+" colocalised "+reference_marker);
+	Table.set("Slice", n+17, marker3+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n+18, marker4);
+	Table.set("Slice", n+19, marker4+" Cell");
+	Table.set("Slice", n+20, marker4+" Cell ROI");
+	Table.set("Slice", n+21, marker4+" colocalised "+reference_marker);
+	Table.set("Slice", n+22, marker4+" colocalised "+reference_marker+ " ROI");
+	for (i=0; i<23; i++){
 			Table.set("Count", i, "NA");
 		}
 	}
@@ -3167,7 +3250,7 @@ run("Convert to Mask");
 run("Watershed");
 selectWindow("DNA.tif");
 
-run("Analyze Particles...", "size=DNA_area-Infinity pixel show=Masks summarize"); //check image with a lot of cells, might see two nuclei count as one, or one nucleus split into fragments 
+run("Analyze Particles...", "size=DNA_area-Infinity pixel show=Masks summarize"); 
 	selectWindow("Summary");
 	n = Table.size;
 	Table.set("Slice", n-1 , "nucleus");
@@ -3189,6 +3272,7 @@ roiManager("Rename", "DNA_enlarged");
 
 roiManager("Select", newArray(1,2)); //finding nucleus within given radius of ROI 
 roiManager("AND");
+if ( selectionType() != -1) {
 roiManager("Add");
 count = roiManager("count");
 roiManager("Select", count-1);
@@ -3421,15 +3505,16 @@ if ( selectionType() != -1) {
 	n = Table.size;
 	Table.set("Slice", n, marker1+" Cell");
 	Table.set("Slice", n+1 , marker1+" Cell ROI");
-	Table.set("Slice", n+2,  marker1+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n+2, marker1+" colocalised "+reference_marker);
+	Table.set("Slice", n+3,  marker1+" colocalised "+reference_marker+ " ROI");
 	}
 //if no marker 1 signal 
 }else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, marker1);
-	Table.set("Slice", n+1, marker1+" Cell");
-	Table.set("Slice", n+2 , marker1+" Cell ROI");
+	Table.set("Slice", n, marker1+" Cell");
+	Table.set("Slice", n+1 , marker1+" Cell ROI");
+	Table.set("Slice", n+2, marker1+" colocalised "+reference_marker);
 	Table.set("Slice", n+3,  marker1+" colocalised "+reference_marker+ " ROI");
 	}
 
@@ -3443,7 +3528,7 @@ run("8-bit");
 setOption("BlackBackground", false);
 setAutoThreshold(m1_thresh+" dark");
 run("Convert to Mask");
-run("Analyze Particles...", "size=m2_area-Infinity pixel show=Masks summarize"); //get marker2 total area
+run("Analyze Particles...", "size=m2_area-Infinity pixel show=Masks summarize"); //get marker2 total count
 	selectWindow("Summary");
 	n = Table.size;
 	Table.set("Slice", n-1 , marker2);
@@ -3578,11 +3663,10 @@ if ( selectionType() != -1) {
 }else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, marker2);
-	Table.set("Slice", n+1, marker2+" Cell");
-	Table.set("Slice", n+2, marker2+" Cell ROI");
-	Table.set("Slice", n+3, marker2+" colocalised "+reference_marker);
-	Table.set("Slice", n+4, marker2+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n, marker2+" Cell");
+	Table.set("Slice", n+1, marker2+" Cell ROI");
+	Table.set("Slice", n+2, marker2+" colocalised "+reference_marker);
+	Table.set("Slice", n+3, marker2+" colocalised "+reference_marker+ " ROI");
 	}
 	
 //// MARKER 3
@@ -3730,11 +3814,10 @@ if ( selectionType() != -1) {
 }else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, marker3);
-	Table.set("Slice", n+1, marker3+" Cell");
-	Table.set("Slice", n+2, marker3+" Cell ROI");
-	Table.set("Slice", n+3, marker3+" colocalised "+reference_marker);
-	Table.set("Slice", n+4, marker3+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n, marker3+" Cell");
+	Table.set("Slice", n+1, marker3+" Cell ROI");
+	Table.set("Slice", n+2, marker3+" colocalised "+reference_marker);
+	Table.set("Slice", n+3, marker3+" colocalised "+reference_marker+ " ROI");
 	}
 ////end marker 3
 
@@ -3883,11 +3966,10 @@ if ( selectionType() != -1) {
 }else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, marker4);
-	Table.set("Slice", n+1, marker4+" Cell");
-	Table.set("Slice", n+2, marker4+" Cell ROI");
-	Table.set("Slice", n+3, marker4+" colocalised "+reference_marker);
-	Table.set("Slice", n+4, marker4+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n, marker4+" Cell");
+	Table.set("Slice", n+1, marker4+" Cell ROI");
+	Table.set("Slice", n+2, marker4+" colocalised "+reference_marker);
+	Table.set("Slice", n+3, marker4+" colocalised "+reference_marker+ " ROI");
 	}
 
 ////end marker 4
@@ -4037,11 +4119,10 @@ if ( selectionType() != -1) {
 }else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, marker5);
-	Table.set("Slice", n+1, marker5+" Cell");
-	Table.set("Slice", n+2, marker5+" Cell ROI");
-	Table.set("Slice", n+3, marker5+" colocalised "+reference_marker);
-	Table.set("Slice", n+4, marker5+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n, marker5+" Cell");
+	Table.set("Slice", n+1, marker5+" Cell ROI");
+	Table.set("Slice", n+2, marker5+" colocalised "+reference_marker);
+	Table.set("Slice", n+3, marker5+" colocalised "+reference_marker+ " ROI");
 	}
 
 ////end marker 5
@@ -4120,6 +4201,41 @@ else {
 else {
 	selectWindow("Summary");
 	n = Table.size;
+	Table.set("Slice", n, reference_marker+" Cell");
+	Table.set("Slice", n+1, reference_marker+" Cell ROI");
+	Table.set("Slice", n+2, marker1);
+	Table.set("Slice", n+3, marker1+" Cell");
+	Table.set("Slice", n+4, marker1+" Cell ROI");
+	Table.set("Slice", n+5, marker1+" colocalised "+reference_marker);
+	Table.set("Slice", n+6, marker1+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n+7, marker2);
+	Table.set("Slice", n+8, marker2+" Cell");
+	Table.set("Slice", n+9, marker2+" Cell ROI");
+	Table.set("Slice", n+10, marker2+" colocalised "+reference_marker);
+	Table.set("Slice", n+11, marker2+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n+12, marker3);
+	Table.set("Slice", n+13, marker3+" Cell");
+	Table.set("Slice", n+14, marker3+" Cell ROI");
+	Table.set("Slice", n+15, marker3+" colocalised "+reference_marker);
+	Table.set("Slice", n+16, marker3+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n+17, marker4);
+	Table.set("Slice", n+18, marker4+" Cell");
+	Table.set("Slice", n+19, marker4+" Cell ROI");
+	Table.set("Slice", n+20, marker4+" colocalised "+reference_marker);
+	Table.set("Slice", n+21, marker4+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n+22, marker5);
+	Table.set("Slice", n+23, marker5+" Cell");
+	Table.set("Slice", n+24, marker5+" Cell ROI");
+	Table.set("Slice", n+25, marker5+" colocalised "+reference_marker);
+	Table.set("Slice", n+26, marker5+" colocalised "+reference_marker+ " ROI");
+	for (i=2; i<27; i++){
+			Table.set("Count", i, "NA");
+		}
+	}
+}//no DNA in ROI
+else {
+	selectWindow("Summary");
+	n = Table.size;
 	Table.set("Slice", n, reference_marker);
 	Table.set("Slice", n+1, reference_marker+" Cell");
 	Table.set("Slice", n+2, reference_marker+" Cell ROI");
@@ -4148,7 +4264,7 @@ else {
 	Table.set("Slice", n+25, marker5+" Cell ROI");
 	Table.set("Slice", n+26, marker5+" colocalised "+reference_marker);
 	Table.set("Slice", n+27, marker5+" colocalised "+reference_marker+ " ROI");
-	for (i=3; i<28; i++){
+	for (i=0; i<28; i++){
 			Table.set("Count", i, "NA");
 		}
 	}
@@ -4156,36 +4272,35 @@ else {
 else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, "nucleus");
-	Table.set("Slice", n+1, reference_marker);
-	Table.set("Slice", n+2, reference_marker+" Cell");
-	Table.set("Slice", n+3, reference_marker+" Cell ROI");
-	Table.set("Slice", n+4, marker1);
-	Table.set("Slice", n+5, marker1+" Cell");
-	Table.set("Slice", n+6, marker1+" Cell ROI");
-	Table.set("Slice", n+7, marker1+" colocalised "+reference_marker);
-	Table.set("Slice", n+8, marker1+" colocalised "+reference_marker+ " ROI");
-	Table.set("Slice", n+9, marker2);
-	Table.set("Slice", n+10, marker2+" Cell");
-	Table.set("Slice", n+11, marker2+" Cell ROI");
-	Table.set("Slice", n+12, marker2+" colocalised "+reference_marker);
-	Table.set("Slice", n+13, marker2+" colocalised "+reference_marker+ " ROI");
-	Table.set("Slice", n+14, marker3);
-	Table.set("Slice", n+15, marker3+" Cell");
-	Table.set("Slice", n+16, marker3+" Cell ROI");
-	Table.set("Slice", n+17, marker3+" colocalised "+reference_marker);
-	Table.set("Slice", n+18, marker3+" colocalised "+reference_marker+ " ROI");
-	Table.set("Slice", n+19, marker4);
-	Table.set("Slice", n+20, marker4+" Cell");
-	Table.set("Slice", n+21, marker4+" Cell ROI");
-	Table.set("Slice", n+22, marker4+" colocalised "+reference_marker);
-	Table.set("Slice", n+23, marker4+" colocalised "+reference_marker+ " ROI");
-	Table.set("Slice", n+24, marker5);
-	Table.set("Slice", n+25, marker5+" Cell");
-	Table.set("Slice", n+26, marker5+" Cell ROI");
-	Table.set("Slice", n+27, marker5+" colocalised "+reference_marker);
-	Table.set("Slice", n+28, marker5+" colocalised "+reference_marker+ " ROI");
-	for (i=1; i<29; i++){
+	Table.set("Slice", n, reference_marker);
+	Table.set("Slice", n+1, reference_marker+" Cell");
+	Table.set("Slice", n+2, reference_marker+" Cell ROI");
+	Table.set("Slice", n+3, marker1);
+	Table.set("Slice", n+4, marker1+" Cell");
+	Table.set("Slice", n+5, marker1+" Cell ROI");
+	Table.set("Slice", n+6, marker1+" colocalised "+reference_marker);
+	Table.set("Slice", n+7, marker1+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n+8, marker2);
+	Table.set("Slice", n+9, marker2+" Cell");
+	Table.set("Slice", n+10, marker2+" Cell ROI");
+	Table.set("Slice", n+11, marker2+" colocalised "+reference_marker);
+	Table.set("Slice", n+12, marker2+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n+13, marker3);
+	Table.set("Slice", n+14, marker3+" Cell");
+	Table.set("Slice", n+15, marker3+" Cell ROI");
+	Table.set("Slice", n+16, marker3+" colocalised "+reference_marker);
+	Table.set("Slice", n+17, marker3+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n+18, marker4);
+	Table.set("Slice", n+19, marker4+" Cell");
+	Table.set("Slice", n+20, marker4+" Cell ROI");
+	Table.set("Slice", n+21, marker4+" colocalised "+reference_marker);
+	Table.set("Slice", n+22, marker4+" colocalised "+reference_marker+ " ROI");
+	Table.set("Slice", n+23, marker5);
+	Table.set("Slice", n+24, marker5+" Cell");
+	Table.set("Slice", n+25, marker5+" Cell ROI");
+	Table.set("Slice", n+26, marker5+" colocalised "+reference_marker);
+	Table.set("Slice", n+27, marker5+" colocalised "+reference_marker+ " ROI");
+	for (i=0; i<28; i++){
 			Table.set("Count", i, "NA");
 		}
 	}
@@ -4220,7 +4335,7 @@ else {
 	Table.set("Slice", 25, marker5);
 	Table.set("Slice", 26, marker5+" Cell");
 	Table.set("Slice", 27, marker5+" Cell ROI");
-	Table.set("Slice", 28 marker5+" colocalised "+reference_marker);
+	Table.set("Slice", 28, marker5+" colocalised "+reference_marker);
 	Table.set("Slice", 29, marker5+" colocalised "+reference_marker+ " ROI");
 	for (i=1; i<30; i++){
 			Table.set("Count", i, "NA");

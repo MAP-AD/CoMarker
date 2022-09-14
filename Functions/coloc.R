@@ -62,20 +62,10 @@ library(dplyr)
   
   ## reorganise colnames
   df$CaseID=rownames(df)
-  df$CaseID=sub("\\i.*", "", df$CaseID)
-  df$CaseID=gsub(" ","",df$CaseID)
-  
-  rep=c('i','ii','iii','iv','v','vi')
-  
-  replicate=sapply(rownames(df), function(x){
-    rep[str_detect(x,rep)]
-  })
-  
-  replicate_list=lapply(replicate, function(x){
-    x[[length(x)]]
-  })
-  rep_df=do.call(rbind,  replicate_list)
-  df$replicate=paste0(df$CaseID, ' ',rep_df[,1])
+  df$CaseID=sapply(strsplit( df$CaseID, ' '), '[', 1)
+  df$replicate=sapply(strsplit( rownames(df), ' '), '[', 2)
+  df$replicate=sub('\\/.*', '', df$replicate)
+  df$replicate=paste0(df$CaseID, ' ',df$replicate)
 
   if(any(grepl("package:plyr", search()))) detach("package:plyr") else message("plyr not loaded")
   # Filter count outliers 
@@ -95,7 +85,9 @@ library(dplyr)
   
   replicated_flags=flags$replicate
 
-
+  
+  library(plyr)
+  
   if(remove_outliers==TRUE){
     df=df[which(df$replicate %!in% replicated_flags),]
   }
@@ -110,14 +102,13 @@ library(dplyr)
     group_by(CaseID,Slice)%>%
     dplyr::summarize(Mean_count = mean(Count, na.rm = TRUE), Mean_area=mean(Total.Area, na.rm = TRUE)) %>% 
     as.data.frame()
-  
+
   
   ## merge metadata
   metadata=metadata[which(metadata$CaseID %in% results$CaseID),]
   merge=merge(results,metadata,all=TRUE, by='CaseID')
   
 
-  library(plyr)
   
   if(number_marker==1){
     ## summarise
@@ -304,7 +295,7 @@ library(dplyr)
         geom_signif(comparisons = split(t(combn(levels(summary2[[outcome]]), 2)), seq(nrow(t(combn(levels(summary2[[outcome]]), 2))))), 
                     map_signif_level=c("***"=0.001,"**"=0.01, "*"=0.05, "ns"=2), tip_length = .05)+
         ylab(paste(marker))+ggsci::scale_fill_npg(name='Groups')+theme(axis.text=element_text(size=16),
-                                                                       axis.title=element_text(size=12,face="plain")) +   xlab(" ")++ggtitle(paste0(marker))
+                                                                       axis.title=element_text(size=12,face="plain")) +   xlab(" ")+ggtitle(paste0(marker))
       
       
     }
@@ -396,7 +387,7 @@ library(dplyr)
         geom_signif(comparisons = split(t(combn(levels(summary2[[outcome]]), 2)), seq(nrow(t(combn(levels(summary2[[outcome]]), 2))))), 
                     map_signif_level=c("***"=0.001,"**"=0.01, "*"=0.05, "ns"=2), tip_length = .05)+
         ylab(paste(marker))+ggsci::scale_fill_npg(name='Groups')+theme(axis.text=element_text(size=16),
-                                                                       axis.title=element_text(size=12,face="plain")) +   xlab(" ")++ggtitle(paste0(marker))
+                                                                       axis.title=element_text(size=12,face="plain")) +   xlab(" ")+ggtitle(paste0(marker))
       
       
     }
@@ -498,7 +489,7 @@ library(dplyr)
         geom_signif(comparisons = split(t(combn(levels(summary2[[outcome]]), 2)), seq(nrow(t(combn(levels(summary2[[outcome]]), 2))))), 
                     map_signif_level=c("***"=0.001,"**"=0.01, "*"=0.05, "ns"=2), tip_length = .05)+
         ylab(paste(marker))+ggsci::scale_fill_npg(name='Groups')+theme(axis.text=element_text(size=16),
-                                                                       axis.title=element_text(size=12,face="plain")) +   xlab(" ")++ggtitle(paste0(marker))
+                                                                       axis.title=element_text(size=12,face="plain")) +   xlab(" ")+ggtitle(paste0(marker))
       
       
     }

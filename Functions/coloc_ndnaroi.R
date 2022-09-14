@@ -62,20 +62,10 @@ coloc_ndnaroi<-function(image_directory,
   
   ## reorganise colnames
   df$CaseID=rownames(df)
-  df$CaseID=sub("\\i.*", "", df$CaseID)
-  df$CaseID=gsub(" ","",df$CaseID)
-  
-  rep=c('i','ii','iii','iv')
-  
-  replicate=sapply(rownames(df), function(x){
-    rep[str_detect(x,rep)]
-  })
-  
-  replicate_list=lapply(replicate, function(x){
-    x[[length(x)]]
-  })
-  rep_df=do.call(rbind,  replicate_list)
-  df$replicate=paste0(df$CaseID, ' ',rep_df[,1])
+  df$CaseID=sapply(strsplit( df$CaseID, ' '), '[', 1)
+  df$replicate=sapply(strsplit( rownames(df), ' '), '[', 2)
+  df$replicate=sub('\\/.*', '', df$replicate)
+  df$replicate=paste0(df$CaseID, ' ',df$replicate)
 
   if(any(grepl("package:plyr", search()))) detach("package:plyr") else message("plyr not loaded")
   
