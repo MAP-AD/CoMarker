@@ -1,6 +1,6 @@
 # Instructions - From Start to Finish
 
-This section describes how to use the script from start to finish, without too much extra detail.
+This section describes how to use the script from start to finish, without too much extra detail. Find [here](https://www.youtube.com/watch?v=dDbgb5QRrnc) a YouTube video with step by step instructions for running the pipeline with the sample data.
 
 ## Download the Repository
 

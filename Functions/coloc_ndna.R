@@ -108,7 +108,7 @@ coloc_ndna<-function(image_directory,
   metadata=metadata[which(metadata$CaseID %in% results$CaseID),]
   merge=merge(results,metadata,all=TRUE, by='CaseID')
   
-  library(plyr)
+  
   
   if(number_marker==1){
     ## summarise
@@ -130,7 +130,7 @@ coloc_ndna<-function(image_directory,
                 marker1ref = 100*(Mean_area[Slice==paste0(marker1,reference_marker)] / Mean_area[Slice==paste0(reference_marker)]),
                 marker1refROI = 100*(Mean_area[Slice==paste0(marker1,reference_marker, ' ROI')] / Mean_area[Slice==paste0(marker1,reference_marker)]))
     
-    colnames(summary)=c(paste0(region_of_interest,' Count'),paste0(region_of_interest,' Area (Sq Micrometers)'),paste0(reference_marker,' Area (Sq Micrometers)'),
+    colnames(summary)=c('CaseID',paste0(region_of_interest,' Count'),paste0(region_of_interest,' Area (Sq Micrometers)'),paste0(reference_marker,' Area (Sq Micrometers)'),
                         paste0(reference_marker,' Area ROI (Sq Micrometers)'),paste0(reference_marker,' Area Outside of ROI (Sq Micrometers)'),
                         paste0(reference_marker,' ROI (% of Total ',reference_marker,' Area)'),paste0(marker1,' Area (Sq Micrometers)'),
                         paste0(marker1,' Area ROI (Sq Micrometers)'),paste0(marker1,' Area Outside of ROI (Sq Micrometers)'),paste0(marker1,' ROI (% of Total ',marker1,' Area)'),
@@ -140,11 +140,11 @@ coloc_ndna<-function(image_directory,
                         paste0(marker1,' ',reference_marker,' Colocalisation ROI (% of Total ',marker1,' ',reference_marker,' Colocalised Area)')) 
     
     
-    summary2=cbind(summary,metadata)
+    summary2=merge(summary,metadata, by='CaseID')
     summary2[[outcome]]=as.factor(summary2[[outcome]])
     
     plot_list=list()
-    for(marker in colnames(summary2)[1:((number_marker*9)+6)]){
+    for(marker in colnames(summary2)[2:((number_marker*9)+7)]){
       
       
       plot_list[[marker]]<-ggboxplot(summary2, x=paste(outcome), y=paste0(marker),fill=paste(outcome),
@@ -196,7 +196,7 @@ coloc_ndna<-function(image_directory,
                 marker2refROI = 100*(Mean_area[Slice==paste0(marker2,reference_marker, ' ROI')] / Mean_area[Slice==paste0(marker2,reference_marker)]))
     
     
-    colnames(summary)=c(paste0(region_of_interest,' Count'),paste0(region_of_interest,' Area (Sq Micrometers)'),paste0(reference_marker,' Area (Sq Micrometers)'),
+    colnames(summary)=c('CaseID',paste0(region_of_interest,' Count'),paste0(region_of_interest,' Area (Sq Micrometers)'),paste0(reference_marker,' Area (Sq Micrometers)'),
                         paste0(reference_marker,' Area ROI (Sq Micrometers)'),paste0(reference_marker,' Area Outside of ROI (Sq Micrometers)'),
                         paste0(reference_marker,' ROI (% of Total ',reference_marker,' Area)'),paste0(marker1,' Area (Sq Micrometers)'),
                         paste0(marker1,' Area ROI (Sq Micrometers)'),paste0(marker1,' Area Outside of ROI (Sq Micrometers)'),paste0(marker1,' ROI (% of Total ',marker1,' Area)'),
@@ -211,12 +211,12 @@ coloc_ndna<-function(image_directory,
                         paste0(marker2,' ',reference_marker,' Colocalisation ROI (% of Total ',marker2,' ',reference_marker,' Colocalised Area)'))
 
     
-    summary2=cbind(summary,metadata)
+    summary2=merge(summary,metadata, by='CaseID')
     summary2[[outcome]]=as.factor(summary2[[outcome]])
     
 
     plot_list=list()
-    for(marker in colnames(summary2)[1:((number_marker*9)+6)]){
+    for(marker in colnames(summary2)[2:((number_marker*9)+7)]){
       
             plot_list[[marker]]<-ggboxplot(summary2, x=paste(outcome), y=paste0(marker),fill=paste(outcome),
                                      add = "jitter", size=1)+
@@ -277,7 +277,7 @@ coloc_ndna<-function(image_directory,
                 marker3refROI = 100*(Mean_area[Slice==paste0(marker3,reference_marker, ' ROI')] / Mean_area[Slice==paste0(marker3,reference_marker)]))
     
                 
-    colnames(summary)=c(paste0(region_of_interest,' Count'),paste0(region_of_interest,' Area (Sq Micrometers)'),paste0(reference_marker,' Area (Sq Micrometers)'),
+    colnames(summary)=c('CaseID',paste0(region_of_interest,' Count'),paste0(region_of_interest,' Area (Sq Micrometers)'),paste0(reference_marker,' Area (Sq Micrometers)'),
                         paste0(reference_marker,' Area ROI (Sq Micrometers)'),paste0(reference_marker,' Area Outside of ROI (Sq Micrometers)'),
                         paste0(reference_marker,' ROI (% of Total ',reference_marker,' Area)'),paste0(marker1,' Area (Sq Micrometers)'),
                         paste0(marker1,' Area ROI (Sq Micrometers)'),paste0(marker1,' Area Outside of ROI (Sq Micrometers)'),paste0(marker1,' ROI (% of Total ',marker1,' Area)'),
@@ -297,11 +297,11 @@ coloc_ndna<-function(image_directory,
                         paste0(marker3,' ',reference_marker,' Colocalisation ROI (% of Total ',marker3,' ',reference_marker,' Colocalised Area)'))
     
 
-    summary2=cbind(summary,metadata)
+    summary2=merge(summary,metadata, by='CaseID')
     summary2[[outcome]]=as.factor(summary2[[outcome]])
     
     plot_list=list()
-    for(marker in colnames(summary2)[1:((number_marker*9)+6)]){
+    for(marker in colnames(summary2)[2:((number_marker*9)+7)]){
       
       plot_list[[marker]]<-ggboxplot(summary2, x=paste(outcome), y=paste0(marker),fill=paste(outcome),
                                      add = "jitter", size=1)+
@@ -368,7 +368,7 @@ coloc_ndna<-function(image_directory,
                 marker4ref= 100*(Mean_area[Slice==paste0(marker4,reference_marker)] / Mean_area[Slice==paste0(reference_marker)]),
                 marker4refROI = 100*(Mean_area[Slice==paste0(marker4,reference_marker, ' ROI')] / Mean_area[Slice==paste0(marker4,reference_marker)]))
     
-    colnames(summary)=c(paste0(region_of_interest,' Count'),paste0(region_of_interest,' Area (Sq Micrometers)'),paste0(reference_marker,' Area (Sq Micrometers)'),
+    colnames(summary)=c('CaseID',paste0(region_of_interest,' Count'),paste0(region_of_interest,' Area (Sq Micrometers)'),paste0(reference_marker,' Area (Sq Micrometers)'),
                         paste0(reference_marker,' Area ROI (Sq Micrometers)'),paste0(reference_marker,' Area Outside of ROI (Sq Micrometers)'),
                         paste0(reference_marker,' ROI (% of Total ',reference_marker,' Area)'),paste0(marker1,' Area (Sq Micrometers)'),
                         paste0(marker1,' Area ROI (Sq Micrometers)'),paste0(marker1,' Area Outside of ROI (Sq Micrometers)'),paste0(marker1,' ROI (% of Total ',marker1,' Area)'),
@@ -393,12 +393,12 @@ coloc_ndna<-function(image_directory,
                         paste0(marker4,' ',reference_marker,' Colocalisation ROI (% of Total ',marker4,' ',reference_marker,' Colocalised Area)'))
 
     
-    summary2=cbind(summary,metadata)
+    summary2=merge(summary,metadata, by='CaseID')
     summary2[[outcome]]=as.factor(summary2[[outcome]])
     
     
     plot_list=list()
-    for(marker in colnames(summary2)[1:((number_marker*9)+6)]){
+    for(marker in colnames(summary2)[2:((number_marker*9)+7)]){
       
       plot_list[[marker]]<-ggboxplot(summary2, x=paste(outcome), y=paste0(marker),fill=paste(outcome),
                                      add = "jitter", size=1)+
@@ -472,7 +472,7 @@ coloc_ndna<-function(image_directory,
                 marker5ref= 100*(Mean_area[Slice==paste0(marker5,reference_marker)] / Mean_area[Slice==paste0(reference_marker)]),
                 marker5refROI = 100*(Mean_area[Slice==paste0(marker5,reference_marker, ' ROI')] / Mean_area[Slice==paste0(marker5,reference_marker)]))
     
-    colnames(summary)=c(paste0(region_of_interest,' Count'),paste0(region_of_interest,' Area (Sq Micrometers)'),paste0(reference_marker,' Area (Sq Micrometers)'),
+    colnames(summary)=c('CaseID',paste0(region_of_interest,' Count'),paste0(region_of_interest,' Area (Sq Micrometers)'),paste0(reference_marker,' Area (Sq Micrometers)'),
                         paste0(reference_marker,' Area ROI (Sq Micrometers)'),paste0(reference_marker,' Area Outside of ROI (Sq Micrometers)'),
                         paste0(reference_marker,' ROI (% of Total ',reference_marker,' Area)'),paste0(marker1,' Area (Sq Micrometers)'),
                         paste0(marker1,' Area ROI (Sq Micrometers)'),paste0(marker1,' Area Outside of ROI (Sq Micrometers)'),paste0(marker1,' ROI (% of Total ',marker1,' Area)'),
@@ -502,11 +502,11 @@ coloc_ndna<-function(image_directory,
                         paste0(marker5,' ',reference_marker,' Colocalisation ROI (% of Total ',marker5,' ',reference_marker,' Colocalised Area)'))
 
     
-    summary2=cbind(summary,metadata)
+    summary2=merge(summary,metadata, by='CaseID')
     summary2[[outcome]]=as.factor(summary2[[outcome]])
     
     plot_list=list()
-    for(marker in colnames(summary2)[1:((number_marker*9)+6)]){
+    for(marker in colnames(summary2)[2:((number_marker*9)+7)]){
       
       plot_list[[marker]]<-ggboxplot(summary2, x=paste(outcome), y=paste0(marker),fill=paste(outcome),
                                      add = "jitter", size=1)+

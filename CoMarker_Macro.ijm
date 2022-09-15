@@ -4607,10 +4607,9 @@ if ( selectionType() != -1) {
 }else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, marker1);
-	Table.set("Slice", n+1, marker1+" ROI");
-	Table.set("Slice", n+2, marker1+reference_marker);
-	Table.set("Slice", n+3, marker1+reference_marker+" ROI");
+	Table.set("Slice", n, marker1+" ROI");
+	Table.set("Slice", n+1, marker1+reference_marker);
+	Table.set("Slice", n+2, marker1+reference_marker+" ROI");
 	}
 //End marker1
 //If no ref ROi
@@ -4630,13 +4629,12 @@ if ( selectionType() != -1) {
 }else{
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, reference_marker);
-	Table.set("Slice", n+1, reference_marker+" ROI");
-	Table.set("Slice", n+2, marker1);
-	Table.set("Slice", n+3, marker1+" ROI");
-	Table.set("Slice", n+4, marker1+reference_marker);
-	Table.set("Slice", n+5, marker1+reference_marker+" ROI");
-	for (i=2; i<6; i++){
+	Table.set("Slice", n, reference_marker+" ROI");
+	Table.set("Slice", n+1, marker1);
+	Table.set("Slice", n+2, marker1+" ROI");
+	Table.set("Slice", n+3, marker1+reference_marker);
+	Table.set("Slice", n+4, marker1+reference_marker+" ROI");
+	for (i=1; i<5; i++){
 			Table.set("Count", i, "NA");
 		}
 }
@@ -4644,13 +4642,13 @@ if ( selectionType() != -1) {
 }else{
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, region_of_interest);
-	Table.set("Slice", n+1, reference_marker);
-	Table.set("Slice", n+2, reference_marker+" ROI");
-	Table.set("Slice", n+3, marker1);
-	Table.set("Slice", n+4, marker1+" ROI");
-	Table.set("Slice", n+5, marker1+reference_marker);
-	Table.set("Slice", n+6, marker1+reference_marker+" ROI");
+	Table.set("Slice", 0, region_of_interest);
+	Table.set("Slice", 1, reference_marker);
+	Table.set("Slice", 2, reference_marker+" ROI");
+	Table.set("Slice", 3, marker1);
+	Table.set("Slice", 4, marker1+" ROI");
+	Table.set("Slice", 5, marker1+reference_marker);
+	Table.set("Slice", 6, marker1+reference_marker+" ROI");
 	for (i=1; i<7; i++){
 			Table.set("Count", i, "NA");
 		}
@@ -4905,10 +4903,9 @@ if ( selectionType() != -1) {
 }else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, marker1);
-	Table.set("Slice", n+1, marker1+" ROI");
-	Table.set("Slice", n+2, marker1+reference_marker);
-	Table.set("Slice", n+3, marker1+reference_marker+" ROI");
+	Table.set("Slice", n, marker1+" ROI");
+	Table.set("Slice", n+1, marker1+reference_marker);
+	Table.set("Slice", n+2, marker1+reference_marker+" ROI");
 	}
 
 // MARKER 2
@@ -5025,10 +5022,9 @@ if ( selectionType() != -1) {
 }else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, marker2);
-	Table.set("Slice", n+1, marker2+" ROI");
-	Table.set("Slice", n+2, marker2+reference_marker);
-	Table.set("Slice", n+3, marker2+reference_marker+" ROI");
+	Table.set("Slice", n, marker2+" ROI");
+	Table.set("Slice", n+1, marker2+reference_marker);
+	Table.set("Slice", n+2, marker2+reference_marker+" ROI");
 	}
 //End marker2
 //if no ref
@@ -5052,17 +5048,16 @@ if ( selectionType() != -1) {
 }else{
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, reference_marker);
-	Table.set("Slice", n+1, reference_marker+" ROI");
-	Table.set("Slice", n+2, marker1);
-	Table.set("Slice", n+3, marker1+" ROI");
-	Table.set("Slice", n+4, marker1+reference_marker);
-	Table.set("Slice", n+5, marker1+reference_marker+" ROI");
-	Table.set("Slice", n+6, marker2);
-	Table.set("Slice", n+7, marker2+" ROI");
-	Table.set("Slice", n+8, marker2+reference_marker);
-	Table.set("Slice", n+9, marker2+reference_marker+" ROI");
-	for (i=2; i<10; i++){
+	Table.set("Slice", n, reference_marker+" ROI");
+	Table.set("Slice", n+1, marker1);
+	Table.set("Slice", n+2, marker1+" ROI");
+	Table.set("Slice", n+3, marker1+reference_marker);
+	Table.set("Slice", n+4, marker1+reference_marker+" ROI");
+	Table.set("Slice", n+5, marker2);
+	Table.set("Slice", n+6, marker2+" ROI");
+	Table.set("Slice", n+7, marker2+reference_marker);
+	Table.set("Slice", n+8, marker2+reference_marker+" ROI");
+	for (i=1; i<9; i++){
 			Table.set("Count", i, "NA");
 		}
 }
@@ -5070,17 +5065,17 @@ if ( selectionType() != -1) {
 }else{
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, region_of_interest);
-	Table.set("Slice", n+1, reference_marker);
-	Table.set("Slice", n+2, reference_marker+" ROI");
-	Table.set("Slice", n+3, marker1);
-	Table.set("Slice", n+4, marker1+" ROI");
-	Table.set("Slice", n+5, marker1+reference_marker);
-	Table.set("Slice", n+6, marker1+reference_marker+" ROI");
-	Table.set("Slice", n+7, marker2);
-	Table.set("Slice", n+8, marker2+" ROI");
-	Table.set("Slice", n+9, marker2+reference_marker);
-	Table.set("Slice", n+10, marker2+reference_marker+" ROI");
+	Table.set("Slice", 0, region_of_interest);
+	Table.set("Slice", 1, reference_marker);
+	Table.set("Slice", 2, reference_marker+" ROI");
+	Table.set("Slice", 3, marker1);
+	Table.set("Slice", 4, marker1+" ROI");
+	Table.set("Slice", 5, marker1+reference_marker);
+	Table.set("Slice", 6, marker1+reference_marker+" ROI");
+	Table.set("Slice", 7, marker2);
+	Table.set("Slice", 8, marker2+" ROI");
+	Table.set("Slice", 9, marker2+reference_marker);
+	Table.set("Slice", 10, marker2+reference_marker+" ROI");
 	for (i=1; i<11; i++){
 			Table.set("Count", i, "NA");
 		}
@@ -5336,10 +5331,9 @@ if ( selectionType() != -1) {
 }else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, marker1);
-	Table.set("Slice", n+1, marker1+" ROI");
-	Table.set("Slice", n+2, marker1+reference_marker);
-	Table.set("Slice", n+3, marker1+reference_marker+" ROI");
+	Table.set("Slice", n, marker1+" ROI");
+	Table.set("Slice", n+1, marker1+reference_marker);
+	Table.set("Slice", n+2, marker1+reference_marker+" ROI");
 	}
 
 // MARKER 2
@@ -5455,10 +5449,9 @@ if ( selectionType() != -1) {
 }else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, marker2);
-	Table.set("Slice", n+1, marker2+" ROI");
-	Table.set("Slice", n+2, marker2+reference_marker);
-	Table.set("Slice", n+3, marker2+reference_marker+" ROI");
+	Table.set("Slice", n, marker2+" ROI");
+	Table.set("Slice", n+1, marker2+reference_marker);
+	Table.set("Slice", n+2, marker2+reference_marker+" ROI");
 	}
 	
 //// MARKER 3
@@ -5575,7 +5568,7 @@ if ( selectionType() != -1) {
 }else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, marker3);
+	Table.set("Slice", n, marker3+" ROI");
 	Table.set("Slice", n+1, marker3+reference_marker);
 	Table.set("Slice", n+2, marker3+reference_marker+" ROI");
 	}
@@ -5607,21 +5600,20 @@ if ( selectionType() != -1) {
 }else{
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, reference_marker);
-	Table.set("Slice", n+1, reference_marker+" ROI");
-	Table.set("Slice", n+2, marker1);
-	Table.set("Slice", n+3, marker1+" ROI");
-	Table.set("Slice", n+4, marker1+reference_marker);
-	Table.set("Slice", n+5, marker1+reference_marker+" ROI");
-	Table.set("Slice", n+6, marker2);
-	Table.set("Slice", n+7, marker2+" ROI");
-	Table.set("Slice", n+8, marker2+reference_marker);
-	Table.set("Slice", n+9, marker2+reference_marker+" ROI");
-	Table.set("Slice", n+10, marker3);
-	Table.set("Slice", n+11, marker3+" ROI");
-	Table.set("Slice", n+12, marker3+reference_marker);
-	Table.set("Slice", n+13, marker3+reference_marker+" ROI");
-	for (i=2; i<14; i++){
+	Table.set("Slice", n, reference_marker+" ROI");
+	Table.set("Slice", n+1, marker1);
+	Table.set("Slice", n+2, marker1+" ROI");
+	Table.set("Slice", n+3, marker1+reference_marker);
+	Table.set("Slice", n+4, marker1+reference_marker+" ROI");
+	Table.set("Slice", n+5, marker2);
+	Table.set("Slice", n+6, marker2+" ROI");
+	Table.set("Slice", n+7, marker2+reference_marker);
+	Table.set("Slice", n+8, marker2+reference_marker+" ROI");
+	Table.set("Slice", n+9, marker3);
+	Table.set("Slice", n+10, marker3+" ROI");
+	Table.set("Slice", n+11, marker3+reference_marker);
+	Table.set("Slice", n+12, marker3+reference_marker+" ROI");
+	for (i=1; i<13; i++){
 			Table.set("Count", i, "NA");
 		}
 }
@@ -5629,21 +5621,21 @@ if ( selectionType() != -1) {
 }else{
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, region_of_interest);
-	Table.set("Slice", n+1, reference_marker);
-	Table.set("Slice", n+2, reference_marker+" ROI");
-	Table.set("Slice", n+3, marker1);
-	Table.set("Slice", n+4, marker1+" ROI");
-	Table.set("Slice", n+5, marker1+reference_marker);
-	Table.set("Slice", n+6, marker1+reference_marker+" ROI");
-	Table.set("Slice", n+7, marker2);
-	Table.set("Slice", n+8, marker2+" ROI");
-	Table.set("Slice", n+9, marker2+reference_marker);
-	Table.set("Slice", n+10, marker2+reference_marker+" ROI");
-	Table.set("Slice", n+11, marker3);
-	Table.set("Slice", n+12, marker3+" ROI");
-	Table.set("Slice", n+13, marker3+reference_marker);
-	Table.set("Slice", n+14, marker3+reference_marker+" ROI");
+	Table.set("Slice", 0, region_of_interest);
+	Table.set("Slice", 1, reference_marker);
+	Table.set("Slice", 2, reference_marker+" ROI");
+	Table.set("Slice", 3, marker1);
+	Table.set("Slice", 4, marker1+" ROI");
+	Table.set("Slice", 5, marker1+reference_marker);
+	Table.set("Slice", 6, marker1+reference_marker+" ROI");
+	Table.set("Slice", 7, marker2);
+	Table.set("Slice", 8, marker2+" ROI");
+	Table.set("Slice", 9, marker2+reference_marker);
+	Table.set("Slice", 10, marker2+reference_marker+" ROI");
+	Table.set("Slice", 11, marker3);
+	Table.set("Slice", 12, marker3+" ROI");
+	Table.set("Slice", 13, marker3+reference_marker);
+	Table.set("Slice", 14, marker3+reference_marker+" ROI");
 	for (i=1; i<15; i++){
 			Table.set("Count", i, "NA");
 		}
@@ -5901,10 +5893,9 @@ if ( selectionType() != -1) {
 }else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, marker1);
-	Table.set("Slice", n+1, marker1+" ROI");
-	Table.set("Slice", n+2, marker1+reference_marker);
-	Table.set("Slice", n+3, marker1+reference_marker+" ROI");
+	Table.set("Slice", n, marker1+" ROI");
+	Table.set("Slice", n+1, marker1+reference_marker);
+	Table.set("Slice", n+2, marker1+reference_marker+" ROI");
 	}
 
 // MARKER 2
@@ -6021,10 +6012,9 @@ if ( selectionType() != -1) {
 }else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, marker2);
-	Table.set("Slice", n+1, marker2+" ROI");
-	Table.set("Slice", n+2, marker2+reference_marker);
-	Table.set("Slice", n+3, marker2+reference_marker+" ROI");
+	Table.set("Slice", n, marker2+" ROI");
+	Table.set("Slice", n+1, marker2+reference_marker);
+	Table.set("Slice", n+2, marker2+reference_marker+" ROI");
 	}
 	
 //// MARKER 3
@@ -6141,10 +6131,9 @@ if ( selectionType() != -1) {
 }else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, marker3);
-	Table.set("Slice", n+1, marker3+" ROI");
-	Table.set("Slice", n+2, marker3+reference_marker);
-	Table.set("Slice", n+3, marker3+reference_marker+" ROI");
+	Table.set("Slice", n, marker3+" ROI");
+	Table.set("Slice", n+1, marker3+reference_marker);
+	Table.set("Slice", n+2, marker3+reference_marker+" ROI");
 	}
 
 ////end marker 3
@@ -6263,10 +6252,9 @@ if ( selectionType() != -1) {
 }else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, marker4);
-	Table.set("Slice", n+1, marker4+" ROI");
-	Table.set("Slice", n+2, marker4+reference_marker);
-	Table.set("Slice", n+3, marker4+reference_marker+" ROI");
+	Table.set("Slice", n, marker4+" ROI");
+	Table.set("Slice", n+1, marker4+reference_marker);
+	Table.set("Slice", n+2, marker4+reference_marker+" ROI");
 	}
 
 ////end marker 4
@@ -6300,25 +6288,24 @@ if ( selectionType() != -1) {
 }else{
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, reference_marker);
-	Table.set("Slice", n+1, reference_marker+" ROI");
-	Table.set("Slice", n+2, marker1);
-	Table.set("Slice", n+3, marker1+" ROI");
-	Table.set("Slice", n+4, marker1+reference_marker);
-	Table.set("Slice", n+5, marker1+reference_marker+" ROI");
-	Table.set("Slice", n+6, marker2);
-	Table.set("Slice", n+7, marker2+" ROI");
-	Table.set("Slice", n+8, marker2+reference_marker);
-	Table.set("Slice", n+9, marker2+reference_marker+" ROI");
-	Table.set("Slice", n+10, marker3);
-	Table.set("Slice", n+11, marker3+" ROI");
-	Table.set("Slice", n+12, marker3+reference_marker);
-	Table.set("Slice", n+13, marker3+reference_marker+" ROI");
-	Table.set("Slice", n+14, marker4);
-	Table.set("Slice", n+15, marker4+" ROI");
-	Table.set("Slice", n+16, marker4+reference_marker);
-	Table.set("Slice", n+17, marker4+reference_marker+" ROI");
-	for (i=2; i<18; i++){
+	Table.set("Slice", n, reference_marker+" ROI");
+	Table.set("Slice", n+1, marker1);
+	Table.set("Slice", n+2, marker1+" ROI");
+	Table.set("Slice", n+3, marker1+reference_marker);
+	Table.set("Slice", n+4, marker1+reference_marker+" ROI");
+	Table.set("Slice", n+5, marker2);
+	Table.set("Slice", n+6, marker2+" ROI");
+	Table.set("Slice", n+7, marker2+reference_marker);
+	Table.set("Slice", n+8, marker2+reference_marker+" ROI");
+	Table.set("Slice", n+9, marker3);
+	Table.set("Slice", n+10, marker3+" ROI");
+	Table.set("Slice", n+11, marker3+reference_marker);
+	Table.set("Slice", n+12, marker3+reference_marker+" ROI");
+	Table.set("Slice", n+13, marker4);
+	Table.set("Slice", n+14, marker4+" ROI");
+	Table.set("Slice", n+15, marker4+reference_marker);
+	Table.set("Slice", n+16, marker4+reference_marker+" ROI");
+	for (i=1; i<17; i++){
 			Table.set("Count", i, "NA");
 		}
 }
@@ -6326,25 +6313,25 @@ if ( selectionType() != -1) {
 }else{
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, region_of_interest);
-	Table.set("Slice", n+1, reference_marker);
-	Table.set("Slice", n+2, reference_marker+" ROI");
-	Table.set("Slice", n+3, marker1);
-	Table.set("Slice", n+4, marker1+" ROI");
-	Table.set("Slice", n+5, marker1+reference_marker);
-	Table.set("Slice", n+6, marker1+reference_marker+" ROI");
-	Table.set("Slice", n+7, marker2);
-	Table.set("Slice", n+8, marker2+" ROI");
-	Table.set("Slice", n+9, marker2+reference_marker);
-	Table.set("Slice", n+10, marker2+reference_marker+" ROI");
-	Table.set("Slice", n+11, marker3);
-	Table.set("Slice", n+12, marker3+" ROI");
-	Table.set("Slice", n+13, marker3+reference_marker);
-	Table.set("Slice", n+14, marker3+reference_marker+" ROI");
-	Table.set("Slice", n+15, marker4);
-	Table.set("Slice", n+16, marker4+" ROI");
-	Table.set("Slice", n+17, marker4+reference_marker);
-	Table.set("Slice", n+18, marker4+reference_marker+" ROI");
+	Table.set("Slice", 0, region_of_interest);
+	Table.set("Slice", 1, reference_marker);
+	Table.set("Slice", 2, reference_marker+" ROI");
+	Table.set("Slice", 3, marker1);
+	Table.set("Slice", 4, marker1+" ROI");
+	Table.set("Slice", 5, marker1+reference_marker);
+	Table.set("Slice", 6, marker1+reference_marker+" ROI");
+	Table.set("Slice", 7, marker2);
+	Table.set("Slice", 8, marker2+" ROI");
+	Table.set("Slice", 9, marker2+reference_marker);
+	Table.set("Slice", 10, marker2+reference_marker+" ROI");
+	Table.set("Slice", 11, marker3);
+	Table.set("Slice", 12, marker3+" ROI");
+	Table.set("Slice", 13, marker3+reference_marker);
+	Table.set("Slice", 14, marker3+reference_marker+" ROI");
+	Table.set("Slice", 15, marker4);
+	Table.set("Slice", 16, marker4+" ROI");
+	Table.set("Slice", 17, marker4+reference_marker);
+	Table.set("Slice", 18, marker4+reference_marker+" ROI");
 	for (i=1; i<19; i++){
 			Table.set("Count", i, "NA");
 		}
@@ -6602,10 +6589,9 @@ if ( selectionType() != -1) {
 }else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, marker1);
-	Table.set("Slice", n+1, marker1+" ROI");
-	Table.set("Slice", n+2, marker1+reference_marker);
-	Table.set("Slice", n+3, marker1+reference_marker+" ROI");
+	Table.set("Slice", n, marker1+" ROI");
+	Table.set("Slice", n+1, marker1+reference_marker);
+	Table.set("Slice", n+2, marker1+reference_marker+" ROI");
 	}
 
 // MARKER 2
@@ -6722,10 +6708,9 @@ if ( selectionType() != -1) {
 }else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, marker2);
-	Table.set("Slice", n+1, marker2+" ROI");
-	Table.set("Slice", n+2, marker2+reference_marker);
-	Table.set("Slice", n+3, marker2+reference_marker+" ROI");
+	Table.set("Slice", n, marker2+" ROI");
+	Table.set("Slice", n+1, marker2+reference_marker);
+	Table.set("Slice", n+2, marker2+reference_marker+" ROI");
 	}
 	
 //// MARKER 3
@@ -6842,10 +6827,9 @@ if ( selectionType() != -1) {
 }else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, marker3);
-	Table.set("Slice", n+1, marker3+" ROI");
-	Table.set("Slice", n+2, marker3+reference_marker);
-	Table.set("Slice", n+3, marker3+reference_marker+" ROI");
+	Table.set("Slice", n, marker3+" ROI");
+	Table.set("Slice", n+1, marker3+reference_marker);
+	Table.set("Slice", n+2, marker3+reference_marker+" ROI");
 	}
 
 ////end marker 3
@@ -6964,10 +6948,9 @@ if ( selectionType() != -1) {
 }else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, marker4);
-	Table.set("Slice", n+1, marker4+" ROI");
-	Table.set("Slice", n+2, marker4+reference_marker);
-	Table.set("Slice", n+3, marker4+reference_marker+" ROI");
+	Table.set("Slice", n, marker4+" ROI");
+	Table.set("Slice", n+1, marker4+reference_marker);
+	Table.set("Slice", n+2, marker4+reference_marker+" ROI");
 	}
 
 ////end marker 4
@@ -7086,10 +7069,9 @@ if ( selectionType() != -1) {
 }else {
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, marker5);
-	Table.set("Slice", n+1, marker5+" ROI");
-	Table.set("Slice", n+2, marker5+reference_marker);
-	Table.set("Slice", n+3, marker5+reference_marker+" ROI");
+	Table.set("Slice", n, marker5+" ROI");
+	Table.set("Slice", n+1, marker5+reference_marker);
+	Table.set("Slice", n+2, marker5+reference_marker+" ROI");
 	}
 
 ////end marker 5
@@ -7127,29 +7109,28 @@ if ( selectionType() != -1) {
 }else{
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, reference_marker);
-	Table.set("Slice", n+1, reference_marker+" ROI");
-	Table.set("Slice", n+2, marker1);
-	Table.set("Slice", n+3, marker1+" ROI");
-	Table.set("Slice", n+4, marker1+reference_marker);
-	Table.set("Slice", n+5, marker1+reference_marker+" ROI");
-	Table.set("Slice", n+6, marker2);
-	Table.set("Slice", n+7, marker2+" ROI");
-	Table.set("Slice", n+8, marker2+reference_marker);
-	Table.set("Slice", n+9, marker2+reference_marker+" ROI");
-	Table.set("Slice", n+10, marker3);
-	Table.set("Slice", n+11, marker3+" ROI");
-	Table.set("Slice", n+12, marker3+reference_marker);
-	Table.set("Slice", n+13, marker3+reference_marker+" ROI");
-	Table.set("Slice", n+14, marker4);
-	Table.set("Slice", n+15, marker4+" ROI");
-	Table.set("Slice", n+16, marker4+reference_marker);
-	Table.set("Slice", n+17, marker4+reference_marker+" ROI");
-	Table.set("Slice", n+18, marker5);
-	Table.set("Slice", n+19, marker5+" ROI");
-	Table.set("Slice", n+20, marker5+reference_marker);
-	Table.set("Slice", n+21, marker5+reference_marker+" ROI");
-	for (i=2; i<22; i++){
+	Table.set("Slice", n, reference_marker+" ROI");
+	Table.set("Slice", n+1, marker1);
+	Table.set("Slice", n+2, marker1+" ROI");
+	Table.set("Slice", n+3, marker1+reference_marker);
+	Table.set("Slice", n+4, marker1+reference_marker+" ROI");
+	Table.set("Slice", n+5, marker2);
+	Table.set("Slice", n+6, marker2+" ROI");
+	Table.set("Slice", n+7, marker2+reference_marker);
+	Table.set("Slice", n+8, marker2+reference_marker+" ROI");
+	Table.set("Slice", n+9, marker3);
+	Table.set("Slice", n+10, marker3+" ROI");
+	Table.set("Slice", n+11, marker3+reference_marker);
+	Table.set("Slice", n+12, marker3+reference_marker+" ROI");
+	Table.set("Slice", n+13, marker4);
+	Table.set("Slice", n+14, marker4+" ROI");
+	Table.set("Slice", n+15, marker4+reference_marker);
+	Table.set("Slice", n+16, marker4+reference_marker+" ROI");
+	Table.set("Slice", n+17, marker5);
+	Table.set("Slice", n+18, marker5+" ROI");
+	Table.set("Slice", n+19, marker5+reference_marker);
+	Table.set("Slice", n+20, marker5+reference_marker+" ROI");
+	for (i=1; i<21; i++){
 			Table.set("Count", i, "NA");
 		}
 }
@@ -7157,29 +7138,29 @@ if ( selectionType() != -1) {
 }else{
 	selectWindow("Summary");
 	n = Table.size;
-	Table.set("Slice", n, region_of_interest);
-	Table.set("Slice", n+1, reference_marker);
-	Table.set("Slice", n+2, reference_marker+" ROI");
-	Table.set("Slice", n+3, marker1);
-	Table.set("Slice", n+4, marker1+" ROI");
-	Table.set("Slice", n+5, marker1+reference_marker);
-	Table.set("Slice", n+6, marker1+reference_marker+" ROI");
-	Table.set("Slice", n+7, marker2);
-	Table.set("Slice", n+8, marker2+" ROI");
-	Table.set("Slice", n+9, marker2+reference_marker);
-	Table.set("Slice", n+10, marker2+reference_marker+" ROI");
-	Table.set("Slice", n+11, marker3);
-	Table.set("Slice", n+12, marker3+" ROI");
-	Table.set("Slice", n+13, marker3+reference_marker);
-	Table.set("Slice", n+14, marker3+reference_marker+" ROI");
-	Table.set("Slice", n+15, marker4);
-	Table.set("Slice", n+16, marker4+" ROI");
-	Table.set("Slice", n+17, marker4+reference_marker);
-	Table.set("Slice", n+18, marker4+reference_marker+" ROI");
-	Table.set("Slice", n+19, marker5);
-	Table.set("Slice", n+20, marker5+" ROI");
-	Table.set("Slice", n+21, marker5+reference_marker);
-	Table.set("Slice", n+22, marker5+reference_marker+" ROI");
+	Table.set("Slice", 0, region_of_interest);
+	Table.set("Slice", 1, reference_marker);
+	Table.set("Slice", 2, reference_marker+" ROI");
+	Table.set("Slice", 3, marker1);
+	Table.set("Slice", 4, marker1+" ROI");
+	Table.set("Slice", 5, marker1+reference_marker);
+	Table.set("Slice", 6, marker1+reference_marker+" ROI");
+	Table.set("Slice", 7, marker2);
+	Table.set("Slice", 8, marker2+" ROI");
+	Table.set("Slice", 9, marker2+reference_marker);
+	Table.set("Slice", 10, marker2+reference_marker+" ROI");
+	Table.set("Slice", 11, marker3);
+	Table.set("Slice", 12, marker3+" ROI");
+	Table.set("Slice", 13, marker3+reference_marker);
+	Table.set("Slice", 14, marker3+reference_marker+" ROI");
+	Table.set("Slice", 15, marker4);
+	Table.set("Slice", 16, marker4+" ROI");
+	Table.set("Slice", 17, marker4+reference_marker);
+	Table.set("Slice", 18, marker4+reference_marker+" ROI");
+	Table.set("Slice", 19, marker5);
+	Table.set("Slice", 20, marker5+" ROI");
+	Table.set("Slice", 21, marker5+reference_marker);
+	Table.set("Slice", 22, marker5+reference_marker+" ROI");
 	for (i=1; i<23; i++){
 			Table.set("Count", i, "NA");
 		}

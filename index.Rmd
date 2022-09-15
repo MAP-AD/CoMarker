@@ -26,3 +26,5 @@ CoMarker was developed by Eléonore Schneegans^1^, Samuel Boulger^1^ and Vicky C
 ^1^ UK Dementia Research Institute and Deparatment of Brain Sciences, Imperial College London, London, UK.
 
 [Find the CoMarker Github page here.](https://github.com/MAP-AD/CoMarker)
+
+[Find a YouTube video step-by-step instructions here.](https://www.youtube.com/watch?v=dDbgb5QRrnc)

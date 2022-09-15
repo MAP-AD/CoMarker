@@ -86,7 +86,7 @@ library(dplyr)
   replicated_flags=flags$replicate
 
   
-  library(plyr)
+ 
   
   if(remove_outliers==TRUE){
     df=df[which(df$replicate %!in% replicated_flags),]
@@ -130,19 +130,19 @@ library(dplyr)
                 marker1ref = 100*(Mean_count[Slice==paste0(marker1," colocalised ",reference_marker)] / Mean_count[Slice==paste0(reference_marker," Cell")]),
                 marker1refROI = 100*(Mean_count[Slice==paste0(marker1," colocalised ",reference_marker,' ROI')] / Mean_count[Slice==paste0(marker1," colocalised ",reference_marker)]))
     
-    colnames(summary)=c(paste0(region_of_interest,' Count'),paste0(region_of_interest,' Area (Sq Micrometers)'),paste0(reference_marker,' Cell Count'),paste0(reference_marker,' Cell Count ROI'),
+    colnames(summary)=c('CaseID',paste0(region_of_interest,' Count'),paste0(region_of_interest,' Area (Sq Micrometers)'),paste0(reference_marker,' Cell Count'),paste0(reference_marker,' Cell Count ROI'),
                         paste0(reference_marker,' Cell Count Outside of ROI'),paste0(reference_marker,' ROI (% of Total ',reference_marker,' Cell Count)'),
                         paste0(marker1,' Cell Count'),paste0(marker1,' Cell Count ROI'),paste0(marker1,' Cell Count Outside of ROI'),paste0(marker1,' ROI (% of Total ',marker1,' Cell Count)'),
                         paste0(marker1,' ',reference_marker,' Colocalised Cell Count'),paste0(marker1,' ',reference_marker,' Colocalised Cell Count ROI'),
                         paste0(marker1,' ',reference_marker,' Colocalised Cell Count Outside of ROI'),paste0(marker1,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Cell Count)'),
                         paste0(marker1,' ',reference_marker,' Colocalisation ROI (% of Total ',marker1,' ',reference_marker,' Colocalised Cell Count)')) 
 
-    summary2=cbind(summary,metadata)
+    summary2=merge(summary,metadata, by='CaseID')
     summary2[[outcome]]=as.factor(summary2[[outcome]])
     
       
       plot_list=list()
-      for(marker in colnames(summary2)[1:((number_marker*9)+6)]){
+      for(marker in colnames(summary2)[2:((number_marker*9)+7)]){
         
         plot_list[[marker]]<-ggboxplot(summary2, x=paste(outcome), y=paste0(marker),fill=paste(outcome),
                                        add = "jitter", size=1)+
@@ -194,7 +194,7 @@ library(dplyr)
                 marker2refROI = 100*(Mean_count[Slice==paste0(marker2," colocalised ",reference_marker,' ROI')] / Mean_count[Slice==paste0(marker2," colocalised ",reference_marker)]))
     
     
-    colnames(summary)=c(paste0(region_of_interest,' Count'),paste0(region_of_interest,' Area (Sq Micrometers)'),paste0(reference_marker,' Cell Count'),paste0(reference_marker,' Cell Count ROI'),
+    colnames(summary)=c('CaseID',paste0(region_of_interest,' Count'),paste0(region_of_interest,' Area (Sq Micrometers)'),paste0(reference_marker,' Cell Count'),paste0(reference_marker,' Cell Count ROI'),
                         paste0(reference_marker,' Cell Count Outside of ROI'),paste0(reference_marker,' ROI (% of Total ',reference_marker,' Cell Count)'),
                         paste0(marker1,' Cell Count'),paste0(marker1,' Cell Count ROI'),paste0(marker1,' Cell Count Outside of ROI'),paste0(marker1,' ROI (% of Total ',marker1,' Cell Count)'),
                         paste0(marker1,' ',reference_marker,' Colocalised Cell Count'),paste0(marker1,' ',reference_marker,' Colocalised Cell Count ROI'),
@@ -206,12 +206,12 @@ library(dplyr)
                         paste0(marker2,' ',reference_marker,' Colocalisation ROI (% of Total ',marker2,' ',reference_marker,' Colocalised Cell Count)'))
     
 
-    summary2=cbind(summary,metadata)
+    summary2=merge(summary,metadata, by='CaseID')
     summary2[[outcome]]=as.factor(summary2[[outcome]])
     
     
     plot_list=list()
-    for(marker in colnames(summary2)[1:((number_marker*9)+6)]){
+    for(marker in colnames(summary2)[2:((number_marker*9)+7)]){
       
       plot_list[[marker]]<-ggboxplot(summary2, x=paste(outcome), y=paste0(marker),fill=paste(outcome),
                                      add = "jitter", size=1)+
@@ -268,7 +268,7 @@ library(dplyr)
                 marker3ref = 100*(Mean_count[Slice==paste0(marker3," colocalised ",reference_marker)] / Mean_count[Slice==paste0(reference_marker," Cell")]),
                 marker3refROI = 100*(Mean_count[Slice==paste0(marker3," colocalised ",reference_marker,' ROI')] / Mean_count[Slice==paste0(marker3," colocalised ",reference_marker)]))
     
-    colnames(summary)=c(paste0(region_of_interest,' Count'),paste0(region_of_interest,' Area (Sq Micrometers)'),paste0(reference_marker,' Cell Count'),paste0(reference_marker,' Cell Count ROI'),
+    colnames(summary)=c('CaseID',paste0(region_of_interest,' Count'),paste0(region_of_interest,' Area (Sq Micrometers)'),paste0(reference_marker,' Cell Count'),paste0(reference_marker,' Cell Count ROI'),
                         paste0(reference_marker,' Cell Count Outside of ROI'),paste0(reference_marker,' ROI (% of Total ',reference_marker,' Cell Count)'),
                         paste0(marker1,' Cell Count'),paste0(marker1,' Cell Count ROI'),paste0(marker1,' Cell Count Outside of ROI'),paste0(marker1,' ROI (% of Total ',marker1,' Cell Count)'),
                         paste0(marker1,' ',reference_marker,' Colocalised Cell Count'),paste0(marker1,' ',reference_marker,' Colocalised Cell Count ROI'),
@@ -284,11 +284,11 @@ library(dplyr)
                         paste0(marker3,' ',reference_marker,' Colocalisation ROI (% of Total ',marker3,' ',reference_marker,' Colocalised Cell Count)'))
     
 
-    summary2=cbind(summary,metadata)
+    summary2=merge(summary,metadata, by='CaseID')
     summary2[[outcome]]=as.factor(summary2[[outcome]])
     
     plot_list=list()
-    for(marker in colnames(summary2)[1:((number_marker*9)+6)]){
+    for(marker in colnames(summary2)[2:((number_marker*9)+7)]){
       
       plot_list[[marker]]<-ggboxplot(summary2, x=paste(outcome), y=paste0(marker),fill=paste(outcome),
                                      add = "jitter", size=1)+
@@ -355,7 +355,7 @@ library(dplyr)
                 marker4ref = 100*(Mean_count[Slice==paste0(marker4," colocalised ",reference_marker)] / Mean_count[Slice==paste0(reference_marker," Cell")]),
                 marker4refROI = 100*(Mean_count[Slice==paste0(marker4," colocalised ",reference_marker,' ROI')] / Mean_count[Slice==paste0(marker4," colocalised ",reference_marker)]))
                 
-    colnames(summary)=c(paste0(region_of_interest,' Count'),paste0(region_of_interest,' Area (Sq Micrometers)'),paste0(reference_marker,' Cell Count'),paste0(reference_marker,' Cell Count ROI'),
+    colnames(summary)=c('CaseID',paste0(region_of_interest,' Count'),paste0(region_of_interest,' Area (Sq Micrometers)'),paste0(reference_marker,' Cell Count'),paste0(reference_marker,' Cell Count ROI'),
                         paste0(reference_marker,' Cell Count Outside of ROI'),paste0(reference_marker,' ROI (% of Total ',reference_marker,' Cell Count)'),
                         paste0(marker1,' Cell Count'),paste0(marker1,' Cell Count ROI'),paste0(marker1,' Cell Count Outside of ROI'),paste0(marker1,' ROI (% of Total ',marker1,' Cell Count)'),
                         paste0(marker1,' ',reference_marker,' Colocalised Cell Count'),paste0(marker1,' ',reference_marker,' Colocalised Cell Count ROI'),
@@ -375,12 +375,12 @@ library(dplyr)
                         paste0(marker4,' ',reference_marker,' Colocalisation ROI (% of Total ',marker4,' ',reference_marker,' Colocalised Cell Count)'))
    
 
-    summary2=cbind(summary,metadata)
+    summary2=merge(summary,metadata, by='CaseID')
     summary2[[outcome]]=as.factor(summary2[[outcome]])
     
     
     plot_list=list()
-    for(marker in colnames(summary2)[1:((number_marker*9)+6)]){
+    for(marker in colnames(summary2)[2:((number_marker*9)+7)]){
       
       plot_list[[marker]]<-ggboxplot(summary2, x=paste(outcome), y=paste0(marker),fill=paste(outcome),
                                      add = "jitter", size=1)+
@@ -454,7 +454,7 @@ library(dplyr)
                 marker5ref = 100*(Mean_count[Slice==paste0(marker5," colocalised ",reference_marker)] / Mean_count[Slice==paste0(reference_marker," Cell")]),
                 marker5refROI = 100*(Mean_count[Slice==paste0(marker5," colocalised ",reference_marker,' ROI')] / Mean_count[Slice==paste0(marker5," colocalised ",reference_marker)]))
     
-    colnames(summary)=c(paste0(region_of_interest,' Count'),paste0(region_of_interest,' Area (Sq Micrometers)'),paste0(reference_marker,' Cell Count'),paste0(reference_marker,' Cell Count ROI'),
+    colnames(summary)=c('CaseID',paste0(region_of_interest,' Count'),paste0(region_of_interest,' Area (Sq Micrometers)'),paste0(reference_marker,' Cell Count'),paste0(reference_marker,' Cell Count ROI'),
                         paste0(reference_marker,' Cell Count Outside of ROI'),paste0(reference_marker,' ROI (% of Total ',reference_marker,' Cell Count)'),
                         paste0(marker1,' Cell Count'),paste0(marker1,' Cell Count ROI'),paste0(marker1,' Cell Count Outside of ROI'),paste0(marker1,' ROI (% of Total ',marker1,' Cell Count)'),
                         paste0(marker1,' ',reference_marker,' Colocalised Cell Count'),paste0(marker1,' ',reference_marker,' Colocalised Cell Count ROI'),
@@ -478,11 +478,11 @@ library(dplyr)
                         paste0(marker5,' ',reference_marker,' Colocalisation ROI (% of Total ',marker5,' ',reference_marker,' Colocalised Cell Count)'))
 
     
-    summary2=cbind(summary,metadata)
+    summary2=merge(summary,metadata, by='CaseID')
     summary2[[outcome]]=as.factor(summary2[[outcome]])
     
     plot_list=list()
-    for(marker in colnames(summary2)[1:((number_marker*9)+6)]){
+    for(marker in colnames(summary2)[2:((number_marker*9)+7)]){
       
       plot_list[[marker]]<-ggboxplot(summary2, x=paste(outcome), y=paste0(marker),fill=paste(outcome),
                                      add = "jitter", size=1)+

@@ -382,8 +382,7 @@ DT::datatable(df,
 ## Averaged Data
 
 ```{r, echo=FALSE}
-DT::datatable(cbind(metadata$CaseID,summary2),
-              colnames = c('Case ID',colnames(summary2)),
+DT::datatable(summary2,
               escape = F,
               rownames = F, 
               extensions = 'Buttons', 
