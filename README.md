@@ -1,6 +1,6 @@
 # CoMarker - Marker Colocalisation Analysis
 
-This document contains a brief overview of CoMarker and a set of confined instructions. Please see our website for more information: https://eleonore-schneeg.github.io/CoMarker/
+This document contains a brief overview of CoMarker and a set of confined instructions. Please see our website for more information: https://map-ad.github.io/CoMarker/
 
 ## Preface
 
@@ -28,7 +28,7 @@ CoMarker was developed by Eléonore Schneegans^1,2,3^, Samuel Boulger^1,2,3,4^ a
 
 ## Brief Instructions
 
-This section describes how to use the script from start to finish, without too much extra detail.
+This section describes how to use the script from start to finish, without too much extra detail. Follow this link for a video tutorial: https://youtu.be/dDbgb5QRrnc
 
 ### Download the Repository
 
