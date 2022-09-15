@@ -1,4 +1,4 @@
-# CoMarker - Marker Colocalisation Analysis
+# CoMarker - Colocalisation Marker Analysis
 
 This document contains a brief overview of CoMarker and a set of confined instructions. Please see our website for more information: https://map-ad.github.io/CoMarker/
 
