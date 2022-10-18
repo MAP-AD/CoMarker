@@ -140,7 +140,7 @@ library(dplyr)
 
     summary2=merge(summary,metadata, by='CaseID')
     summary2[[outcome]]=factor(as.character(summary2[[outcome]]))
-summary2$
+
       plot_list=list()
       for(marker in colnames(summary2)[2:((number_marker*9)+7)]){
         

@@ -156,15 +156,7 @@ m5_thresh=Dialog.getChoice();
 SourceDir = getDirectory('~/');
 
 print(SourceDir);
-print(reference_marker);
-print(ref_area);
-print(ref_thresh);
-print(has_DNA);
-print(has_roi);
-print(number_markers);
-print(DNA_area);
-print(DNA_thresh);
-print(coloc_radius);
+
 
 list = getFileList(SourceDir);
 
@@ -4616,8 +4608,9 @@ if ( selectionType() != -1) {
 	Table.set("Slice", n+2, marker1+" ROI");
 	Table.set("Slice", n+3, marker1+reference_marker);
 	Table.set("Slice", n+4, marker1+reference_marker+" ROI");
-	for (i=1; i<5; i++){
+	for (i=3; i<=6; i++){
 			Table.set("Count", i, "NA");
+            Table.set("Total Area", i, "NA");
 		}
 }
 // If no ref
@@ -4629,8 +4622,9 @@ if ( selectionType() != -1) {
 	Table.set("Slice", n+2, marker1+" ROI");
 	Table.set("Slice", n+3, marker1+reference_marker);
 	Table.set("Slice", n+4, marker1+reference_marker+" ROI");
-	for (i=1; i<5; i++){
+	for (i=2; i<=6; i++){
 			Table.set("Count", i, "NA");
+            Table.set("Total Area", i, "NA");
 		}
 }
 //If no roi
@@ -4644,8 +4638,9 @@ if ( selectionType() != -1) {
 	Table.set("Slice", 4, marker1+" ROI");
 	Table.set("Slice", 5, marker1+reference_marker);
 	Table.set("Slice", 6, marker1+reference_marker+" ROI");
-	for (i=1; i<7; i++){
+	for (i=1; i<=6; i++){
 			Table.set("Count", i, "NA");
+			Table.set("Total Area", i, "NA");
 		}
 }
 
@@ -5037,6 +5032,7 @@ if ( selectionType() != -1) {
 	Table.set("Slice", n+8, marker2+reference_marker+" ROI");
 	for (i=1; i<9; i++){
 			Table.set("Count", i, "NA");
+			Table.set("Total Area", i, "NA");
 		}
 }
 //if no ref roi
@@ -5054,6 +5050,7 @@ if ( selectionType() != -1) {
 	Table.set("Slice", n+8, marker2+reference_marker+" ROI");
 	for (i=1; i<9; i++){
 			Table.set("Count", i, "NA");
+			Table.set("Total Area", i, "NA");
 		}
 }
 //if no roi
@@ -5073,6 +5070,7 @@ if ( selectionType() != -1) {
 	Table.set("Slice", 10, marker2+reference_marker+" ROI");
 	for (i=1; i<11; i++){
 			Table.set("Count", i, "NA");
+			Table.set("Total Area", i, "NA");
 		}
 }
 

@@ -133,6 +133,9 @@ coloc_ndnaroi<-function(image_directory,
     
     plot_list=list()
     for(marker in colnames(summary2)[2:((number_marker*3)+2)]){
+      y_pos=c(max(summary2[[paste0(marker)]][which(summary2[[paste(outcome)]]==levels(summary2[[paste(outcome)]])[1])], na.rm=T),
+              max(summary2[[paste0(marker)]][which(summary2[[paste(outcome)]]==levels(summary2[[paste(outcome)]])[2])], na.rm=T),
+              max(summary2[[paste0(marker)]][which(summary2[[paste(outcome)]]==levels(summary2[[paste(outcome)]])[3])], na.rm=T))
       
       y_pos=max(y_pos)
       y_pos=c((y_pos+2),(y_pos+6),(y_pos+12))
@@ -183,6 +186,9 @@ coloc_ndnaroi<-function(image_directory,
     
     plot_list=list()
     for(marker in colnames(summary2)[2:((number_marker*3)+2)]){
+      y_pos=c(max(summary2[[paste0(marker)]][which(summary2[[paste(outcome)]]==levels(summary2[[paste(outcome)]])[1])], na.rm=T),
+              max(summary2[[paste0(marker)]][which(summary2[[paste(outcome)]]==levels(summary2[[paste(outcome)]])[2])], na.rm=T),
+              max(summary2[[paste0(marker)]][which(summary2[[paste(outcome)]]==levels(summary2[[paste(outcome)]])[3])], na.rm=T))
       
       y_pos=max(y_pos)
       y_pos=c((y_pos+2),(y_pos+6),(y_pos+12))
@@ -238,6 +244,9 @@ coloc_ndnaroi<-function(image_directory,
     
     plot_list=list()
     for(marker in colnames(summary2)[2:((number_marker*3)+2)]){
+      y_pos=c(max(summary2[[paste0(marker)]][which(summary2[[paste(outcome)]]==levels(summary2[[paste(outcome)]])[1])], na.rm=T),
+              max(summary2[[paste0(marker)]][which(summary2[[paste(outcome)]]==levels(summary2[[paste(outcome)]])[2])], na.rm=T),
+              max(summary2[[paste0(marker)]][which(summary2[[paste(outcome)]]==levels(summary2[[paste(outcome)]])[3])], na.rm=T))
       
       y_pos=max(y_pos)
       y_pos=c((y_pos+2),(y_pos+6),(y_pos+12))
@@ -297,6 +306,9 @@ coloc_ndnaroi<-function(image_directory,
     
     plot_list=list()
     for(marker in colnames(summary2)[2:((number_marker*3)+2)]){
+      y_pos=c(max(summary2[[paste0(marker)]][which(summary2[[paste(outcome)]]==levels(summary2[[paste(outcome)]])[1])], na.rm=T),
+              max(summary2[[paste0(marker)]][which(summary2[[paste(outcome)]]==levels(summary2[[paste(outcome)]])[2])], na.rm=T),
+              max(summary2[[paste0(marker)]][which(summary2[[paste(outcome)]]==levels(summary2[[paste(outcome)]])[3])], na.rm=T))
       
       y_pos=max(y_pos)
       y_pos=c((y_pos+2),(y_pos+6),(y_pos+12))
@@ -358,6 +370,9 @@ coloc_ndnaroi<-function(image_directory,
     
     plot_list=list()
     for(marker in colnames(summary2)[2:((number_marker*3)+2)]){
+      y_pos=c(max(summary2[[paste0(marker)]][which(summary2[[paste(outcome)]]==levels(summary2[[paste(outcome)]])[1])], na.rm=T),
+              max(summary2[[paste0(marker)]][which(summary2[[paste(outcome)]]==levels(summary2[[paste(outcome)]])[2])], na.rm=T),
+              max(summary2[[paste0(marker)]][which(summary2[[paste(outcome)]]==levels(summary2[[paste(outcome)]])[3])], na.rm=T))
       
       y_pos=max(y_pos)
       y_pos=c((y_pos+2),(y_pos+6),(y_pos+12))
