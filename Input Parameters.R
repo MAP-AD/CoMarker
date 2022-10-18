@@ -1,22 +1,22 @@
 source('Functions/wrapper.R')
 
-coloc_wrapper(image_directory="/Users/samboulger/Desktop/CoMarker/SampleDirectory/Images/",
-              results_directory="/Users/samboulger/Desktop/CoMarker/SampleDirectory/",
-              metadata_directory='/Users/samboulger/Desktop/CoMarker/SampleDirectory/Metadata/',
-              CoMarker_directory='/Users/samboulger/Desktop/CoMarker/',
+coloc_wrapper(image_directory="~/Desktop/IMC_Biogen/MTG/",
+              results_directory="~/Desktop/res_MTG/",
+              metadata_directory="~/Desktop/mtg_meta/",
+              CoMarker_directory="~/Desktop/CoMarker/",
               DNA=TRUE,
-              ROI=TRUE,
+              ROI=FALSE,
               number_marker=1,
-              reference_marker="Iba1",
-              marker1="CD68",
+              reference_marker="MAP2",
+              marker1="pTau",
               marker2='',
               marker3='',
               marker4='',
               marker5='',
-              region_of_interest="Ab",
-              outcome="AD/CTRL",
+              region_of_interest="",
+              outcome="trem2_all",
               remove_outliers=TRUE,
-              outliers_threshold=3.5)
+              outliers_threshold=2)
 
 
 

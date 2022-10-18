@@ -377,10 +377,12 @@ coloc_ndnaroi<-function(image_directory,
     dev.off()
     
   }
-  dir=getwd()
-  dir.create('results')
+  setwd(results_directory)
+  dir.create('Report')
+  dir.create('Files')
   list_param=list(image_directory=image_directory,
                   results_directory=results_directory,
+                  CoMarker_directory=CoMarker_directory,
                   metadata,
                   number_marker=number_marker,
                   reference_marker=reference_marker,
@@ -391,9 +393,10 @@ coloc_ndnaroi<-function(image_directory,
                   marker5=marker5,
                   region_of_interest=region_of_interest,
                   outcome=outcome)
-  saveRDS(list_param,paste0(results_directory,'/results/list_param.rds'))
-  saveRDS(metadata,paste0(results_directory,'/results/metadata.rds'))
-  saveRDS(plot_list,paste0(results_directory,'/results/plot_list.rds'))
+  saveRDS(list_param,paste0(results_directory,'/Files/list_param.rds'))
+  saveRDS(metadata,paste0(results_directory,'/Files/metadata.rds'))
+  saveRDS(plot_list,paste0(results_directory,'/Files/plot_list.rds'))
+  
   
   plot_data = list()
   for (name in names(plot_list)){
@@ -415,8 +418,9 @@ coloc_ndnaroi<-function(image_directory,
     nSamples = length(unique(df$replicate))
   }
   
+  
   rmarkdown::render(paste0(CoMarker_directory,"/HTML Reports/report_ndnaroi.Rmd"),
-                    output_dir =paste0(results_directory,'/results'),
+                    output_dir =paste0(results_directory,'/Report'),
                     output_file='CoMarker_Analysis_Report',
                     quiet = T)
   
