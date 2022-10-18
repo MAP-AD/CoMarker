@@ -18,12 +18,8 @@ The example images that we use in this website were produced by imaging mass cyt
 
 ### Acknowledgements
 
-CoMarker was developed by Eléonore Schneegans^1,2,3^, Samuel Boulger^1,2,3,4^ and Vicky Chau^2,3^ as part of the UK DRI [Multi-'omics Atlas Project](https://map-ad.org), directed by Johanna Jackson^2,3^.
+CoMarker was developed by Eléonore Schneegans, Samuel Boulger and Vicky Chau as part of the UK DRI [Multi-'omics Atlas Project](https://map-ad.org), directed by Johanna Jackson.
 
-^1^ These authors contributed equally.\
-^2^ UK Dementia Research Institute, Imperial College London, London, UK.\
-^3^ Department of Brain Sciences, Imperial College London, London, UK.\
-^4^ Medical Research Council Brain Network Dynamics Unit, University of Oxford, Oxford, UK.
 
 
 ## Brief Instructions
