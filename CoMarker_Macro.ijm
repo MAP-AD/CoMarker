@@ -165,11 +165,6 @@ print(number_markers);
 print(DNA_area);
 print(DNA_thresh);
 print(coloc_radius);
-print(region_of_interest);
-print(roi_gaus);
-print(roi_area);
-print(roi_thresh);
-print(radius);
 
 list = getFileList(SourceDir);
 
@@ -597,7 +592,7 @@ if ( selectionType() != -1) {
 	Table.set("Slice", n+3, marker1+" Cell ROI");
 	Table.set("Slice", n+4, marker1+" colocalised "+reference_marker);
 	Table.set("Slice", n+5, marker1+" colocalised "+reference_marker+ " ROI");
-	for (i=1; i<6; i++){
+	for (i=4; i<=6; i++){
 			Table.set("Count", i, "NA");
 		}
 	}
@@ -1062,7 +1057,7 @@ run("8-bit");
 
 //run("Threshold...");
 setOption("BlackBackground", false);
-setAutoThreshold(m1_thresh+" dark");
+setAutoThreshold(m2_thresh+" dark");
 run("Convert to Mask");
 run("Analyze Particles...", "size=m2_area-Infinity pixel show=Masks summarize"); //get marker2 total area
 	selectWindow("Summary");
@@ -1220,7 +1215,7 @@ if ( selectionType() != -1) {
 	Table.set("Slice", n+8, marker2+" Cell ROI");
 	Table.set("Slice", n+9, marker2+" colocalised "+reference_marker);
 	Table.set("Slice", n+10, marker2+" colocalised "+reference_marker+ " ROI");
-	for (i=1; i<11; i++){
+	for (i=5; i<=14; i++){
 			Table.set("Count", i, "NA");
 		}
 	}
@@ -1241,7 +1236,7 @@ else {
 	Table.set("Slice", n+9, marker2+" Cell ROI");
 	Table.set("Slice", n+10, marker2+" colocalised "+reference_marker);
 	Table.set("Slice", n+11, marker2+" colocalised "+reference_marker+ " ROI");
-	for (i=2; i<12; i++){
+	for (i=4; i<=14; i++){
 			Table.set("Count", i, "NA");
 		}
 	}
@@ -1261,7 +1256,7 @@ else {
 	Table.set("Slice", n+9, marker2+" Cell ROI");
 	Table.set("Slice", n+10, marker2+" colocalised "+reference_marker);
 	Table.set("Slice", n+11, marker2+" colocalised "+reference_marker+ " ROI");
-	for (i=2; i<12; i++){
+	for (i=5; i<=14; i++){
 			Table.set("Count", i, "NA");
 		}
 	}
@@ -1283,7 +1278,7 @@ else {
 	Table.set("Slice", n+10, marker2+" Cell ROI");
 	Table.set("Slice", n+11, marker2+" colocalised "+reference_marker);
 	Table.set("Slice", n+12, marker2+" colocalised "+reference_marker+ " ROI");
-	for (i=0; i<13; i++){
+	for (i=6; i<=14; i++){
 			Table.set("Count", i, "NA");
 		}
 	}
@@ -1304,7 +1299,7 @@ else {
 	Table.set("Slice", n+10, marker2+" Cell ROI");
 	Table.set("Slice", n+11, marker2+" colocalised "+reference_marker);
 	Table.set("Slice", n+12, marker2+" colocalised "+reference_marker+ " ROI");
-	for (i=0; i<13; i++){
+	for (i=6; i<=14; i++){
 			Table.set("Count", i, "NA");
 		}
 	}
@@ -1326,7 +1321,7 @@ else {
 	Table.set("Slice", 12, marker2+" Cell ROI");
 	Table.set("Slice", 13, marker2+" colocalised "+reference_marker);
 	Table.set("Slice", 14, marker2+" colocalised "+reference_marker+ " ROI");
-		for (i=1; i<15; i++){
+		for (i=1; i<=14; i++){
 			Table.set("Count", i, "NA");
 		}
 
@@ -1334,7 +1329,7 @@ else {
 
 
 IJ.renameResults("Summary", "Results");
-saveAs("Results", subdir + "twomarkers.csv");
+saveAs("Results", subdir + "twomarkers2.csv");
 
 // empty the ROI manager
 roiManager("reset");
@@ -1701,7 +1696,7 @@ run("8-bit");
 
 //run("Threshold...");
 setOption("BlackBackground", false);
-setAutoThreshold(m1_thresh+" dark");
+setAutoThreshold(m2_thresh+" dark");
 run("Convert to Mask");
 run("Analyze Particles...", "size=m2_area-Infinity pixel show=Masks summarize"); //get marker2 total area
 	selectWindow("Summary");
@@ -2016,7 +2011,7 @@ if ( selectionType() != -1) {
 	Table.set("Slice", n+13, marker3+" Cell ROI");
 	Table.set("Slice", n+14, marker3+" colocalised "+reference_marker);
 	Table.set("Slice", n+15, marker3+" colocalised "+reference_marker+ " ROI");
-	for (i=1; i<16; i++){
+	for (i=5; i<=19; i++){
 			Table.set("Count", i, "NA");
 		}
 	}
@@ -2042,7 +2037,7 @@ else {
 	Table.set("Slice", n+14, marker3+" Cell ROI");
 	Table.set("Slice", n+15, marker3+" colocalised "+reference_marker);
 	Table.set("Slice", n+16, marker3+" colocalised "+reference_marker+ " ROI");
-	for (i=2; i<17; i++){
+	for (i=4; i<=19; i++){
 			Table.set("Count", i, "NA");
 		}
 	}
@@ -2067,7 +2062,7 @@ else {
 	Table.set("Slice", n+14, marker3+" Cell ROI");
 	Table.set("Slice", n+15, marker3+" colocalised "+reference_marker);
 	Table.set("Slice", n+16, marker3+" colocalised "+reference_marker+ " ROI");
-	for (i=2; i<17; i++){
+	for (i=5; i<=19; i++){
 			Table.set("Count", i, "NA");
 		}
 	}
@@ -2094,7 +2089,7 @@ else {
 	Table.set("Slice", n+15, marker3+" Cell ROI");
 	Table.set("Slice", n+16, marker3+" colocalised "+reference_marker);
 	Table.set("Slice", n+17, marker3+" colocalised "+reference_marker+ " ROI");
-	for (i=0; i<18; i++){
+	for (i=6; i<=19; i++){
 			Table.set("Count", i, "NA");
 		}
 	}
@@ -2120,7 +2115,7 @@ else {
 	Table.set("Slice", n+15, marker3+" Cell ROI");
 	Table.set("Slice", n+16, marker3+" colocalised "+reference_marker);
 	Table.set("Slice", n+17, marker3+" colocalised "+reference_marker+ " ROI");
-	for (i=0; i<18; i++){
+	for (i=6; i<=19; i++){
 			Table.set("Count", i, "NA");
 		}
 	}
@@ -2147,14 +2142,14 @@ else {
 	Table.set("Slice", 17, marker3+" Cell ROI");
 	Table.set("Slice", 18, marker3+" colocalised "+reference_marker);
 	Table.set("Slice", 19, marker3+" colocalised "+reference_marker+ " ROI");
-	for (i=1; i<20; i++){
+	for (i=1; i<=19; i++){
 			Table.set("Count", i, "NA");
 		}
 	}
 
 
 IJ.renameResults("Summary", "Results");
-saveAs("Results", subdir + "threemarkers.csv");
+saveAs("Results", subdir + "threemarkers2.csv");
 
 // empty the ROI manager
 roiManager("reset");

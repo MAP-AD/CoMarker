@@ -64,7 +64,9 @@ coloc_ndna<-function(image_directory,
   df$CaseID=sapply(strsplit( df$CaseID, ' '), '[', 1)
   df$replicate=sapply(strsplit( rownames(df), ' '), '[', 2)
   df$replicate=sub('\\/.*', '', df$replicate)
+  df$replicate=sub('\\..*', '', df$replicate)
   df$replicate=paste0(df$CaseID, ' ',df$replicate)
+  df=df[which(df$CaseID %in% metadata$CaseID),]
 
   
   if(any(grepl("package:plyr", search()))) detach("package:plyr") else message("plyr not loaded")
@@ -147,10 +149,14 @@ coloc_ndna<-function(image_directory,
     for(marker in colnames(summary2)[2:((number_marker*9)+7)]){
       
       
+      y_pos=max(y_pos)
+      y_pos=c((y_pos+2),(y_pos+6),(y_pos+12))
+      
+      
       plot_list[[marker]]<-ggboxplot(summary2, x=paste(outcome), y=paste0(marker),fill=paste(outcome),
                                      add = "jitter", size=1)+
         geom_signif(comparisons = split(t(combn(levels(summary2[[outcome]]), 2)), seq(nrow(t(combn(levels(summary2[[outcome]]), 2))))), 
-                    map_signif_level=c("***"=0.001,"**"=0.01, "*"=0.05, "ns"=2), tip_length = .05)+
+                    map_signif_level=c("***"=0.001,"**"=0.01, "*"=0.05, "ns"=2), tip_length = .05, y_position=y_pos)+
         ylab(paste(marker))+ggsci::scale_fill_npg(name='Groups')+theme(axis.text=element_text(size=16),
                                                                                                         axis.title=element_text(size=12,face="plain")) +   xlab(" ")+ggtitle(paste0(marker))
       
@@ -218,10 +224,14 @@ coloc_ndna<-function(image_directory,
     plot_list=list()
     for(marker in colnames(summary2)[2:((number_marker*9)+7)]){
       
-            plot_list[[marker]]<-ggboxplot(summary2, x=paste(outcome), y=paste0(marker),fill=paste(outcome),
+      
+      y_pos=max(y_pos)
+      y_pos=c((y_pos+2),(y_pos+6),(y_pos+12))
+      
+      plot_list[[marker]]<-ggboxplot(summary2, x=paste(outcome), y=paste0(marker),fill=paste(outcome),
                                      add = "jitter", size=1)+
         geom_signif(comparisons = split(t(combn(levels(summary2[[outcome]]), 2)), seq(nrow(t(combn(levels(summary2[[outcome]]), 2))))), 
-                    map_signif_level=c("***"=0.001,"**"=0.01, "*"=0.05, "ns"=2), tip_length = .05)+
+                    map_signif_level=c("***"=0.001,"**"=0.01, "*"=0.05, "ns"=2), tip_length = .05, y_position=y_pos)+
         ylab(paste(marker))+ggsci::scale_fill_npg(name='Groups')+theme(axis.text=element_text(size=16),
                                                                                                         axis.title=element_text(size=12,face="plain")) +   xlab(" ")+ggtitle(paste0(marker))
       
@@ -303,10 +313,14 @@ coloc_ndna<-function(image_directory,
     plot_list=list()
     for(marker in colnames(summary2)[2:((number_marker*9)+7)]){
       
+      
+      y_pos=max(y_pos)
+      y_pos=c((y_pos+2),(y_pos+6),(y_pos+12))
+      
       plot_list[[marker]]<-ggboxplot(summary2, x=paste(outcome), y=paste0(marker),fill=paste(outcome),
                                      add = "jitter", size=1)+
         geom_signif(comparisons = split(t(combn(levels(summary2[[outcome]]), 2)), seq(nrow(t(combn(levels(summary2[[outcome]]), 2))))), 
-                    map_signif_level=c("***"=0.001,"**"=0.01, "*"=0.05, "ns"=2), tip_length = .05)+
+                    map_signif_level=c("***"=0.001,"**"=0.01, "*"=0.05, "ns"=2), tip_length = .05, y_position=y_pos)+
         ylab(paste(marker))+ggsci::scale_fill_npg(name='Groups')+theme(axis.text=element_text(size=16),
                                                                                                         axis.title=element_text(size=12,face="plain")) +   xlab(" ")+ggtitle(paste0(marker))
       
@@ -400,10 +414,14 @@ coloc_ndna<-function(image_directory,
     plot_list=list()
     for(marker in colnames(summary2)[2:((number_marker*9)+7)]){
       
+      
+      y_pos=max(y_pos)
+      y_pos=c((y_pos+2),(y_pos+6),(y_pos+12))
+      
       plot_list[[marker]]<-ggboxplot(summary2, x=paste(outcome), y=paste0(marker),fill=paste(outcome),
                                      add = "jitter", size=1)+
         geom_signif(comparisons = split(t(combn(levels(summary2[[outcome]]), 2)), seq(nrow(t(combn(levels(summary2[[outcome]]), 2))))), 
-                    map_signif_level=c("***"=0.001,"**"=0.01, "*"=0.05, "ns"=2), tip_length = .05)+
+                    map_signif_level=c("***"=0.001,"**"=0.01, "*"=0.05, "ns"=2), tip_length = .05, y_position=y_pos)+
         ylab(paste(marker))+ggsci::scale_fill_npg(name='Groups')+theme(axis.text=element_text(size=16),
                                                                                                         axis.title=element_text(size=12,face="plain")) +   xlab(" ")+ggtitle(paste0(marker))
       
@@ -508,10 +526,14 @@ coloc_ndna<-function(image_directory,
     plot_list=list()
     for(marker in colnames(summary2)[2:((number_marker*9)+7)]){
       
+      
+      y_pos=max(y_pos)
+      y_pos=c((y_pos+2),(y_pos+6),(y_pos+12))
+      
       plot_list[[marker]]<-ggboxplot(summary2, x=paste(outcome), y=paste0(marker),fill=paste(outcome),
                                      add = "jitter", size=1)+
         geom_signif(comparisons = split(t(combn(levels(summary2[[outcome]]), 2)), seq(nrow(t(combn(levels(summary2[[outcome]]), 2))))), 
-                    map_signif_level=c("***"=0.001,"**"=0.01, "*"=0.05, "ns"=2), tip_length = .05)+
+                    map_signif_level=c("***"=0.001,"**"=0.01, "*"=0.05, "ns"=2), tip_length = .05, y_position=y_pos)+
         ylab(paste(marker))+ggsci::scale_fill_npg(name='Groups')+theme(axis.text=element_text(size=16),
                                                                                                         axis.title=element_text(size=12,face="plain")) +   xlab(" ")+ggtitle(paste0(marker))
       
@@ -554,15 +576,16 @@ coloc_ndna<-function(image_directory,
   
   sig_count = sum(unlist(lapply(signif,function(x){x!=c('ns')})))/3
   nCases = length(unique(results$CaseID))
-
-nFlags = length(unique(replicated_flags))
-
-if(remove_outliers==TRUE){
-  nSamples = (length(my.data)-nFlags)
-}else{
-nSamples = length(my.data)
-}
-
+  
+  nFlags = length(unique(replicated_flags))
+  
+  if(remove_outliers==TRUE){
+    nSamples = (length(unique(df$replicate))-nFlags)
+  }else{
+    nSamples = length(unique(df$replicate))
+  }
+  
+  
   
   rmarkdown::render(paste0(CoMarker_directory,"/HTML Reports/report_ndna.Rmd"),
                     output_dir =paste0(results_directory,'/results'),
