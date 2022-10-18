@@ -127,9 +127,8 @@ coloc_nroi<-function(image_directory,
     
     
     summary2=merge(summary,metadata, by='CaseID')
-    summary2[[outcome]]=as.factor(summary2[[outcome]])
+    summary2[[outcome]]=factor(as.character(summary2[[outcome]]))
 
-    
     plot_list=list()
     for(marker in colnames(summary2)[2:((number_marker*3)+2)]){
       y_pos=c(max(summary2[[paste0(marker)]][which(summary2[[paste(outcome)]]==levels(summary2[[paste(outcome)]])[1])], na.rm=T),
@@ -178,7 +177,7 @@ coloc_nroi<-function(image_directory,
                         paste0(marker2,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Cell Count)'))
     
     summary2=merge(summary,metadata, by='CaseID')
-    summary2[[outcome]]=as.factor(summary2[[outcome]])
+    summary2[[outcome]]=factor(as.character(summary2[[outcome]]))
  
     
     plot_list=list()
@@ -232,7 +231,7 @@ coloc_nroi<-function(image_directory,
                         paste0(marker3,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Cell Count)'))
     
     summary2=merge(summary,metadata, by='CaseID')
-    summary2[[outcome]]=as.factor(summary2[[outcome]])
+    summary2[[outcome]]=factor(as.character(summary2[[outcome]]))
     
     plot_list=list()
     for(marker in colnames(summary2)[2:((number_marker*3)+2)]){
@@ -292,7 +291,7 @@ coloc_nroi<-function(image_directory,
                         paste0(marker4,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Cell Count)'))
     
     summary2=merge(summary,metadata, by='CaseID')
-    summary2[[outcome]]=as.factor(summary2[[outcome]])
+    summary2[[outcome]]=factor(as.character(summary2[[outcome]]))
     
     
     plot_list=list()
@@ -356,7 +355,7 @@ coloc_nroi<-function(image_directory,
                                     paste0(marker5,' ',reference_marker,' Colocalisation (% of Total ',reference_marker,' Cell Count)'))
                 
                 summary2=merge(summary,metadata, by='CaseID')
-    summary2[[outcome]]=as.factor(summary2[[outcome]])
+    summary2[[outcome]]=factor(as.character(summary2[[outcome]]))
     
     plot_list=list()
     for(marker in colnames(summary2)[2:((number_marker*3)+2)]){

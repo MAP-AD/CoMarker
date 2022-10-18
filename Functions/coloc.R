@@ -109,7 +109,6 @@ library(dplyr)
   ## merge metadata
   metadata=metadata[which(metadata$CaseID %in% results$CaseID),]
   merge=merge(results,metadata,all=TRUE, by='CaseID')
-  
 
   
   if(number_marker==1){
@@ -140,11 +139,14 @@ library(dplyr)
                         paste0(marker1,' ',reference_marker,' Colocalisation ROI (% of Total ',marker1,' ',reference_marker,' Colocalised Cell Count)')) 
 
     summary2=merge(summary,metadata, by='CaseID')
-    summary2[[outcome]]=as.factor(summary2[[outcome]])
-    
-      
+    summary2[[outcome]]=factor(as.character(summary2[[outcome]]))
+summary2$
       plot_list=list()
       for(marker in colnames(summary2)[2:((number_marker*9)+7)]){
+        
+        y_pos=c(max(summary2[[paste0(marker)]][which(summary2[[paste(outcome)]]==levels(summary2[[paste(outcome)]])[1])], na.rm=T),
+                max(summary2[[paste0(marker)]][which(summary2[[paste(outcome)]]==levels(summary2[[paste(outcome)]])[2])], na.rm=T),
+                max(summary2[[paste0(marker)]][which(summary2[[paste(outcome)]]==levels(summary2[[paste(outcome)]])[3])], na.rm=T))
         
         y_pos=max(y_pos)
         y_pos=c((y_pos+2),(y_pos+6),(y_pos+12))
@@ -212,11 +214,14 @@ library(dplyr)
     
 
     summary2=merge(summary,metadata, by='CaseID')
-    summary2[[outcome]]=as.factor(summary2[[outcome]])
+    summary2[[outcome]]=factor(as.character(summary2[[outcome]]))
     
     
     plot_list=list()
     for(marker in colnames(summary2)[2:((number_marker*9)+7)]){
+      y_pos=c(max(summary2[[paste0(marker)]][which(summary2[[paste(outcome)]]==levels(summary2[[paste(outcome)]])[1])], na.rm=T),
+              max(summary2[[paste0(marker)]][which(summary2[[paste(outcome)]]==levels(summary2[[paste(outcome)]])[2])], na.rm=T),
+              max(summary2[[paste0(marker)]][which(summary2[[paste(outcome)]]==levels(summary2[[paste(outcome)]])[3])], na.rm=T))
       y_pos=max(y_pos)
       y_pos=c((y_pos+2),(y_pos+6),(y_pos+12))
       
@@ -292,10 +297,14 @@ library(dplyr)
     
 
     summary2=merge(summary,metadata, by='CaseID')
-    summary2[[outcome]]=as.factor(summary2[[outcome]])
+    summary2[[outcome]]=factor(as.character(summary2[[outcome]]))
     
     plot_list=list()
     for(marker in colnames(summary2)[2:((number_marker*9)+7)]){
+      
+      y_pos=c(max(summary2[[paste0(marker)]][which(summary2[[paste(outcome)]]==levels(summary2[[paste(outcome)]])[1])], na.rm=T),
+              max(summary2[[paste0(marker)]][which(summary2[[paste(outcome)]]==levels(summary2[[paste(outcome)]])[2])], na.rm=T),
+              max(summary2[[paste0(marker)]][which(summary2[[paste(outcome)]]==levels(summary2[[paste(outcome)]])[3])], na.rm=T))
       y_pos=max(y_pos)
       y_pos=c((y_pos+2),(y_pos+6),(y_pos+12))
       
@@ -385,11 +394,15 @@ library(dplyr)
    
 
     summary2=merge(summary,metadata, by='CaseID')
-    summary2[[outcome]]=as.factor(summary2[[outcome]])
+    summary2[[outcome]]=factor(as.character(summary2[[outcome]]))
     
     
     plot_list=list()
     for(marker in colnames(summary2)[2:((number_marker*9)+7)]){
+      
+      y_pos=c(max(summary2[[paste0(marker)]][which(summary2[[paste(outcome)]]==levels(summary2[[paste(outcome)]])[1])], na.rm=T),
+              max(summary2[[paste0(marker)]][which(summary2[[paste(outcome)]]==levels(summary2[[paste(outcome)]])[2])], na.rm=T),
+              max(summary2[[paste0(marker)]][which(summary2[[paste(outcome)]]==levels(summary2[[paste(outcome)]])[3])], na.rm=T))
       
       y_pos=max(y_pos)
       y_pos=c((y_pos+2),(y_pos+6),(y_pos+12))
@@ -490,10 +503,14 @@ library(dplyr)
 
     
     summary2=merge(summary,metadata, by='CaseID')
-    summary2[[outcome]]=as.factor(summary2[[outcome]])
+    summary2[[outcome]]=factor(as.character(summary2[[outcome]]))
     
     plot_list=list()
     for(marker in colnames(summary2)[2:((number_marker*9)+7)]){
+      
+      y_pos=c(max(summary2[[paste0(marker)]][which(summary2[[paste(outcome)]]==levels(summary2[[paste(outcome)]])[1])], na.rm=T),
+              max(summary2[[paste0(marker)]][which(summary2[[paste(outcome)]]==levels(summary2[[paste(outcome)]])[2])], na.rm=T),
+              max(summary2[[paste0(marker)]][which(summary2[[paste(outcome)]]==levels(summary2[[paste(outcome)]])[3])], na.rm=T))
       y_pos=max(y_pos)
       y_pos=c((y_pos+2),(y_pos+6),(y_pos+12))
       

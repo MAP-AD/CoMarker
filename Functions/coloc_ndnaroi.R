@@ -129,7 +129,7 @@ coloc_ndnaroi<-function(image_directory,
     
     
     summary2=merge(summary,metadata, by='CaseID')
-    summary2[[outcome]]=as.factor(summary2[[outcome]])
+    summary2[[outcome]]=factor(as.character(summary2[[outcome]]))
     
     plot_list=list()
     for(marker in colnames(summary2)[2:((number_marker*3)+2)]){
@@ -178,7 +178,7 @@ coloc_ndnaroi<-function(image_directory,
 
     
     summary2=merge(summary,metadata, by='CaseID')
-    summary2[[outcome]]=as.factor(summary2[[outcome]])
+    summary2[[outcome]]=factor(as.character(summary2[[outcome]]))
     
     
     plot_list=list()
@@ -234,7 +234,7 @@ coloc_ndnaroi<-function(image_directory,
 
     
     summary2=merge(summary,metadata, by='CaseID')
-    summary2[[outcome]]=as.factor(summary2[[outcome]])
+    summary2[[outcome]]=factor(as.character(summary2[[outcome]]))
     
     plot_list=list()
     for(marker in colnames(summary2)[2:((number_marker*3)+2)]){
@@ -292,7 +292,7 @@ coloc_ndnaroi<-function(image_directory,
 
     
     summary2=merge(summary,metadata, by='CaseID')
-    summary2[[outcome]]=as.factor(summary2[[outcome]])
+    summary2[[outcome]]=factor(as.character(summary2[[outcome]]))
     
     
     plot_list=list()
@@ -354,7 +354,7 @@ coloc_ndnaroi<-function(image_directory,
 
     
     summary2=merge(summary,metadata, by='CaseID')
-    summary2[[outcome]]=as.factor(summary2[[outcome]])
+    summary2[[outcome]]=factor(as.character(summary2[[outcome]]))
     
     plot_list=list()
     for(marker in colnames(summary2)[2:((number_marker*3)+2)]){
