@@ -30,6 +30,7 @@ coloc_wrapper=function(image_directory,
   library(paletteer)
   
   palette_choice <- paletteer::paletteer_d("ggsci::nrc_npg")
+  op <- options(ggpubr.parse_aes = FALSE)
 
   
   source(paste0(CoMarker_directory,"Functions/coloc_nroi.R"))
